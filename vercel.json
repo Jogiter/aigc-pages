@@ -1,0 +1,9 @@
+{
+  "name": "aigc-static-website",
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "framework": null,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [{ "source": "/:path*", "destination": "/index.html" }]
+}

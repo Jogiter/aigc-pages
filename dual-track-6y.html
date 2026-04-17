@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>双轨成长系统 · 6岁育儿框架</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   MATERIAL DESIGN 3 TOKEN SYSTEM
+   Three themes: coral / sunflower / dawn
+══════════════════════════════════════════ */
+
+:root {
+  --md-shape-sm:   8px;
+  --md-shape-md:  12px;
+  --md-shape-lg:  16px;
+  --md-shape-xl:  24px;
+  --md-elev-1: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --md-elev-2: 0 3px 8px rgba(0,0,0,.09), 0 1px 3px rgba(0,0,0,.07);
+  --transition: .22s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── Theme A: 暖阳珊瑚 ── */
+[data-theme="coral"] {
+  --bg:              #FFF8F4;
+  --surface:         #FFFFFF;
+  --surface-variant: #FAF0EB;
+  --primary:         #C95E2F;
+  --primary-con:     #FCDFD0;
+  --on-primary-con:  #4A1800;
+  --secondary:       #4D8A6D;
+  --secondary-con:   #CCEEDD;
+  --on-secondary-con:#093D28;
+  --tertiary:        #B8720E;
+  --tertiary-con:    #FDEFD4;
+  --on-tertiary-con: #3D2200;
+  --on-surface:      #1E1209;
+  --on-surface-var:  #614F44;
+  --on-surface-3:    #A08878;
+  --outline:         rgba(201,94,47,.20);
+  --outline-strong:  rgba(201,94,47,.35);
+  --tab-active-bg:   #C95E2F;
+  --tab-active-fg:   #FFFFFF;
+  --header-bg:       #2C1209;
+  --header-accent:   #C95E2F;
+  --progress-a:      #C95E2F;
+  --progress-b:      #4D8A6D;
+  --shadow-color:    rgba(201,94,47,.12);
+}
+
+/* ── Theme B: 向日葵园 ── */
+[data-theme="sunflower"] {
+  --bg:              #FFFBF0;
+  --surface:         #FFFFFF;
+  --surface-variant: #FEF7E0;
+  --primary:         #C17B00;
+  --primary-con:     #FFEEBB;
+  --on-primary-con:  #3D2600;
+  --secondary:       #2E7B5C;
+  --secondary-con:   #B6EDDB;
+  --on-secondary-con:#003825;
+  --tertiary:        #B04A72;
+  --tertiary-con:    #F8D4E4;
+  --on-tertiary-con: #3E0020;
+  --on-surface:      #1A1200;
+  --on-surface-var:  #5C4A1E;
+  --on-surface-3:    #9A8050;
+  --outline:         rgba(193,123,0,.20);
+  --outline-strong:  rgba(193,123,0,.35);
+  --tab-active-bg:   #C17B00;
+  --tab-active-fg:   #FFFFFF;
+  --header-bg:       #1A1200;
+  --header-accent:   #C17B00;
+  --progress-a:      #C17B00;
+  --progress-b:      #2E7B5C;
+  --shadow-color:    rgba(193,123,0,.12);
+}
+
+/* ── Theme C: 晨曦温柔 ── */
+[data-theme="dawn"] {
+  --bg:              #FDF6EE;
+  --surface:         #FFFFFF;
+  --surface-variant: #F7EDE4;
+  --primary:         #A5421E;
+  --primary-con:     #F8E2D8;
+  --on-primary-con:  #3A1000;
+  --secondary:       #5C876E;
+  --secondary-con:   #D4EDDF;
+  --on-secondary-con:#0A3320;
+  --tertiary:        #6B52A8;
+  --tertiary-con:    #E8E0F8;
+  --on-tertiary-con: #1E0060;
+  --on-surface:      #1C120D;
+  --on-surface-var:  #5A4A40;
+  --on-surface-3:    #9A8878;
+  --outline:         rgba(165,66,30,.20);
+  --outline-strong:  rgba(165,66,30,.35);
+  --tab-active-bg:   #A5421E;
+  --tab-active-fg:   #FFFFFF;
+  --header-bg:       #1C0E08;
+  --header-accent:   #A5421E;
+  --progress-a:      #A5421E;
+  --progress-b:      #6B52A8;
+  --shadow-color:    rgba(165,66,30,.12);
+}
+
+/* ══════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--on-surface);
+  min-height: 100vh;
+  line-height: 1.7;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* ══════════════════════════════════════════
+   THEME SWITCHER FLOATING BUTTON
+══════════════════════════════════════════ */
+.theme-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.theme-fab-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px var(--shadow-color), 0 2px 6px rgba(0,0,0,.12);
+  transition: transform .2s, box-shadow .2s, background var(--transition);
+  flex-shrink: 0;
+}
+.theme-fab-btn:hover { transform: scale(1.08); box-shadow: 0 6px 20px var(--shadow-color); }
+.theme-fab-btn:active { transform: scale(0.96); }
+
+.theme-panel {
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--md-shape-lg);
+  padding: 14px 16px;
+  box-shadow: var(--md-elev-2), 0 0 0 1px var(--outline);
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 180px;
+  transition: background var(--transition);
+}
+.theme-panel.open { display: flex; }
+.theme-panel-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--on-surface-3);
+  margin-bottom: 4px;
+}
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--md-shape-sm);
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: background .15s, border-color .15s;
+  background: none;
+  width: 100%;
+  font-family: inherit;
+  text-align: left;
+}
+.theme-option:hover { background: var(--surface-variant); }
+.theme-option.selected { border-color: var(--primary); background: var(--primary-con); }
+.theme-swatch {
+  display: flex;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.theme-swatch span {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: block;
+}
+.theme-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--on-surface);
+}
+.theme-sub {
+  font-size: 11px;
+  color: var(--on-surface-3);
+  margin-top: 1px;
+}
+
+/* ══════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════ */
+.header {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 44px 40px 38px;
+  position: relative;
+  overflow: hidden;
+  transition: background var(--transition);
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.04);
+  pointer-events: none;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -50px; left: 80px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.03);
+  pointer-events: none;
+}
+.header-accent-line {
+  width: 36px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--header-accent);
+  margin-bottom: 16px;
+  transition: background var(--transition);
+}
+.header-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 10px;
+}
+.header h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.header-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,.45);
+  font-weight: 300;
+  max-width: 480px;
+}
+.header-meta {
+  margin-top: 22px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.meta-chip {
+  font-size: 12px;
+  color: rgba(255,255,255,.5);
+  background: rgba(255,255,255,.08);
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.1);
+}
+
+/* ══════════════════════════════════════════
+   TAB BAR
+══════════════════════════════════════════ */
+.tab-section {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--outline);
+  padding: 0 40px;
+  box-shadow: 0 1px 4px var(--shadow-color);
+  transition: background var(--transition), box-shadow var(--transition);
+}
+.tab-bar {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab {
+  padding: 14px 16px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--on-surface-3);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .18s, border-color .18s;
+  font-family: inherit;
+  margin-bottom: -1px;
+}
+.tab:hover { color: var(--on-surface-var); }
+.tab.active {
+  color: var(--primary);
+  font-weight: 600;
+  border-bottom-color: var(--primary);
+}
+
+/* ══════════════════════════════════════════
+   MAIN CONTENT
+══════════════════════════════════════════ */
+.main { padding: 32px 40px 80px; max-width: 860px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ── Section labels ── */
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--on-surface-3);
+  margin: 28px 0 12px;
+}
+.section-label:first-child { margin-top: 4px; }
+
+/* ── Track cards ── */
+.track {
+  border: 1px solid var(--outline);
+  border-radius: var(--md-shape-lg);
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  background: var(--surface);
+  box-shadow: var(--md-elev-1);
+  transition: background var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.track-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.dot-p { background: var(--primary); transition: background var(--transition); }
+.dot-c { background: var(--secondary); transition: background var(--transition); }
+.track-title { font-size: 15px; font-weight: 500; color: var(--on-surface); }
+.track-sub { font-size: 12px; color: var(--on-surface-3); margin-left: auto; }
+
+/* ── Pillars ── */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+  gap: 10px;
+}
+.pillar {
+  background: var(--surface-variant);
+  border-radius: var(--md-shape-md);
+  padding: 12px 14px;
+  transition: background var(--transition);
+}
+.pillar-icon { font-size: 18px; margin-bottom: 6px; }
+.pillar-name { font-size: 13px; font-weight: 500; color: var(--on-surface); margin-bottom: 3px; }
+.pillar-desc { font-size: 11px; color: var(--on-surface-3); line-height: 1.55; }
+
+/* ── Phase rows ── */
+.phase-block {
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--md-shape-lg);
+  padding: 4px 20px;
+  margin-bottom: 14px;
+  box-shadow: var(--md-elev-1);
+  transition: background var(--transition), border-color var(--transition);
+}
+.phase-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--outline);
+}
+.phase-row:last-child { border-bottom: none; }
+.phase-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.badge-p { background: var(--primary-con); color: var(--on-primary-con); transition: background var(--transition), color var(--transition); }
+.badge-c { background: var(--secondary-con); color: var(--on-secondary-con); transition: background var(--transition), color var(--transition); }
+.badge-j { background: var(--tertiary-con); color: var(--on-tertiary-con); transition: background var(--transition), color var(--transition); }
+.phase-content { font-size: 13px; color: var(--on-surface-var); line-height: 1.7; }
+.phase-content b { color: var(--on-surface); font-weight: 500; }
+
+/* ── Connect boxes ── */
+.connect-box {
+  background: var(--tertiary-con);
+  border-left: 3px solid var(--tertiary);
+  padding: 11px 14px;
+  border-radius: 0 var(--md-shape-sm) var(--md-shape-sm) 0;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--on-tertiary-con);
+  line-height: 1.65;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+.connect-box b { color: var(--on-surface); font-weight: 500; }
+
+/* ── Schedule ── */
+.daily-schedule {
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--md-shape-lg);
+  padding: 4px 20px;
+  margin-bottom: 14px;
+  box-shadow: var(--md-elev-1);
+  transition: background var(--transition), border-color var(--transition);
+}
+.schedule-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--outline);
+  font-size: 13px;
+}
+.schedule-row:last-child { border-bottom: none; }
+.schedule-time {
+  font-weight: 600;
+  color: var(--primary);
+  min-width: 48px;
+  font-size: 12px;
+  padding-top: 2px;
+  font-variant-numeric: tabular-nums;
+  transition: color var(--transition);
+}
+.schedule-text { color: var(--on-surface-var); }
+
+/* ── Week grid ── */
+.legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--on-surface-3);
+}
+.legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.legend-p { background: var(--primary); transition: background var(--transition); }
+.legend-c { background: var(--secondary); transition: background var(--transition); }
+.legend-j { background: var(--tertiary); transition: background var(--transition); }
+.legend-r { background: var(--on-surface-3); transition: background var(--transition); }
+
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.day-cell {
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--md-shape-md);
+  padding: 12px 14px;
+  transition: background var(--transition), border-color var(--transition);
+}
+.day-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--on-surface-3);
+  margin-bottom: 8px;
+}
+.day-block {
+  font-size: 12px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+.db-p { background: var(--primary-con); color: var(--on-primary-con); transition: background var(--transition), color var(--transition); }
+.db-c { background: var(--secondary-con); color: var(--on-secondary-con); transition: background var(--transition), color var(--transition); }
+.db-j { background: var(--tertiary-con); color: var(--on-tertiary-con); transition: background var(--transition), color var(--transition); }
+.db-r { background: var(--surface-variant); color: var(--on-surface-var); transition: background var(--transition), color var(--transition); }
+
+/* ── Books ── */
+.book-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: var(--md-shape-md);
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  margin-bottom: 8px;
+  transition: border-color .15s, background var(--transition), box-shadow .15s;
+  box-shadow: var(--md-elev-1);
+}
+.book-card:hover { border-color: var(--outline-strong); box-shadow: var(--md-elev-2); }
+.book-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--outline-strong);
+  min-width: 30px;
+  line-height: 1;
+  padding-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.book-title { font-size: 14px; font-weight: 500; color: var(--on-surface); margin-bottom: 4px; }
+.book-desc { font-size: 12px; color: var(--on-surface-3); line-height: 1.6; }
+
+/* ── Milestones ── */
+.milestone-block {
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--md-shape-lg);
+  padding: 4px 20px;
+  margin-bottom: 14px;
+  box-shadow: var(--md-elev-1);
+  transition: background var(--transition), border-color var(--transition);
+}
+.milestone-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--outline);
+}
+.milestone-row:last-child { border-bottom: none; }
+.m-time {
+  font-size: 12px;
+  color: var(--on-surface-3);
+  min-width: 72px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+.m-text { font-size: 13px; color: var(--on-surface-var); line-height: 1.65; }
+.m-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+.footer {
+  padding: 20px 40px;
+  border-top: 1px solid var(--outline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: var(--surface);
+  transition: background var(--transition), border-color var(--transition);
+}
+.footer-text { font-size: 12px; color: var(--on-surface-3); }
+.print-btn {
+  font-size: 12px;
+  padding: 7px 16px;
+  border-radius: var(--md-shape-sm);
+  border: 1px solid var(--outline-strong);
+  background: var(--surface);
+  color: var(--on-surface-var);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .15s, border-color .15s;
+}
+.print-btn:hover { background: var(--surface-variant); }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .header { padding: 30px 20px 26px; }
+  .header h1 { font-size: 24px; }
+  .tab-section { padding: 0 16px; }
+  .main { padding: 24px 20px 80px; }
+  .footer { padding: 16px 20px; }
+  .week-grid { grid-template-columns: repeat(2, 1fr); }
+  .pillars { grid-template-columns: 1fr 1fr; }
+  .theme-fab { bottom: 20px; right: 16px; }
+}
+
+@media print {
+  .tab-section, .footer, .theme-fab { display: none !important; }
+  .panel { display: block !important; page-break-before: always; }
+  .panel:first-child { page-break-before: avoid; }
+}
+</style>
+</head>
+<body data-theme="coral">
+
+<!-- ══ THEME SWITCHER FAB ══ -->
+<div class="theme-fab">
+  <div class="theme-panel" id="themePanel">
+    <div class="theme-panel-title">选择主题</div>
+    <button class="theme-option" data-t="coral" onclick="setTheme('coral')">
+      <div class="theme-swatch">
+        <span style="background:#C95E2F"></span>
+        <span style="background:#4D8A6D"></span>
+        <span style="background:#B8720E"></span>
+      </div>
+      <div>
+        <div class="theme-name">暖阳珊瑚</div>
+        <div class="theme-sub">活力 · 积极 · 安全感</div>
+      </div>
+    </button>
+    <button class="theme-option" data-t="sunflower" onclick="setTheme('sunflower')">
+      <div class="theme-swatch">
+        <span style="background:#C17B00"></span>
+        <span style="background:#2E7B5C"></span>
+        <span style="background:#B04A72"></span>
+      </div>
+      <div>
+        <div class="theme-name">向日葵园</div>
+        <div class="theme-sub">明朗 · 童趣 · 充满希望</div>
+      </div>
+    </button>
+    <button class="theme-option" data-t="dawn" onclick="setTheme('dawn')">
+      <div class="theme-swatch">
+        <span style="background:#A5421E"></span>
+        <span style="background:#5C876E"></span>
+        <span style="background:#6B52A8"></span>
+      </div>
+      <div>
+        <div class="theme-name">晨曦温柔</div>
+        <div class="theme-sub">沉稳 · 温暖 · 有力量</div>
+      </div>
+    </button>
+  </div>
+  <button class="theme-fab-btn" onclick="toggleThemePanel()" title="切换主题" aria-label="切换主题">🎨</button>
+</div>
+
+<!-- ══ HEADER ══ -->
+<header class="header">
+  <div class="header-accent-line"></div>
+  <div class="header-eyebrow">家庭教育系统 · AI时代科学育儿</div>
+  <h1>双轨成长系统</h1>
+  <div class="header-sub">父母认知升级 × 孩子全面发展 — 适用于6岁幼儿园中班</div>
+  <div class="header-meta">
+    <span class="meta-chip">📅 12个月系统计划</span>
+    <span class="meta-chip">👨‍👩‍👧 父母 + 孩子双线并行</span>
+    <span class="meta-chip">🧠 基于认知科学</span>
+  </div>
+</header>
+
+<!-- ══ TABS ══ -->
+<div class="tab-section">
+  <div class="tab-bar">
+    <button class="tab active" onclick="showPanel('overview', this)">总览框架</button>
+    <button class="tab" onclick="showPanel('parent', this)">父母成长轨道</button>
+    <button class="tab" onclick="showPanel('child', this)">孩子发展轨道</button>
+    <button class="tab" onclick="showPanel('weekly', this)">每周作息计划</button>
+    <button class="tab" onclick="showPanel('books', this)">书单资源库</button>
+    <button class="tab" onclick="showPanel('milestones', this)">里程碑追踪</button>
+  </div>
+</div>
+
+<!-- ══ MAIN ══ -->
+<div class="main">
+
+  <!-- OVERVIEW -->
+  <div class="panel active" id="panel-overview">
+
+    <div class="track">
+      <div class="track-header">
+        <div class="dot dot-p"></div>
+        <div class="track-title">父母成长轨道</div>
+        <div class="track-sub">认知 · 情绪 · 方法论</div>
+      </div>
+      <div class="pillars">
+        <div class="pillar"><div class="pillar-icon">🧠</div><div class="pillar-name">认知升级</div><div class="pillar-desc">发展心理学 · 神经科学基础 · AI时代教育趋势</div></div>
+        <div class="pillar"><div class="pillar-icon">❤️</div><div class="pillar-name">情绪管理</div><div class="pillar-desc">自我觉察 · 非暴力沟通 · 情绪调节工具</div></div>
+        <div class="pillar"><div class="pillar-icon">🗣️</div><div class="pillar-name">沟通方式</div><div class="pillar-desc">积极倾听 · 开放式提问 · 正面管教语言</div></div>
+        <div class="pillar"><div class="pillar-icon">📈</div><div class="pillar-name">持续学习</div><div class="pillar-desc">每月读书计划 · 家长社群 · 反思记录</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-header">
+        <div class="dot dot-c"></div>
+        <div class="track-title">孩子发展轨道（6岁 · 幼儿园中班）</div>
+        <div class="track-sub">认知 · 情绪 · 社交 · 身体</div>
+      </div>
+      <div class="pillars">
+        <div class="pillar"><div class="pillar-icon">💡</div><div class="pillar-name">执行功能</div><div class="pillar-desc">注意力 · 工作记忆 · 自控力 · 计划能力</div></div>
+        <div class="pillar"><div class="pillar-icon">📖</div><div class="pillar-name">语言与阅读</div><div class="pillar-desc">亲子共读 · 词汇积累 · 叙事能力</div></div>
+        <div class="pillar"><div class="pillar-icon">🎭</div><div class="pillar-name">社会情感</div><div class="pillar-desc">情绪命名 · 共情 · 规则意识 · 合作</div></div>
+        <div class="pillar"><div class="pillar-icon">🎨</div><div class="pillar-name">创造与探索</div><div class="pillar-desc">自由游戏 · 艺术 · 动手实验 · 好奇心</div></div>
+      </div>
+    </div>
+
+    <div class="section-label">双轨联动机制</div>
+    <div class="connect-box"><b>父母学习 → 立即实践：</b>本周读到「成长型思维」相关内容，当天在孩子遇到挫折时就刻意练习反馈方式</div>
+    <div class="connect-box"><b>孩子反应 → 父母反思：</b>孩子的情绪反应是父母最真实的镜子，用来校准自己的沟通方式</div>
+    <div class="connect-box"><b>共同体验 → 双向成长：</b>亲子共读、一起做实验、协作游戏——孩子学内容，父母学如何教</div>
+
+  </div>
+
+  <!-- PARENT TRACK -->
+  <div class="panel" id="panel-parent">
+
+    <div class="section-label">第一阶段（1–3个月）：建立认知底座</div>
+    <div class="phase-block">
+      <div class="phase-row"><span class="phase-badge badge-p">核心任务</span><div class="phase-content"><b>理解6岁孩子的发展特征：</b>大脑前额叶仍在发育中，冲动控制能力有限不是「故意调皮」；需要大量重复和具体经验来学习抽象概念；游戏是6岁孩子的「主要工作」，不要过早剥夺</div></div>
+      <div class="phase-row"><span class="phase-badge badge-p">每日练习</span><div class="phase-content"><b>情绪日记（5分钟/天）：</b>记录今天与孩子互动中，自己的情绪触发点和反应方式，无需评判，只是观察。一个月后回看，会发现清晰的模式</div></div>
+      <div class="phase-row"><span class="phase-badge badge-p">重点学习</span><div class="phase-content"><b>非暴力沟通（NVC）框架：</b>观察→感受→需要→请求。把「你又把玩具扔得到处都是」换成「我看到玩具散落在地板上，我感到有些疲惫，我需要家里保持整洁，你能帮我把玩具放回箱子里吗？」</div></div>
+    </div>
+
+    <div class="section-label">第二阶段（4–6个月）：升级沟通方式</div>
+    <div class="phase-block">
+      <div class="phase-row"><span class="phase-badge badge-p">核心任务</span><div class="phase-content"><b>掌握开放式提问技术：</b>把「你今天在幼儿园玩得开心吗？」（封闭式，只能答是/否）换成「今天有什么让你觉得有趣的事？」「你今天遇到什么好玩的或者难过的事了吗？」</div></div>
+      <div class="phase-row"><span class="phase-badge badge-p">重点学习</span><div class="phase-content"><b>正面管教（Positive Discipline）：</b>和善而坚定。行为背后都有目的（寻求关注/权力/报复/自我放弃），找到根源才能真正解决。使用「自然后果」和「逻辑后果」代替惩罚</div></div>
+      <div class="phase-row"><span class="phase-badge badge-p">关键转变</span><div class="phase-content"><b>从「管理行为」到「培养能力」：</b>孩子磨蹭不是性格问题，而是时间感知能力还未发育完全；帮助孩子用可视化工具感知时间，而不是催促</div></div>
+    </div>
+
+    <div class="section-label">第三阶段（7–12个月）：系统整合与深化</div>
+    <div class="phase-block">
+      <div class="phase-row"><span class="phase-badge badge-p">核心任务</span><div class="phase-content"><b>建立家庭教育理念文档：</b>记录下自己的核心价值观和教育边界，帮助父母双方在分歧时有共同参照，避免在孩子面前互相矛盾</div></div>
+      <div class="phase-row"><span class="phase-badge badge-p">高级技能</span><div class="phase-content"><b>脚手架教学法（Scaffolding）：</b>维果茨基的「最近发展区」理论——孩子独立能做的事，不要替做；孩子完全不能做的，先示范再放手；真正需要帮助的区域，给予最少必要支持</div></div>
+      <div class="phase-row"><span class="phase-badge badge-p">整合输出</span><div class="phase-content"><b>能用自己的语言阐述教育理念：</b>当你能把一个概念教给别人，才真正掌握它。尝试向伴侣、父母或朋友解释你这一年学到的核心观念</div></div>
+    </div>
+
+  </div>
+
+  <!-- CHILD TRACK -->
+  <div class="panel" id="panel-child">
+
+    <div class="section-label">执行功能培养（6岁的黄金发展期）</div>
+    <div class="phase-block">
+      <div class="phase-row"><span class="phase-badge badge-c">工作记忆</span><div class="phase-content"><b>数字接龙游戏：</b>父母说「3、7」，孩子重复后加一个数；<b>购物清单记忆：</b>进超市前说3样东西，让孩子记住提醒；<b>儿童象棋/跳棋：</b>需要记住棋子位置和规则</div></div>
+      <div class="phase-row"><span class="phase-badge badge-c">注意力</span><div class="phase-content"><b>6岁注意力基准：</b>持续专注约10–15分钟是正常的，不要强迫「坐定」超过这个时间；推荐乐高积木（需要持续看图纸）、绘本独立阅读（10分钟起步逐渐延长）</div></div>
+      <div class="phase-row"><span class="phase-badge badge-c">自控力</span><div class="phase-content"><b>延迟满足练习：</b>不是剥夺，而是「等一等」游戏——「再画5分钟就可以看动画」让孩子自己设计这个交换；<b>规则意识游戏：</b>「老狼老狼几点了」「红绿灯」等需要服从信号的游戏</div></div>
+    </div>
+
+    <div class="section-label">语言与认知发展</div>
+    <div class="phase-block">
+      <div class="phase-row"><span class="phase-badge badge-c">亲子共读</span><div class="phase-content"><b>每天固定20分钟，</b>睡前是最佳时机（记忆在睡眠中巩固）。方法：不只是读，而是对话式阅读——「你觉得他为什么这样做？」「如果是你，你会怎么办？」「这让你想到什么？」</div></div>
+      <div class="phase-row"><span class="phase-badge badge-c">数学思维</span><div class="phase-content">6岁重点不是运算，而是<b>数感和逻辑：</b>分类游戏（按颜色/形状/大小分类）、数量估算（这碗米大概有多少粒）、空间关系（积木搭建、拼图）、规律识别（什么图案是重复的）</div></div>
+      <div class="phase-row"><span class="phase-badge badge-c">叙事能力</span><div class="phase-content"><b>每天「今日故事」2分钟：</b>晚饭时让孩子讲今天发生的一件事，引导包含：发生了什么→你感觉怎样→最后怎么了。同时锻炼语言组织、情绪表达和记忆提取</div></div>
+    </div>
+
+    <div class="section-label">社会情感发展</div>
+    <div class="phase-block">
+      <div class="phase-row"><span class="phase-badge badge-c">情绪颗粒度</span><div class="phase-content"><b>情绪词汇扩展：</b>6岁孩子通常只会说「高兴/难过/生气」，帮助扩展到：担心、失望、骄傲、嫉妒、委屈、兴奋、无聊……制作「情绪脸谱卡」，读绘本时一起识别角色情绪</div></div>
+      <div class="phase-row"><span class="phase-badge badge-c">共情训练</span><div class="phase-content">当孩子与同伴发生冲突，不要立即评判对错，先问：<b>「你觉得他当时心里是什么感觉？」</b>让孩子尝试站在他人角度思考，这是共情能力的核心训练方式</div></div>
+      <div class="phase-row"><span class="phase-badge badge-c">自由游戏</span><div class="phase-content"><b>保护非结构化游戏时间：</b>每天至少45分钟完全由孩子主导、没有成人目标的自由游戏。这是执行功能、创造力和社交能力的天然训练场，不要过早用「课程」填满</div></div>
+    </div>
+
+  </div>
+
+  <!-- WEEKLY -->
+  <div class="panel" id="panel-weekly">
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot legend-p"></div>父母学习</div>
+      <div class="legend-item"><div class="legend-dot legend-c"></div>孩子活动</div>
+      <div class="legend-item"><div class="legend-dot legend-j"></div>亲子共同</div>
+      <div class="legend-item"><div class="legend-dot legend-r"></div>休息/自由</div>
+    </div>
+
+    <div class="section-label">每日常规（工作日）</div>
+    <div class="daily-schedule">
+      <div class="schedule-row"><div class="schedule-time">07:00</div><div class="schedule-text">起床 · 固定流程（穿衣→洗漱→早餐，孩子自主完成）</div></div>
+      <div class="schedule-row"><div class="schedule-time">07:30</div><div class="schedule-text">送园前「今天期待什么」一句话对话</div></div>
+      <div class="schedule-row"><div class="schedule-time">17:30</div><div class="schedule-text">接园：用开放式问题替代「今天怎么样」</div></div>
+      <div class="schedule-row"><div class="schedule-time">18:00</div><div class="schedule-text">自由游戏时间（不打扰，家长可旁边安静读书）</div></div>
+      <div class="schedule-row"><div class="schedule-time">19:00</div><div class="schedule-text">晚餐 · 今日故事（孩子讲一件事 + 家长讲一件事）</div></div>
+      <div class="schedule-row"><div class="schedule-time">19:45</div><div class="schedule-text">亲子共读 20分钟（对话式阅读，不只是念文字）</div></div>
+      <div class="schedule-row"><div class="schedule-time">20:15</div><div class="schedule-text">孩子入睡准备 · 父母情绪日记 5分钟</div></div>
+      <div class="schedule-row"><div class="schedule-time">21:00</div><div class="schedule-text">父母学习时间（读书 / 课程 / 反思记录）</div></div>
+    </div>
+
+    <div class="section-label">周末专项安排</div>
+    <div class="week-grid">
+      <div class="day-cell"><div class="day-label">周六上午</div><div class="day-block db-j">探索性活动<br>博物馆 / 大自然</div></div>
+      <div class="day-cell"><div class="day-label">周六下午</div><div class="day-block db-c">自由游戏 · 玩伴社交</div><div class="day-block db-p">父母读书 1小时</div></div>
+      <div class="day-cell"><div class="day-label">周六晚</div><div class="day-block db-j">家庭游戏<br>棋牌 / 积木</div></div>
+      <div class="day-cell"><div class="day-label">周日上午</div><div class="day-block db-j">生活技能<br>一起做饭 / 整理</div></div>
+      <div class="day-cell"><div class="day-label">周日下午</div><div class="day-block db-c">艺术 / 手工<br>无结果导向</div><div class="day-block db-r">安静休息</div></div>
+      <div class="day-cell"><div class="day-label">周日晚</div><div class="day-block db-p">父母复盘<br>本周反思</div></div>
+    </div>
+
+    <div class="connect-box"><b>关于屏幕时间：</b>工作日不超过30分钟，周末不超过1小时。内容优先选择：需要互动的（跟唱、跟做）> 故事类 > 纯娱乐类。不把屏幕当「电子奶嘴」——孩子无聊是创造力发展的重要时机</div>
+    <div class="connect-box"><b>每月一次家庭会议（10分钟）：</b>让孩子也参与「这个月我们家做得好的事」和「下个月想一起做的事」。培养孩子的主体感和家庭归属感</div>
+  </div>
+
+  <!-- BOOKS -->
+  <div class="panel" id="panel-books">
+    <div class="section-label">父母必读书单（按优先级排序）</div>
+    <div class="book-card"><div class="book-num">01</div><div><div class="book-title">《正面管教》— Jane Nelsen</div><div class="book-desc">和善而坚定的教养核心方法论。先读这本，建立整体框架，再读其他书。附有大量可直接使用的沟通脚本</div></div></div>
+    <div class="book-card"><div class="book-num">02</div><div><div class="book-title">《全脑教养法》— Daniel Siegel & Tina Payne Bryson</div><div class="book-desc">用神经科学解释孩子行为，教你如何在情绪风暴中「连接后重定向」。12个策略，可读性极强，有大量漫画说明</div></div></div>
+    <div class="book-card"><div class="book-num">03</div><div><div class="book-title">《终身成长》— Carol Dweck</div><div class="book-desc">成长型思维的源头著作。改变你表扬孩子的方式，从赞美天赋转向赞美过程。先改变父母自己的思维模式</div></div></div>
+    <div class="book-card"><div class="book-num">04</div><div><div class="book-title">《如何说孩子才会听，怎么听孩子才肯说》</div><div class="book-desc">Adele Faber 著。具体的沟通脚本和示例，立竿见影。亲子沟通工具书首选，配合练习手册效果更佳</div></div></div>
+    <div class="book-card"><div class="book-num">05</div><div><div class="book-title">《游戏力》— Lawrence J. Cohen</div><div class="book-desc">通过游戏与孩子建立深度联结，修复关系裂痕。了解6岁孩子为什么「游戏即学习」，以及如何用游戏处理冲突</div></div></div>
+    <div class="book-card"><div class="book-num">06</div><div><div class="book-title">《棉花糖实验》— Walter Mischel</div><div class="book-desc">自控力研究的源头，解释为什么自控力可教、可培养，以及正确的培养方式。破解「延迟满足」的真正机制</div></div></div>
+
+    <div class="section-label">孩子书单（6岁适读）</div>
+    <div class="book-card"><div class="book-num">📚</div><div><div class="book-title">情绪类：《大卫不可以》《菲菲生气了》《我的情绪小怪兽》</div><div class="book-desc">帮助孩子识别和命名情绪，是情绪颗粒度培养的最佳入门读物。阅读时暂停，一起识别角色的情绪</div></div></div>
+    <div class="book-card"><div class="book-num">📚</div><div><div class="book-title">思维类：《猜猜我有多爱你》《爷爷一定有办法》《花婆婆》</div><div class="book-desc">培养想象力、创造性思维和坚持不放弃的品质。引导孩子思考：「如果是你，你会怎么做？」</div></div></div>
+    <div class="book-card"><div class="book-num">📚</div><div><div class="book-title">自然科学：《神奇校车》系列、《DK儿童百科》</div><div class="book-desc">激发科学好奇心，培养「提出问题→寻找答案」的探索习惯。读完后可以一起做相关的简单小实验</div></div></div>
+  </div>
+
+  <!-- MILESTONES -->
+  <div class="panel" id="panel-milestones">
+
+    <div class="section-label">父母成长里程碑</div>
+    <div class="milestone-block">
+      <div class="milestone-row"><div class="m-time">第1个月</div><div class="m-text"><span class="m-tag badge-p">认知</span>读完《正面管教》并写下3条立即改变的行为</div></div>
+      <div class="milestone-row"><div class="m-time">第2个月</div><div class="m-text"><span class="m-tag badge-p">情绪</span>连续30天完成情绪日记，识别出自己最高频的3个情绪触发点</div></div>
+      <div class="milestone-row"><div class="m-time">第3个月</div><div class="m-text"><span class="m-tag badge-p">沟通</span>掌握开放式提问，与孩子的对话从平均2句变为5句以上</div></div>
+      <div class="milestone-row"><div class="m-time">第6个月</div><div class="m-text"><span class="m-tag badge-p">系统</span>读完所有核心书单，建立家庭教育价值观文档（1–2页）</div></div>
+      <div class="milestone-row"><div class="m-time">第12个月</div><div class="m-text"><span class="m-tag badge-p">整合</span>能够用自己的语言向他人解释自己的教育理念，已有意识地实践内化</div></div>
+    </div>
+
+    <div class="section-label">孩子发展里程碑</div>
+    <div class="milestone-block">
+      <div class="milestone-row"><div class="m-time">1–3个月</div><div class="m-text"><span class="m-tag badge-c">执行</span>建立固定晨间/睡前常规，孩子能自主完成80%步骤</div></div>
+      <div class="milestone-row"><div class="m-time">3–6个月</div><div class="m-text"><span class="m-tag badge-c">情绪</span>孩子情绪词汇从3个扩展到10个以上，能在情绪激动时说出感受名称</div></div>
+      <div class="milestone-row"><div class="m-time">6个月</div><div class="m-text"><span class="m-tag badge-c">语言</span>亲子共读约180本（平均每天1本），能复述故事主要情节并加入自己的判断</div></div>
+      <div class="milestone-row"><div class="m-time">6–12个月</div><div class="m-text"><span class="m-tag badge-c">认知</span>注意力持续专注提升至20分钟，喜欢主动提问「为什么」</div></div>
+      <div class="milestone-row"><div class="m-time">第12个月</div><div class="m-text"><span class="m-tag badge-j">双轨</span>家庭氛围可见改变——孩子情绪更稳定，亲子冲突频次和烈度明显降低</div></div>
+    </div>
+
+    <div class="connect-box" style="margin-top:16px"><b>关于评估方式：</b>不要与别家孩子比较，只与自己的孩子过去比较。每月月末花15分钟，父母一起回顾这个月哪些场景处理得更好了，孩子有什么新的变化。记录进步，不聚焦不足</div>
+    <div class="connect-box"><b>核心原则：</b>所有方法的有效前提，是父母与孩子之间稳定、温暖、充满信任的关系。方法是工具，关系是土壤。没有好的土壤，再先进的工具都会失效</div>
+
+  </div>
+</div><!-- /main -->
+
+<footer class="footer">
+  <span class="footer-text">双轨成长系统 · 6岁育儿框架 · 基于认知科学 · Material Design 3</span>
+  <button class="print-btn" onclick="window.print()">🖨 打印</button>
+</footer>
+
+<script>
+/* ══ TAB SWITCHING ══ */
+function showPanel(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+/* ══ THEME SWITCHING ══ */
+const STORAGE_KEY = 'dual-track-theme';
+
+function setTheme(theme) {
+  document.body.setAttribute('data-theme', theme);
+  localStorage.setItem(STORAGE_KEY, theme);
+  // update selected state on options
+  document.querySelectorAll('.theme-option').forEach(opt => {
+    opt.classList.toggle('selected', opt.dataset.t === theme);
+  });
+  // close panel after short delay
+  setTimeout(() => closeThemePanel(), 260);
+}
+
+function toggleThemePanel() {
+  const panel = document.getElementById('themePanel');
+  panel.classList.toggle('open');
+}
+
+function closeThemePanel() {
+  document.getElementById('themePanel').classList.remove('open');
+}
+
+// Close panel when clicking outside
+document.addEventListener('click', function(e) {
+  const fab = document.querySelector('.theme-fab');
+  if (!fab.contains(e.target)) closeThemePanel();
+});
+
+/* ══ INIT: restore saved theme ══ */
+(function init() {
+  const saved = localStorage.getItem(STORAGE_KEY) || 'coral';
+  document.body.setAttribute('data-theme', saved);
+  document.querySelectorAll('.theme-option').forEach(opt => {
+    opt.classList.toggle('selected', opt.dataset.t === saved);
+  });
+})();
+</script>
+</body>
+</html>
