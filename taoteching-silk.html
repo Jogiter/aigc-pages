@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>道德经·帛书版｜章节知识导航</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500&family=IM+Fell+English:ital@0;1&display=swap');
+
+:root {
+  --bg:        #0d0d0b;
+  --bg2:       #131310;
+  --bg3:       #1a1a16;
+  --bg4:       #222220;
+  --gold:      #c9a84c;
+  --gold-lt:   #e4c97e;
+  --gold-dk:   #8c6d2a;
+  --ink:       #f0ead8;
+  --ink2:      #b8b09a;
+  --ink3:      #6e6858;
+  --border:    rgba(201,168,76,0.15);
+  --border2:   rgba(201,168,76,0.30);
+
+  --dao-bg:    rgba(99,80,32,0.18);
+  --dao-txt:   #e4c97e;
+  --dao-bdr:   rgba(201,168,76,0.35);
+
+  --de-bg:     rgba(32,72,52,0.22);
+  --de-txt:    #7ecfa8;
+  --de-bdr:    rgba(40,140,90,0.35);
+
+  --pol-bg:    rgba(80,40,20,0.22);
+  --pol-txt:   #e0a060;
+  --pol-bdr:   rgba(180,90,30,0.35);
+
+  --dial-bg:   rgba(50,30,70,0.22);
+  --dial-txt:  #c09ee0;
+  --dial-bdr:  rgba(130,70,180,0.35);
+
+  --xiu-bg:    rgba(20,55,80,0.22);
+  --xiu-txt:   #70b8e0;
+  --xiu-bdr:   rgba(40,120,190,0.35);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* Subtle background pattern */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(201,168,76,0.025) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(201,168,76,0.025) 60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Header ── */
+header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 56px 24px 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.header-eyebrow {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 12px;
+  color: var(--gold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+.header-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 42px;
+  font-weight: 600;
+  color: var(--gold-lt);
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.header-sub {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 15px;
+  color: var(--ink2);
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+
+.header-desc {
+  font-size: 12px;
+  color: var(--ink3);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+}
+
+.gold-rule {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 16px auto;
+}
+
+/* ── Main layout ── */
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+/* ── Controls ── */
+.controls-bar {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.ctrl-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ctrl-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--ink3);
+  text-transform: uppercase;
+}
+
+.filter-btns {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.fbtn {
+  padding: 5px 13px;
+  border-radius: 2px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--ink2);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all .15s;
+  letter-spacing: 0.04em;
+}
+.fbtn:hover { color: var(--gold-lt); border-color: var(--gold); }
+.fbtn.on {
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+  font-weight: 500;
+}
+
+.toggle-grp {
+  display: flex;
+  border: 1px solid var(--border2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.tg-btn {
+  padding: 5px 14px;
+  font-size: 11px;
+  background: transparent;
+  border: none;
+  color: var(--ink2);
+  cursor: pointer;
+  font-family: 'Noto Sans SC', sans-serif;
+  letter-spacing: 0.03em;
+  transition: all .15s;
+}
+.tg-btn + .tg-btn { border-left: 1px solid var(--border2); }
+.tg-btn.on { background: var(--gold); color: var(--bg); font-weight: 500; }
+.tg-btn:not(.on):hover { color: var(--gold-lt); }
+
+/* Search */
+.search-wrap {
+  flex: 1;
+  min-width: 180px;
+  max-width: 280px;
+}
+.search-input {
+  width: 100%;
+  padding: 7px 12px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 2px;
+  color: var(--ink);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 12px;
+  outline: none;
+  transition: border-color .15s;
+}
+.search-input::placeholder { color: var(--ink3); }
+.search-input:focus { border-color: var(--gold); }
+
+/* ── Stats bar ── */
+.stats-bar {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.stat-pill {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 2px;
+  letter-spacing: 0.06em;
+}
+
+/* ── Section header ── */
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sec-badge {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 1px;
+  letter-spacing: 0.06em;
+}
+
+.sec-title {
+  font-size: 11px;
+  color: var(--ink2);
+  letter-spacing: 0.06em;
+}
+
+.sec-cnt {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--ink3);
+}
+
+.section-block { margin-bottom: 32px; }
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+/* ── Card ── */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 12px 13px 10px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, transform .12s;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px;
+  height: 100%;
+  opacity: 0;
+  transition: opacity .15s;
+}
+.card:hover {
+  border-color: var(--gold-dk);
+  background: var(--bg3);
+  transform: translateY(-1px);
+}
+.card:hover::before { opacity: 1; }
+.card.type-dao::before { background: var(--dao-txt); }
+.card.type-de::before  { background: var(--de-txt); }
+.card.type-pol::before { background: var(--pol-txt); }
+.card.type-dial::before{ background: var(--dial-txt); }
+.card.type-xiu::before { background: var(--xiu-txt); }
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.ch-num {
+  font-family: 'IM Fell English', serif;
+  font-size: 11px;
+  color: var(--ink3);
+  letter-spacing: 0.04em;
+}
+
+.bdg {
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 1px;
+  letter-spacing: 0.05em;
+}
+
+.bdg-dao  { background: var(--dao-bg);  color: var(--dao-txt);  border: 1px solid var(--dao-bdr); }
+.bdg-de   { background: var(--de-bg);   color: var(--de-txt);   border: 1px solid var(--de-bdr); }
+.bdg-pol  { background: var(--pol-bg);  color: var(--pol-txt);  border: 1px solid var(--pol-bdr); }
+.bdg-dial { background: var(--dial-bg); color: var(--dial-txt); border: 1px solid var(--dial-bdr); }
+.bdg-xiu  { background: var(--xiu-bg);  color: var(--xiu-txt);  border: 1px solid var(--xiu-bdr); }
+.bdg-sec-dao { background: var(--dao-bg); color: var(--dao-txt); border: 1px solid var(--dao-bdr); }
+.bdg-sec-de  { background: var(--de-bg);  color: var(--de-txt);  border: 1px solid var(--de-bdr); }
+
+.card-quote {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gold-lt);
+  margin-bottom: 4px;
+  line-height: 1.45;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.03em;
+}
+
+.card-desc {
+  font-size: 10px;
+  color: var(--ink2);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.card-theme {
+  display: inline-block;
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 1px;
+}
+
+/* ── Modal / Detail panel ── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+.overlay.open { display: flex; }
+
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slide-up .2s ease;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg2);
+  z-index: 1;
+}
+
+.modal-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.modal-chnum {
+  font-family: 'IM Fell English', serif;
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+}
+
+.modal-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gold-lt);
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.modal-sub {
+  font-size: 12px;
+  color: var(--ink2);
+  letter-spacing: 0.03em;
+}
+
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--ink3);
+  width: 28px;
+  height: 28px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .15s;
+}
+.close-btn:hover { color: var(--gold-lt); border-color: var(--gold); }
+
+.modal-body {
+  padding: 20px 24px 24px;
+}
+
+.modal-section {
+  margin-bottom: 18px;
+}
+
+.modal-section-title {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 6px;
+}
+
+.modal-text {
+  font-size: 13px;
+  color: var(--ink2);
+  line-height: 1.8;
+}
+
+.modal-text.serif {
+  font-family: 'Noto Serif SC', serif;
+  color: var(--gold-lt);
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  line-height: 2;
+}
+
+.modal-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.modal-rule {
+  height: 1px;
+  background: var(--border);
+  margin: 16px 0;
+}
+
+.nav-btns {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.nav-btn {
+  flex: 1;
+  padding: 8px;
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--ink2);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all .15s;
+  letter-spacing: 0.04em;
+}
+.nav-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold-lt); }
+.nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+/* ── Empty ── */
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ink3);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+/* ── Tooltip shortcut hint ── */
+.hint {
+  font-size: 10px;
+  color: var(--ink3);
+  text-align: right;
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
+kbd {
+  font-size: 9px;
+  padding: 1px 4px;
+  border: 1px solid var(--border2);
+  border-radius: 2px;
+  background: var(--bg3);
+  color: var(--ink2);
+  font-family: monospace;
+}
+
+/* ── Footer ── */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 10px;
+  color: var(--ink3);
+  letter-spacing: 0.08em;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold-dk); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-eyebrow">Mawangdui Silk Manuscript · 马王堆帛书</div>
+  <h1 class="header-title">道 德 经</h1>
+  <div class="header-sub">帛书版·章节知识导航</div>
+  <div class="gold-rule"></div>
+  <p class="header-desc">
+    出土于公元前168年长沙马王堆汉墓，甲乙两本，比王弼通行版早四百余年。<br>
+    帛书版以德经在前、道经在后，还原老子以实践伦理为首要关切的原始意图。
+  </p>
+</header>
+
+<main>
+  <div class="controls-bar">
+    <div class="ctrl-group">
+      <div class="ctrl-label">主题筛选</div>
+      <div class="filter-btns" id="filters">
+        <button class="fbtn on" data-f="all">全部 81</button>
+        <button class="fbtn" data-f="dao">道论</button>
+        <button class="fbtn" data-f="de">德论</button>
+        <button class="fbtn" data-f="pol">政治</button>
+        <button class="fbtn" data-f="dial">辩证</button>
+        <button class="fbtn" data-f="xiu">修身</button>
+      </div>
+    </div>
+    <div class="ctrl-group">
+      <div class="ctrl-label">排列方式</div>
+      <div class="toggle-grp">
+        <button class="tg-btn on" data-o="mwb">帛书顺序</button>
+        <button class="tg-btn" data-o="std">通行本顺序</button>
+      </div>
+    </div>
+    <div class="ctrl-group search-wrap">
+      <div class="ctrl-label">搜索章节</div>
+      <input class="search-input" id="search" type="text" placeholder="输入章号或关键词…">
+    </div>
+  </div>
+
+  <div class="hint">点击卡片查看详情 · <kbd>←</kbd><kbd>→</kbd> 翻页 · <kbd>Esc</kbd> 关闭</div>
+  <div id="stats-bar" class="stats-bar"></div>
+  <div id="content"></div>
+  <div class="empty" id="empty" style="display:none">没有找到匹配的章节</div>
+</main>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-meta">
+        <span class="modal-chnum" id="m-chnum"></span>
+        <span class="bdg" id="m-sec-bdg"></span>
+        <span class="bdg" id="m-theme-bdg"></span>
+      </div>
+      <div class="modal-title" id="m-title"></div>
+      <div class="modal-sub" id="m-sub"></div>
+      <button class="close-btn" id="close-btn">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">章节要义</div>
+        <div class="modal-text" id="m-desc"></div>
+      </div>
+      <div class="modal-rule"></div>
+      <div class="modal-section">
+        <div class="modal-section-title">核心命题</div>
+        <div class="modal-text serif" id="m-prop"></div>
+      </div>
+      <div class="modal-rule"></div>
+      <div class="modal-section">
+        <div class="modal-section-title">帛书版要点</div>
+        <div class="modal-text" id="m-note"></div>
+      </div>
+      <div class="modal-rule"></div>
+      <div class="modal-section">
+        <div class="modal-section-title">现代连接</div>
+        <div class="modal-text" id="m-modern"></div>
+      </div>
+      <div class="nav-btns">
+        <button class="nav-btn" id="prev-btn">← 上一章</button>
+        <button class="nav-btn" id="next-btn">下一章 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  道德经·帛书版｜章节知识导航 · 81章完整索引<br>
+  <span style="opacity:0.5;font-size:9px">参考：马王堆帛书老子甲乙本 · 高明《帛书老子校注》</span>
+</footer>
+
+<script>
+const TL = { dao:'道论', de:'德论', pol:'政治', dial:'辩证', xiu:'修身' };
+const TC = { dao:'bdg-dao', de:'bdg-de', pol:'bdg-pol', dial:'bdg-dial', xiu:'bdg-xiu' };
+
+// [章号, 首句, 主题, 简述, 所属经, 核心命题, 帛书要点, 现代连接]
+const CHAPTERS = [
+  [1,'道可道，非恒道','dao','语言无法触及永恒之道，名言之前有无名之始','道经','道，可道也，非恒道也；名，可名也，非恒名也。','帛书以"恒"字而非通行本"常"字，强调道的绝对永恒性，非一般规律。"恒"字因避汉文帝刘恒讳而改为"常"，原义更深刻。','语言哲学先驱：与维特根斯坦「凡不可言说之事，必须保持沉默」形成跨文明共鸣，同指语言边界问题。'],
+  [2,'天下皆知美之为美','dial','美丑善恶相对相生，揭示二元对立的认知结构','道经','天下皆知美之为美，恶已；皆知善之为善，斯不善矣。','帛书本此章文字较通行本更简洁，强调对立面相互依存、相互定义的根本辩证关系。','现代心理学：框架效应（Framing Effect）——同一事物因参照系不同而产生截然相反的评价，印证老子的相对论洞见。'],
+  [3,'不尚贤，使民不争','pol','无为政治的社会基础：消解竞争性激励','道经','不尚贤，使民不争；不贵难得之货，使民不为盗。','帛书版此章是政治哲学的基础论述，圣人之治在于虚其心、实其腹，弱其志、强其骨。','博弈论应用：稀缺性激励（scarcity signaling）引发竞争性破坏，与现代组织行为学中「取消排名」减少内耗的管理研究高度吻合。'],
+  [4,'道冲，用之不盈','dao','道的虚空性与无限使用性','道经','道冲而用之，有弗盈也。渊兮，似万物之宗。','帛书版"道冲"的"冲"字（虚空之义）比通行本更清晰表达道的虚性本质，"有弗盈"（永不填满）强调道的无限性。','熵与负熵：虚空不是缺乏，而是潜能最大化的状态，类似热力学第二定律中低熵系统的高效运作能力。'],
+  [5,'天地不仁','dao','道的非人格性：天地无偏私，以万物为刍狗','道经','天地不仁，以万物为刍狗；圣人不仁，以百姓为刍狗。','刍狗非轻贱之意，而是祭祀完毕即弃之物——天地对万物一视同仁，没有情感偏好，这是道的客观中立性。','系统论：市场机制、自然选择均无偏好，结果产生于规则而非意志，老子早于达尔文两千年提出类自然选择世界观。'],
+  [6,'谷神不死','dao','道的母性生成力：虚空是创造的根源','道经','谷神不死，是谓玄牝。玄牝之门，是谓天地之根。','"谷神"即深谷之神，空虚而永恒，以阴柔母性象征道的生成能力，帛书版语序与通行本略有差异但核心一致。','量子力学类比：真空不空——量子真空中充满涨落，虚空恰是能量与粒子得以涌现的基础状态。'],
+  [7,'天长地久','xiu','以无私退让换取长久存在的生存智慧','道经','天地所以能长且久者，以其不自生也，故能长生。','帛书版"不自生"（不为自己而存在）是关键，圣人后其身而身先，外其身而身存，是处世的反直觉策略。','博弈策略：后动优势（Late-mover advantage）——不争先者往往获得更稳固的市场地位，与巴菲特「别人贪婪时我恐惧」策略同构。'],
+  [8,'上善若水','de','水德七行是道在行为层面的最佳范本','道经','上善若水，水善利万物而不争，处众人之所恶，故几于道。','七善：居善地、心善渊、与善仁、言善信、政善治、事善能、动善时。每一善都是无争而利他的具体行动规范。','领导力框架：仆人式领导（Servant Leadership）的哲学原型，格林里夫1970年代提出的概念，老子早了两千五百年。'],
+  [9,'持而盈之不如其已','xiu','知止是最高智慧：过满则溢，功成则退','道经','持而盈之，不若其已；揣而锐之，不可长保。','知止、功遂身退——帛书版将此章置于"上善若水"之后，逻辑上形成：先学水之无争，再学水之知止。','风险管理：仓位管理的哲学依据。量化交易中最大回撤往往源于"不知止"，凯利公式的本质也是在限制过度持仓。'],
+  [10,'载营魄抱一','xiu','身心合一的修炼：能否守住精神不离散','道经','载营魄抱一，能无离乎？专气致柔，能婴儿乎？','营魄即魂魄，抱一即合而为一。帛书本此章是身心修炼论述，婴儿是精气未散、柔弱天然的最佳状态。','神经科学：默认模式网络（DMN）的整合状态，与冥想研究中的心身整合（mind-body coherence）一致。'],
+  [11,'当其无有室之用','dial','虚空的实用价值：无才是真正的有用','道经','三十辐共一毂，当其无，有车之用。埏埴以为器，当其无，有器之用。','车轮、陶器、房室——三个日常案例证明"无"才是功能的真正来源，形式是器，虚空是用。','信息论：Shannon信道容量——带宽（容量）本质上是「可以传输的空间」，而非已传输的内容，与此章直接对应。'],
+  [12,'五色令人目盲','xiu','感官过载危害认知清醒，欲望蒙蔽真实判断','道经','五色令人目盲，五音令人耳聋，五味令人口爽。','帛书版此章是感官欲望论，圣人为腹不为目——满足基本需要，拒绝感官刺激的无限扩张。','认知科学：决策疲劳（Decision Fatigue）与注意力经济——信息过载造成的认知损耗，与老子的「目盲耳聋」完全对应。'],
+  [13,'宠辱若惊','xiu','超越荣辱的自我稳定：以身为天下方可托天下','道经','宠辱若惊，贵大患若身。何谓宠辱若惊？宠为下，得之若惊，失之若惊。','宠辱皆惊，说明自我认同绑定于外部评价。帛书版强调"贵以身为天下"——真正稳定的人才值得被托付天下。','心理学：外部归因（External Locus of Control）——将自我价值与外部反馈捆绑，是焦虑和脆弱的根源，老子的处方是内归因。'],
+  [14,'视之不见名曰夷','dao','道的不可感知性：超越感官的存在','道经','视之不见名曰夷，听之不闻名曰希，搏之不得名曰微。','夷希微——道超越视觉、听觉、触觉，三者合一即道。帛书本文字与通行本基本一致，但语序更流畅。','哲学：康德的"物自体"（Ding an sich）——现象世界之外存在不可被感知的本体，与老子对道的描述高度同构。'],
+  [15,'古之善为士者','de','得道者的行为特征：微妙玄通，深不可识','道经','古之善为士者，微妙玄通，深不可识。','豫兮若冬涉川，犹兮若畏四邻，俨兮其若客……七种特征描绘得道者的气质，非刻意而是自然流露。','领导力：隐性知识（Tacit Knowledge）——真正的高手难以言传，只能观察其行为模式，老子的描述方式即负能力（Negative Capability）。'],
+  [16,'致虚极守静笃','xiu','归根复命的内在修炼：万物并作而观其复','道经','致虚极，守静笃，万物并作，吾以观复。','归根曰静，是谓复命——观察万物的生灭循环，而不介入。帛书版此章是深度冥想哲学，"复"（回归本源）是核心概念。','系统论：稳态（Homeostasis）——复杂系统在扰动后回归均衡的能力，老子将此提升为认识论原则：观察复归而不干扰它。'],
+  [17,'太上不知有之','pol','最佳统治：人民感受不到统治者的存在','道经','太上，不知有之；其次，亲而誉之；其次，畏之；其次，侮之。','四种统治层级从优到劣：无感存在→被爱戴→被惧怕→被侮辱。最高治理是"功成而弗居"，人民以为自然而然。','管理学：隐性协调（Invisible Coordination）——优秀的组织设计让成员感受不到管控，只感受到自由，这是最高组织效能的标志。'],
+  [18,'大道废有仁义','de','仁义是道衰退的症状，而非道本身','道经','大道废，有仁义；智慧出，有大伪；六亲不和，有孝慈；国家昏乱，有忠臣。','帛书版此章对儒家提出根本质疑：仁义礼法的出现，恰恰证明道已不在。真正有道的社会不需要这些概念。','系统论：补偿性反馈——当系统失去自然调节能力，人为规则介入是症状而非解药，过度干预往往加速失调。'],
+  [19,'绝圣弃智','de','回归朴素：去掉人为建构的道德框架','道经','绝圣弃智，民利百倍；绝仁弃义，民复孝慈；绝巧弃利，盗贼无有。','帛书版对应段落文字略有不同但逻辑一致：去掉人为设计的道德工程，社会自然回归朴素状态。','负反馈管理：规则越多，漏洞越多——塔西佗陷阱（Tacitus Trap）：政府公信力丧失后，任何新政策都会被反向解读。'],
+  [20,'绝学无忧','xiu','减法学问：停止知识积累，获得内在自由','道经','绝学无忧，唯之与阿，相去几何？美之与恶，相去若何？','帛书版此章是老子的反知识论宣言——学习越多，烦恼越多；停止追逐外部知识，才能获得内在宁静。','认知减负：Apophatic Knowledge（否定知识论）——通过排除错误比通过积累正确更接近真相，塔勒布的「负向知识」即此。'],
+  [21,'孔德之容唯道是从','dao','德以道为唯一依归，道的生成功能通过德体现','道经','孔德之容，唯道是从。道之为物，唯恍唯惚。','惚兮恍兮，其中有象；恍兮惚兮，其中有物——道不是空洞概念，其中有真实的形象与规律可循。','认识论：模糊中的真实——量子力学的波函数叠加态，在观测前"唯恍唯惚"，观测后才显现确定状态，惊人地契合。'],
+  [22,'曲则全枉则直','dial','以退为进的辩证法：示弱是最高级别的竞争策略','道经','曲则全，枉则直，洼则盈，弊则新，少则多，多则惑。','帛书版六对辩证：弯曲-保全，委屈-伸直，洼陷-充盈，残损-更新。每一对都是反直觉的生存智慧。','博弈策略：竞争性谦让（Strategic Humility）——特定博弈中主动示弱可以获取战略主动权，日本企业"弱市场进入"策略的哲学基础。'],
+  [23,'希言自然','pol','少令少法的轻触统治：话语是权力的浪费','道经','希言自然。故飘风不终朝，骤雨不终日。','风雨虽急，天地尚且不能持久——更何况人的号令？频繁发号施令不是强大，是虚弱的信号。','组织管理：信号过载（Signal Saturation）——频繁的管理指令降低组织注意力，重要信息被噪音淹没，「少而精」的指令反而更有效。'],
+  [24,'企者不立','xiu','自我展示的反效果：翘脚站立反而不稳','道经','企者不立，跨者不行；自见者不明，自是者不彰。','帛书版此章是元认知论述：自我表现（自见、自是、自伐、自矜）都会适得其反，在道者称之余食赘行。','心理学：Dunning-Kruger效应的反面——真正高手往往低调，自我宣扬者往往能力有限，老子两千年前已观察到此规律。'],
+  [25,'有物混成先天地生','dao','道先于宇宙而存在：寂廖独立、周行不殆','道经','有物混成，先天地生。寂兮廖兮，独立不改，周行而不殆，可以为天下母。','道的四个特性：混成（整体不分）、独立（不依赖任何存在）、周行（循环运行）、不殆（永不衰竭）。域中有四大。','宇宙论：在标准宇宙模型中，宇宙定律（可类比为"道"）先于宇宙诞生，是使宇宙成为可能的先在条件，老子的直觉惊人。'],
+  [26,'重为轻根静为躁君','dial','稳重与躁动的辩证：轻举妄动是权威的丧失','道经','重为轻根，静为躁君。是以君子终日行不离辎重。','帛书版将此章置于道经序列，与政治章节呼应：领导者轻率则失去根基，烦躁则失去掌控。','决策科学：系统1与系统2思维（卡尼曼）——"躁"对应快思考（System 1），"静"对应慢思考（System 2），老子主张领导决策应以静制躁。'],
+  [27,'善行无辙迹','de','无痕之善是最高之善：真正的帮助不留痕迹','道经','善行无辙迹，善言无瑕谪，善数不用筹策，善闭无关楗。','五种无痕之善——行、言、计、闭、结——是圣人行事的最高标准，好的帮助像水渗入土地，看不见痕迹。','设计哲学：invisible design（隐形设计）——最好的用户体验让用户感受不到设计的存在，只感受到流畅，老子是UX哲学的祖先。'],
+  [28,'知其雄守其雌','dial','守柔守弱的辩证策略：以天下谷为归宿','道经','知其雄，守其雌，为天下谿。为天下谿，恒德不离，复归于婴儿。','三组对比：雄/雌、白/黑、荣/辱——知强而守弱、知明而守暗、知荣而守辱，不是无知，是有知的战略选择。','竞争策略：柔道战略（Judo Strategy）——利用对手的力量反击，让己方以小博大。软件业的开放源代码策略是当代版本。'],
+  [29,'天下神器不可为','pol','天下不可强取强为：过度干预必然失败','道经','天下神器，不可为也，不可执也。为者败之，执者失之。','帛书版此章是政治无为论的核心：天下是神圣器物，强行为之者必败，强行把持者必失，物或行或随、或歔或吹。','复杂系统：中央计划经济的失败印证此章——强行设计复杂社会系统，因无法处理信息复杂度，必然导致失调（哈耶克《致命的自负》）。'],
+  [30,'以道佐人主者','pol','战争违背道的本性：强大之后即走向衰亡','道经','以道佐人主者，不以兵强天下，其事好还。','师之所处，荆棘生焉；大军过后，必有凶年——帛书版以战争的自然代价论述军事干预的长期成本。','历史规律：帝国扩张悖论——军事胜利带来版图扩大，但管理成本超过收益，导致帝国在顶峰时期种下衰亡的种子（罗马、蒙古等）。'],
+  [31,'佳兵不祥之器','pol','武力的道德限制：战争胜利应以丧礼处之','道经','夫佳兵者，不祥之器也，物或恶之，故有道者不处。','君子居则贵左，用兵则贵右——和平时期与战争时期的价值体系截然不同。胜而不美，美之者是乐杀人。','战争伦理：正义战争理论（Just War Theory）——阿奎那建立的西方战争伦理框架，与老子的战争必要恶论有深刻共鸣，但老子更彻底地反战。'],
+  [32,'道常无名朴','dao','道的朴素与无名性：知止可以不殆','道经','道常无名，朴虽小，天下莫能臣也。','朴——未加工的木料，是道在具体事物中的象征。侯王若能守之，万物将自宾。知止方能不殆。','品牌哲学：极简主义品牌的力量——无需标签的品质（"朴"）反而拥有最高价值，苹果早期"Think Different"的无名力量即此。'],
+  [33,'知人者智自知者明','xiu','元认知是最高智慧：自胜是最强大的力量','道经','知人者智，自知者明；胜人者有力，自胜者强。','帛书版此章是老子最精炼的认识论格言。强行者有志，知足者富，不失其所者久，死而不亡者寿。','心理学：元认知（Metacognition）——认识自己的认知偏差、情绪盲区和思维局限，是一切认知升级的先决条件，老子两千年前已精确命名。'],
+  [34,'大道氾兮可左可右','dao','道的普遍性与无私：成功而不自居','道经','大道氾兮，其可左右也。万物恃之以生而弗辞，功成而弗居。','帛书版"大道氾兮"（道广大漫流）强调道的无处不在，万物依赖它生长，道从不声张其功，故可成就"大"。','经济学：公共品（Public Goods）——道是最纯粹的非排他性、非竞争性公共品，越多人使用越不减少，且不要求回报。'],
+  [35,'执大象天下往','pol','道是最大的统治资本：执道者，天下自来','道经','执大象，天下往，往而不害，安平泰。','大象即道的形象，执道者不需要武力，天下自然归附。乐与饵，过客止——道的吸引力超越感官享乐。','软权力理论（Soft Power）：约瑟夫·奈的概念——通过吸引力而非强制力影响他人，是老子"执大象，天下往"的现代政治科学版本。'],
+  [36,'将欲歙之必固张之','dial','柔克刚的先兆规律：微明——观察即将发生的反转','道经','将欲歙之，必固张之；将欲弱之，必固强之；将欲废之，必固兴之。','微明——隐秘的洞察力。反转在极端之前已有迹象，柔弱者生，刚强者死。','技术分析：均值回归（Mean Reversion）——价格极端偏离均值后必然回归，是老子辩证法在金融市场的精确对应。反转交易策略的哲学基础。'],
+  [37,'道常无为而无不为','pol','无为即最大的有为：无为是完成一切的方式','道经','道常无为而无不为，侯王若能守之，万物将自化。','帛书版以此章结束道经部分，是政治哲学的总结：无为不是消极，是通过不干扰让系统自我优化。','复杂系统：涌现（Emergence）——在不受强制干预的条件下，复杂系统自发产生高阶秩序，如市场价格机制、鸟群飞行规律。'],
+  [38,'上德不德是以有德','de','真德不自知：失去道后才出现德的概念','德经','上德不德，是以有德；下德不失德，是以无德。','帛书版开篇第一章，颠覆了通行本以道为首的顺序。上德者不执着于德，反而真正有德；刻意维持德的形象者，恰恰无德。','认知科学：无意识能力（Unconscious Competence）——真正的高手在执行时已无需刻意思考，老子描述的上德即内化到无意识层面的道德自动化。'],
+  [39,'昔之得一者','dao','得道者的各种形态：天地神谷万物侯王各因一而存','德经','昔之得一者：天得一以清，地得一以宁，神得一以灵，谷得一以盈，万物得一以生，侯王得一以为天下正。','"一"即道，各类存在因得道而各安其位。帛书版"贵以贱为本，高以下为基"是政治谦卑的形而上论证。','系统论：整体涌现（Holistic Emergence）——"一"是系统整体性，任何子系统离开整体就丧失其功能，老子的得一论是最早的系统整体观。'],
+  [40,'反者道之动','dial','道的核心运动法则：反向是道之动，柔弱是道之用','德经','反者道之动，弱者道之用。天下万物生于有，有生于无。','帛书版两句话浓缩整部道德经的核心逻辑：道向对立面运动（反），道的作用通过柔弱体现（弱）。有生于无是宇宙论基础。','物理学：对称性破缺（Symmetry Breaking）——宇宙从无（对称状态）到有（对称破缺后的结构），老子的"有生于无"惊人对应大爆炸宇宙论。'],
+  [41,'上士闻道勤而行之','dial','三类人对道的反应：真理在俗人眼中显得荒谬','德经','上士闻道，勤而行之；中士闻道，若存若亡；下士闻道，大笑之。','不笑不足以为道——若俗人都能理解和接受的东西，一定不是真正的道。建言有之：明道若昧，进道若退。','认识论：范式转变（Paradigm Shift，库恩）——真正的革命性思想在初期总遭嘲笑，量子力学、相对论、板块构造说皆经历此过程。'],
+  [42,'道生一一生二','dao','道的完整生成论：从无到万物的宇宙发生学','德经','道生一，一生二，二生三，三生万物。万物负阴而抱阳，冲气以为和。','道→一（混沌整体）→二（阴阳）→三（阴阳交合之和气）→万物。帛书版保存了最完整的生成论序列，万物皆阴阳冲和。','宇宙论：大爆炸（Big Bang）序列——奇点→能量场（一）→物质与反物质（二）→基本粒子（三）→宇宙万物，层级对应惊人。'],
+  [43,'天下至柔驰骋至坚','dial','柔弱胜刚强的终极证明：无有入无间','德经','天下之至柔，驰骋乎天下之至坚，无有入于无间。','水（至柔）能穿越最坚硬的岩石（至坚），无形之物能进入无缝隙之处——柔弱胜刚强的物理证明。','材料科学：水压切割（Waterjet Cutting）——以极高压水流切割钢铁，是老子"至柔驰骋至坚"在工程学的现代实现，无为之益难以言语。'],
+  [44,'名与身孰亲','xiu','名利与生命的取舍：知足方可长久','德经','名与身孰亲？身与货孰多？得与亡孰病？','三问：名誉与生命哪个更亲近？财富与生命哪个更重要？得到与失去哪个更有害？知足者富，知止者久。','行为经济学：峰终定律（Peak-End Rule）——人对体验的记忆基于峰值与结尾而非总量，过分追求名与货的「峰」会破坏整体生命体验。'],
+  [45,'大成若缺','dial','完美呈现为不完美：真正的完整包含虚空','德经','大成若缺，其用不弊；大盈若冲，其用不穷。','大直若屈，大巧若拙，大辩若讷——至大的完美看似有缺憾，至大的充盈看似虚空，正因此而用之无尽。','美学哲学：侘寂（Wabi-Sabi）——日本美学中不完美即是完美，缺憾是真实存在的必然特征，源头可追溯至老子此章。'],
+  [46,'天下有道却走马以粪','pol','战争是道缺失的信号，和平是道存在的证明','德经','天下有道，却走马以粪；天下无道，戎马生于郊。','有道之世，战马回归农耕；无道之世，战马在边境生驹——战争与和平是道在政治层面是否存在的最直接指标。','历史哲学：奥斯华德·斯宾格勒的文明循环论——文明在上升期克制军事扩张，在衰落期依赖武力，帝国末期"戎马生于郊"是规律性现象。'],
+  [47,'不出户知天下','xiu','内省超越外求：向内的认知比向外的探索更深刻','德经','不出于户，以知天下；不窥于牖，以知天道。其出弥远，其知弥少。','帛书版此章是认识论革命：出去越远，知道越少；不必出门，即可知天下——因为道在内而非外。','第一性原理：Elon Musk所提倡的从根本原理推导而非类比学习，与老子"不出户知天下"的内在逻辑一致——抽象规律比具体信息更根本。'],
+  [48,'为学日益为道日损','xiu','减法认识论：学习是加法，悟道是减法','德经','为学日益，为道日损，损之又损，以至于无为，无为而无不为。','两种认知路径：为学（知识积累）走加法；为道（去除执念偏见）走减法。减到极致就是无为，无为才能无所不为。','第一性原理思维：查理·芒格的「倒过来想」——不问能做什么，而问要去掉什么错误，是投资哲学中的"为道日损"。'],
+  [49,'圣人无常心','pol','以民心为心：圣人没有固定立场，以百姓的心为心','德经','圣人无常心，以百姓之心为心。','善者，吾善之；不善者，吾亦善之，德善。信者，吾信之；不信者，吾亦信之，德信。','政治哲学：审议民主（Deliberative Democracy）——领导者应从公民的实际需求和声音中汲取政策方向，而非强加预设立场，老子的执政理想。'],
+  [50,'出生入死','xiu','超越生死执念：真正的修养使人脱离死地','德经','出生入死，生之徒十有三，死之徒十有三，人之生动之死地亦十有三。','善摄生者，不避猛虎、不避兵器——因其无死地。不执着于生，反而能远离死地，这是最深刻的生死辩证法。','存在主义：海德格尔"向死而生"（Being-toward-death）——正视死亡才能真正生活，与老子此章在不同文化路径上抵达同一洞见。'],
+  [51,'道生之德畜之','dao','道与德的生成关系：道生万物，德养万物','德经','道生之，德畜之，物形之，势成之。是以万物莫不尊道而贵德。','道生万物，德养育万物，形体使万物具形，势力使万物成就。尊道贵德是万物的自然状态，非强制。','生态系统论：道＝生态基础结构，德＝养分循环，物形＝物种形态，势成＝生态位压力。老子的生成论是完整的生态系统隐喻。'],
+  [52,'天下有始以为母','xiu','守母归根的修炼：知子守母，终身不殆','德经','天下有始，以为天下母。既知其母，以知其子；既知其子，复守其母，没身不殆。','塞其兑，闭其门，终身不勤；开其兑，济其事，终身不救——感官开关的守护是修身的关键。','信息安全类比：知道系统的根（母）才能理解所有子程序；守护根权限（闭门塞兑）是整个系统安全的基础，老子的修身论即最高安全架构。'],
+  [53,'行于大道','pol','大道废弃的政治景象：朝甚除而民甚饥','德经','使我介然有知，行于大道，唯施是畏。','朝甚除，田甚芜，仓甚虚；服文采，带利剑，厌饮食，财货有余——统治阶级奢靡而百姓贫困，这是大道废弃的具体景象。','政治经济学：奥尔森的「坐寇」理论——定居的统治者若过度榨取，会耗尽生产性资源，老子此章是对掠夺性政权最早的系统描述。'],
+  [54,'善建者不拔','de','有根之德的传承力：德的影响从自身扩展至天下','德经','善建者不拔，善抱者不脱，子孙以祭祀不辍。','修之于身，其德乃真；修之于家，其德乃余；修之于乡，其德乃长；修之于邦，其德乃丰；修之于天下，其德乃普。','分形结构（Fractal）：德的传播具有自相似性——个人、家庭、乡里、国家、天下，每一层级的德都是同一原则在不同尺度上的体现。'],
+  [55,'含德之厚比于赤子','de','婴儿是德的最高象征：纯真的生命力无可攻破','德经','含德之厚者，比于赤子。蜂虿虺蛇不螫，攫鸟猛兽不搏，骨弱筋柔而握固。','赤子（婴儿）：骨骼柔软却握拳有力，不知男女之别却有性的充盈，哭而不哑——生命力最充沛的状态是最柔弱的状态。','神经科学：神经可塑性（Neuroplasticity）峰值——婴儿期大脑连接最丰富、可塑性最强，"骨弱筋柔"的结构恰恰拥有最大的发展潜能。'],
+  [56,'知者不言言者不知','xiu','沉默是智慧的最高形式：言说者往往不知道','德经','知者不言，言者不知。塞其兑，闭其门，挫其锐，解其纷，和其光，同其尘。','和光同尘——混入光线、融入尘埃，是圣人隐身于世的方式。不可得而亲，不可得而疏，是最高的社会智慧。','信号理论：高价值信息往往沉默——市场中最深刻的判断者极少公开表达，沃伦·巴菲特极少发表市场预测，正是"知者不言"的实践。'],
+  [57,'以正治国以奇用兵','pol','治国与用兵的辩证：无事才能取天下','德经','以正治国，以奇用兵，以无事取天下。','天下多忌讳，而民弥贫；人多利器，国家滋昏；人多伎巧，奇物滋起；法令滋彰，盗贼多有——规则越多，问题越多。','法律经济学：法规膨胀悖论（Regulatory Paradox）——过度立法导致更多违规（"法令滋彰，盗贼多有"），现代合规研究中的"规则密度与违规率正相关"印证此章。'],
+  [58,'其政闷闷其民淳淳','pol','宽松统治的系统优势：政治越宽松，民风越淳朴','德经','其政闷闷，其民淳淳；其政察察，其民缺缺。','祸兮福之所倚，福兮祸之所伏——在宽与严、祸与福的辩证循环中，圣人以方而不割、直而不肆、光而不耀。','复杂适应系统：宽松边界（Loose Boundaries）促进内部自组织，严格管控（察察）破坏自组织能力，与现代组织理论的「赋权」（Empowerment）研究一致。'],
+  [59,'治人事天莫若啬','pol','节制是治理的根本：啬是深根固柢之道','德经','治人事天，莫若啬。夫唯啬，是以早服；早服是谓重积德。','啬（节约、收敛）是治国和修身的根本原则。重积德则无不克，无不克则莫知其极，莫知其极则可以有国。','能量管理：约束理论（Theory of Constraints，高德拉特）——系统的极限由最薄弱环节决定，"啬"正是保护系统不超过最优运作点的原则。'],
+  [60,'治大国若烹小鲜','pol','轻触是最高统治艺术：过度干预使鱼碎裂','德经','治大国若烹小鲜，以道莅天下，其鬼不神。','煎小鱼时频繁翻动则鱼碎——治理大国也如此，频繁干预比不干预危害更大。以道治国，鬼神皆不敢兴风作浪。','管理学：微管理的危害（Micromanagement）——频繁干预削弱团队自主性和创造力，最优领导者设定方向后退出，让系统自运作。'],
+  [61,'大国者下流','pol','谦下是大国战略：以低姿态赢得小国归附','德经','大国者，下流也，天下之牝，天下之交也。','大国以低于小国的姿态，才能赢得小国的归附；小国以低于大国的姿态，才能获得大国的保护。各得其欲，大者宜为下。','国际关系：软实力外交（Soft Power Diplomacy）——以文化吸引力和多边合作代替强制力，是老子"大国者下流"的现代外交实践。'],
+  [62,'道者万物之奥','dao','道是万物的庇护所：善人之宝，不善人之所保','德经','道者，万物之奥，善人之宝，不善人之所保。','古之所以贵此道者何？不曰：求以得，有罪以免邪？帛书版此章点明道的普惠性——好人视道为宝，坏人也能因道得到救赎。','宗教哲学：道的普遍救赎性类似基督教的Grace（恩典）——不分善恶，向所有人开放，且不依赖任何等价交换。'],
+  [63,'为无为事无事','pol','无为处理大事：天下难事始于易，大事始于细','德经','为无为，事无事，味无味。大小多少，图难于其易，为大于其细。','天下难事必作于易，天下大事必作于细——帛书版此章把无为落实为具体方法论：从小从易入手，是成就大事的路径。','项目管理：敏捷方法论（Agile）——以小批量迭代（做易做细）代替宏大计划，减少一次性大规模投入带来的不确定性风险。'],
+  [64,'其安易持其未兆易谋','pol','防微杜渐的治理哲学：在问题未发生前处理它','德经','其安易持，其未兆易谋，其脆易泮，其微易散。为之于未有，治之于未乱。','千里之行始于足下；合抱之木生于毫末；九层之台起于累土——伟大从微小开始，治理应在乱象出现之前。','风险管理：前瞻性风险控制（Proactive Risk Management）——最优风控不在危机发生后应对，而在危机苗头期介入，老子此章是最早的预防性治理哲学。'],
+  [65,'古之善为道者','pol','不教化的统治策略：使民不知不欲而保持朴素','德经','古之善为道者，非以明民，将以愚之。','智治国，国之贼；不以智治国，国之福。常知此两者，亦稽式——帛书版此章是争议最大的章节，"愚民"非贬义，是还民以朴素自然。','复杂性科学：信息不对称的益处——在特定系统中，过度的知识共享和激励透明化反而破坏协作，适当的信息屏障维持系统稳定性。'],
+  [66,'江海能为百谷王','dial','居下是领导力的基础：以谦下赢得天下归附','德经','江海所以能为百谷王者，以其善下之也，是以能为百谷王。','圣人欲上民，必以言下之；欲先民，必以身后之——帛书版此章是领导力哲学精髓，不与人争，天下莫能与之争。','领导力科学：谦逊型领导（Humble Leadership）——艾德加·沙因研究表明谦逊领导者建立最强信任关系，与老子的"以言下之、以身后之"完全对应。'],
+  [67,'天下皆谓我道大','de','三宝：慈·俭·不争先，是道在德行层面的三个支柱','德经','天下皆谓我道大，似不肖，夫唯大，故似不肖。','三宝：一曰慈，二曰俭，三曰不敢为天下先。慈故能勇；俭故能广；不敢为天下先，故能成器长。','行为经济学：信任积累模型——慈（共情信任）、俭（资源信任）、不争先（竞争克制）是建立长期信任的三个核心机制，与现代信任理论高度一致。'],
+  [68,'善为士者不武','de','不争是最高的德行：以不争之德配天之极','德经','善为士者不武，善战者不怒，善胜敌者不与，善用人者为之下。','是谓不争之德，是谓用人之力，是谓配天之极——帛书版将不争提升为与天道相配的最高德行。','竞争策略：蓝海战略（Blue Ocean Strategy）——不与对手在红海中竞争，而是开辟无竞争的新空间，是老子"不争"战略的现代商业版本。'],
+  [69,'用兵吾不敢为主','pol','守势为上的战争哲学：哀者胜矣','德经','用兵有言：吾不敢为主而为客，不敢进寸而退尺。','行无行，攘无臂，执无兵，乃无敌矣。祸莫大于轻敌——帛书版此章的军事哲学核心：守势、示弱、不轻敌，哀兵必胜。','博弈论：退缩承诺（Commitment to Retreat）——在特定博弈中，公开承诺退让反而使对手不敢进攻，先退反而占据主动，老子的军事辩证法。'],
+  [70,'吾言甚易知','xiu','道之言为何难被理解：无知是障碍，而非愚蠢','德经','吾言甚易知，甚易行，天下莫能知，莫能行。','言有宗，事有君，夫唯无知，是以不我知——帛书版此章是老子的自我辩护：道理很简单，难在人们被既有知识框架遮蔽。','范式困境：库恩的「异常」（Anomaly）——在既有范式框架内，反常证据无法被认识，因为感知本身已被范式塑造，打破范式需要放弃已知。'],
+  [71,'知不知尚矣','xiu','知自己无知是最高认知：病病，是以不病','德经','知不知，尚矣；不知知，病矣。','圣人不病，以其病病，夫唯病病，是以不病——帛书版的认识论精华：知道自己不知道是最高智慧，以无知为病才能不生病。','苏格拉底：「我知道我不知道」——西方哲学最著名命题与老子此章完全对应，两位哲学巨人在不同文明、同一世纪（轴心时代）抵达同一洞见。'],
+  [72,'民不畏威则大威至','pol','统治恐惧的反效果：压迫超过临界点引发系统崩溃','德经','民不畏威，则大威将至矣。无狎其所居，无厌其所生。','自知不自见，自爱不自贵——帛书版此章是政治临界点理论：小的恐惧防止大的恐惧，过度压迫引发系统性反抗。','复杂系统：临界点（Tipping Point，马尔科姆·格拉德威尔）——系统在长期微小积累后突然发生相变（Phase Transition），统治合法性崩溃正是此类临界现象。'],
+  [73,'勇于敢则杀','dial','勇气的两种截然方向：敢与不敢的辩证','德经','勇于敢则杀，勇于不敢则活，此两者或利或害。','天之所恶，孰知其故？天之道：不争而善胜，不言而善应，不召而自来，繟然而善谋。','风险决策：二型勇气——行动之勇（敢）与克制之勇（不敢），大多数组织过度奖励行动勇气、忽视克制勇气，老子指出两者的不同生死结局。'],
+  [74,'民不畏死','pol','死刑威慑的失效原理：代执杀者必伤其手','德经','民不畏死，奈何以死惧之？若使民常畏死，而为奇者，吾得执而杀之，孰敢？','代大匠斫者，希有不伤其手矣——执行极刑必有反噬。帛书版此章是古代威慑理论的哲学批判。','刑事学：威慑失效研究（Deterrence Theory）——死刑减少犯罪的证据极其有限，长期高压的威慑策略在临界点后产生逆效果，与老子的预见高度一致。'],
+  [75,'民之饥以其上食税多','pol','剥削导致贫困与反抗：统治者的过度干预使民难治','德经','民之饥，以其上食税之多也，是以饥。民之难治，以其上有以为也，是以难治。','帛书版此章是老子对剥削政治经济学最直接的批判：税重则民饥，干预多则难治，轻死则民不重死。','政治经济学：拉弗曲线（Laffer Curve）——税率超过临界点后，税收反而下降（因为经济萎缩），老子的"食税多则民饥"是对此关系最早的文字记录。'],
+  [76,'人之生也柔弱','dial','柔弱是生刚强是死：草木之比最直接的自然证明','德经','人之生也柔弱，其死也坚强。草木之生也柔弱，其死也枯槁。','故坚强者死之徒，柔弱者生之徒。是以兵强则灭，木强则折，强大处下，柔弱处上。','生物力学：材料弹性与刚性（Elastic vs Rigid）——弹性材料在冲击下弯曲而不断，刚性材料达到极限即断裂，老子的柔弱胜刚强有精确的物理基础。'],
+  [77,'天之道犹张弓与','dial','天道的均衡调节原则：损有余而补不足','德经','天之道，其犹张弓者欤？高者抑之，下者举之；有余者损之，不足者补之。','天之道，损有余而补不足；人之道则不然，损不足以奉有余。帛书版此章最直接批判人类社会的不平等分配逻辑。','经济学：马太效应（Matthew Effect）——人类社会"损不足以奉有余"，与天道的均衡原则相悖，老子早于马太福音两百年已洞察此规律。'],
+  [78,'天下莫柔弱于水','dial','水胜岩的终极证明：正言若反','德经','天下莫柔弱于水，而攻坚强者莫之能胜，以其无以易之。','正言若反——真正的正确命题看起来像反话，这就是为什么弱胜强、柔胜刚这样的真理难以被接受。','反脆弱（Antifragility，塔勒布）——不只承受冲击，而且从冲击中变得更强，水的无形性正是反脆弱的极致：无固定形态，所以无法被破坏。'],
+  [79,'和大怨必有余怨','pol','以德报怨的局限性：圣人执左契而不责于人','德经','和大怨，必有余怨，焉可以为善？','是以圣人执左契，而不责于人。有德司契，无德司彻——帛书版此章不是讲道德高尚，而是讲结构性的合约设计以避免怨恨积累。','契约设计：不完全契约理论（Incomplete Contract Theory，哈特）——好的契约设计减少事后争执，老子"执左契不责于人"是最早的契约执行哲学。'],
+  [80,'小国寡民','pol','理想社会的系统论蓝图：邻国相望，鸡犬相闻，而老死不相往来','德经','小国寡民，使有什伯之器而不用，使民重死而不远徙。','甘其食，美其服，安其居，乐其俗。邻国相望，鸡犬之声相闻，民至老死不相往来——帛书版呈现反扩张、反复杂化的理想秩序。','系统理论：适度规模原则（Optimal Scale）——E.F.舒马赫《小的是美好的》直接继承老子此章，反对无限增长，倡导人性化规模的经济与社会组织。'],
+  [81,'信言不美美言不信','de','真实与美丽的对立：圣人不积，既以为人己愈多','德经','信言不美，美言不信；善者不辩，辩者不善；知者不博，博者不知。','圣人不积，既以为人己愈多，既以与人己愈有。天之道，利而不害；圣人之道，为而不争。','批判性思维：说服性语言（Persuasive Language）的危险——包装越精美的论点越可能掩盖弱点（信言不美），最终章以真实vs美丽收尾，是对全书的元认知总结。'],
+];
+
+let filt='all', ord='mwb', search='', openIdx=null;
+
+const themeMap={dao:'道论',de:'德论',pol:'政治',dial:'辩证',xiu:'修身'};
+const counts=CHAPTERS.reduce((a,c)=>(a[c[2]]=(a[c[2]]||0)+1,a),{});
+
+// Update filter button labels
+document.querySelectorAll('.fbtn[data-f]').forEach(b=>{
+  const f=b.dataset.f;
+  if(f!=='all') b.textContent=themeMap[f]+' '+counts[f];
+});
+
+function visible(){
+  let list=CHAPTERS;
+  if(filt!=='all') list=list.filter(c=>c[2]===filt);
+  if(search){
+    const q=search.toLowerCase();
+    list=list.filter(c=>
+      String(c[0]).includes(q)||
+      c[1].includes(search)||
+      c[3].includes(search)||
+      themeMap[c[2]].includes(search)
+    );
+  }
+  return list;
+}
+
+function sectionBdgClass(sec){ return sec==='德经'?'bdg-de':'bdg-dao'; }
+function themeBdgClass(t){ return 'bdg-'+t; }
+
+function cardHTML(ch){
+  const [n,q,t,cn,sec]=ch;
+  return `<div class="card type-${t}" data-n="${n}">
+<div class="card-top">
+  <span class="ch-num">第 ${n} 章</span>
+  <span class="bdg ${sectionBdgClass(sec)}">${sec}</span>
+</div>
+<div class="card-quote">${q}</div>
+<div class="card-desc">${cn}</div>
+<span class="bdg ${themeBdgClass(t)} card-theme">${themeMap[t]}</span>
+</div>`;
+}
+
+function render(){
+  const vis=visible();
+  const content=document.getElementById('content');
+  const empty=document.getElementById('empty');
+  const statsBar=document.getElementById('stats-bar');
+
+  if(vis.length===0){ content.innerHTML=''; empty.style.display='block'; statsBar.innerHTML=''; return; }
+  empty.style.display='none';
+
+  // Stats
+  const tc=vis.reduce((a,c)=>(a[c[2]]=(a[c[2]]||0)+1,a),{});
+  statsBar.innerHTML=['dao','de','pol','dial','xiu'].filter(k=>tc[k]).map(k=>
+    `<span class="stat-pill bdg-${k}">${themeMap[k]} ${tc[k]}</span>`
+  ).join('')+`<span style="margin-left:auto;font-size:10px;color:var(--ink3)">共 ${vis.length} 章</span>`;
+
+  let html='';
+  if(ord==='mwb'){
+    const dej=vis.filter(c=>c[4]==='德经');
+    const dao=vis.filter(c=>c[4]==='道经');
+    if(dej.length){
+      html+=`<div class="section-block"><div class="sec-head">
+<span class="bdg sec-badge bdg-sec-de">德经</span>
+<span class="sec-title">帛书卷一 · 通行本第 38–81 章</span>
+<span class="sec-cnt">${dej.length} 章</span>
+</div><div class="grid">${dej.map(cardHTML).join('')}</div></div>`;
+    }
+    if(dao.length){
+      html+=`<div class="section-block"><div class="sec-head">
+<span class="bdg sec-badge bdg-sec-dao">道经</span>
+<span class="sec-title">帛书卷二 · 通行本第 1–37 章</span>
+<span class="sec-cnt">${dao.length} 章</span>
+</div><div class="grid">${dao.map(cardHTML).join('')}</div></div>`;
+    }
+  } else {
+    html+=`<div class="section-block"><div class="sec-head">
+<span class="sec-title">通行本顺序 · 第 1–81 章</span>
+<span class="sec-cnt">${vis.length} 章</span>
+</div><div class="grid">${vis.map(cardHTML).join('')}</div></div>`;
+  }
+  content.innerHTML=html;
+
+  content.querySelectorAll('.card').forEach(card=>{
+    card.addEventListener('click',()=>{
+      const n=parseInt(card.dataset.n);
+      openModal(n);
+    });
+  });
+}
+
+function openModal(chNum){
+  const ch=CHAPTERS.find(c=>c[0]===chNum);
+  if(!ch) return;
+  openIdx=CHAPTERS.indexOf(ch);
+  const [n,q,t,cn,sec,prop,note,modern]=ch;
+
+  document.getElementById('m-chnum').textContent='第 '+n+' 章';
+  document.getElementById('m-sec-bdg').className='bdg '+sectionBdgClass(sec);
+  document.getElementById('m-sec-bdg').textContent=sec;
+  document.getElementById('m-theme-bdg').className='bdg '+themeBdgClass(t);
+  document.getElementById('m-theme-bdg').textContent=themeMap[t];
+  document.getElementById('m-title').textContent=q;
+  document.getElementById('m-sub').textContent=cn;
+  document.getElementById('m-desc').textContent=cn;
+  document.getElementById('m-prop').textContent=prop;
+  document.getElementById('m-note').textContent=note;
+  document.getElementById('m-modern').textContent=modern;
+
+  const prev=CHAPTERS[openIdx-1];
+  const next=CHAPTERS[openIdx+1];
+  const prevBtn=document.getElementById('prev-btn');
+  const nextBtn=document.getElementById('next-btn');
+  prevBtn.disabled=!prev;
+  nextBtn.disabled=!next;
+  prevBtn.textContent=prev?'← 第'+(openIdx)+'章 '+CHAPTERS[openIdx-1][1].slice(0,6):'← 无上一章';
+  nextBtn.textContent=next?'第'+(openIdx+2)+'章 '+CHAPTERS[openIdx+1][1].slice(0,6)+' →':'无下一章 →';
+
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('modal').scrollTop=0;
+}
+
+function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
+
+document.getElementById('close-btn').addEventListener('click',closeModal);
+document.getElementById('overlay').addEventListener('click',e=>{ if(e.target===document.getElementById('overlay')) closeModal(); });
+document.getElementById('prev-btn').addEventListener('click',()=>{ if(openIdx>0) openModal(CHAPTERS[openIdx-1][0]); });
+document.getElementById('next-btn').addEventListener('click',()=>{ if(openIdx<CHAPTERS.length-1) openModal(CHAPTERS[openIdx+1][0]); });
+
+document.getElementById('filters').addEventListener('click',e=>{
+  const btn=e.target.closest('.fbtn');
+  if(!btn) return;
+  filt=btn.dataset.f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  render();
+});
+
+document.querySelectorAll('.tg-btn').forEach(b=>b.addEventListener('click',()=>{
+  ord=b.dataset.o;
+  document.querySelectorAll('.tg-btn').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  render();
+}));
+
+let searchTimer;
+document.getElementById('search').addEventListener('input',e=>{
+  clearTimeout(searchTimer);
+  searchTimer=setTimeout(()=>{ search=e.target.value.trim(); render(); },200);
+});
+
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('overlay').classList.contains('open')) return;
+  if(e.key==='Escape') closeModal();
+  if(e.key==='ArrowLeft' && openIdx>0) openModal(CHAPTERS[openIdx-1][0]);
+  if(e.key==='ArrowRight' && openIdx<CHAPTERS.length-1) openModal(CHAPTERS[openIdx+1][0]);
+});
+
+render();
+</script>
+</body>
+</html>
