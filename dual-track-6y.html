@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/theme.css">
 <style>
 /* ══════════════════════════════════════════
    MATERIAL DESIGN 3 TOKEN SYSTEM
@@ -19,13 +20,13 @@
 ══════════════════════════════════════════ */
 
 :root {
-  --md-shape-sm:   8px;
-  --md-shape-md:  12px;
-  --md-shape-lg:  16px;
-  --md-shape-xl:  24px;
-  --md-elev-1: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
-  --md-elev-2: 0 3px 8px rgba(0,0,0,.09), 0 1px 3px rgba(0,0,0,.07);
-  --transition: .22s cubic-bezier(.4,0,.2,1);
+  --md-shape-sm:   var(--radius-sm);
+  --md-shape-md:   var(--radius-md);
+  --md-shape-lg:   var(--radius-lg);
+  --md-shape-xl:   var(--radius-xl);
+  --md-elev-1:     var(--shadow-sm);
+  --md-elev-2:     var(--shadow-md);
+  --transition:    .22s cubic-bezier(.4,0,.2,1);
 }
 
 /* ── Theme A: 暖阳珊瑚 ── */
