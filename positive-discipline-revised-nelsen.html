@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="warm">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>正面管教 · 完整认知学习系统</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F3EE;
+  --surface: #FFFFFF;
+  --surface2: #F2EDE6;
+  --primary: #231408;
+  --secondary: #6B5A47;
+  --muted: #9B8B78;
+  --border: #E2D8CC;
+  --accent: #8B5E14;
+  --accent2: #C4891A;
+  --gold: #D4A843;
+  --gold-light: #FDF3DC;
+  --green: #3A6644;
+  --green-light: #EAF2ED;
+  --blue: #1C4F7A;
+  --blue-light: #E8F2FA;
+  --coral: #8B3620;
+  --coral-light: #FAF0EC;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow: 0 1px 3px rgba(35,20,8,0.07), 0 4px 16px rgba(35,20,8,0.05);
+  --shadow-lg: 0 4px 24px rgba(35,20,8,0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  background: var(--bg);
+  color: var(--primary);
+  line-height: 1.7;
+  font-size: 16px;
+  min-height: 100vh;
+}
+
+/* ─── HEADER ─── */
+.header {
+  background: var(--header-bg, var(--primary));
+  color: #F7F3EE;
+  padding: 48px 0 36px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, var(--header-glow, rgba(196,137,26,0.18)) 0%, transparent 65%);
+}
+.header-inner {
+  max-width: 860px; margin: 0 auto; padding: 0 28px;
+  position: relative;
+}
+.header-label {
+  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); font-weight: 500; margin-bottom: 12px;
+}
+.header-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(26px, 5vw, 40px); font-weight: 600;
+  color: #F7F3EE; line-height: 1.25; margin-bottom: 8px;
+}
+.header-sub {
+  font-size: 15px; color: rgba(247,243,238,0.65); margin-bottom: 20px;
+}
+.header-tags {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.header-tag {
+  font-size: 11px; padding: 3px 10px;
+  border: 1px solid rgba(212,168,67,0.4);
+  border-radius: 20px; color: rgba(247,243,238,0.75);
+}
+
+/* ─── API KEY BAR ─── */
+/* ─── NAV ─── */
+.nav {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-inner {
+  max-width: 860px; margin: 0 auto; padding: 0 20px;
+  display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-btn {
+  padding: 14px 16px; font-size: 14px; color: var(--muted);
+  background: none; border: none; cursor: pointer;
+  border-bottom: 2px solid transparent; white-space: nowrap;
+  font-family: inherit; transition: all 0.2s;
+}
+.nav-btn:hover { color: var(--primary); }
+.nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+
+/* ─── MAIN ─── */
+.main { max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
+
+/* ─── SECTION ─── */
+.section { display: none; }
+.section.active { display: block; }
+.section-heading {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 24px; font-weight: 600; color: var(--primary);
+  margin-bottom: 8px;
+}
+.section-desc { font-size: 15px; color: var(--secondary); margin-bottom: 28px; line-height: 1.7; }
+
+/* ─── KNOWLEDGE MAP ─── */
+.map-container {
+  background: var(--surface); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); padding: 24px;
+  margin-bottom: 20px; overflow-x: auto;
+}
+.map-legend {
+  display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px;
+  padding-top: 16px; border-top: 1px solid var(--border);
+}
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--secondary); }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+.click-hint {
+  font-size: 12px; color: var(--muted); text-align: center;
+  margin-bottom: 12px; padding: 8px 12px;
+  background: var(--surface2); border-radius: 8px;
+}
+
+/* ─── TAKEAWAYS ─── */
+.takeaway-list { display: flex; flex-direction: column; gap: 12px; }
+.takeaway-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.takeaway-item:hover { box-shadow: var(--shadow); }
+.takeaway-header {
+  padding: 16px 20px; display: flex; align-items: flex-start; gap: 14px;
+  cursor: pointer; user-select: none;
+}
+.takeaway-num {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
+  padding: 3px 8px; border-radius: 4px; white-space: nowrap;
+  margin-top: 2px;
+}
+.t-purple { background: #EEEDFE; color: #3C3489; }
+.t-teal   { background: #E1F5EE; color: #085041; }
+.t-coral  { background: #FAECE7; color: #712B13; }
+.t-amber  { background: #FAEEDA; color: #633806; }
+.t-blue   { background: #E6F1FB; color: #0C447C; }
+.takeaway-title {
+  font-size: 15px; font-weight: 500; color: var(--primary);
+  flex: 1; line-height: 1.5;
+}
+.takeaway-arrow {
+  font-size: 12px; color: var(--muted); margin-left: auto;
+  transition: transform 0.25s; flex-shrink: 0; margin-top: 2px;
+}
+.takeaway-item.open .takeaway-arrow { transform: rotate(180deg); }
+.takeaway-body {
+  padding: 0 20px 0; max-height: 0; overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s;
+}
+.takeaway-item.open .takeaway-body {
+  max-height: 400px; padding-bottom: 18px;
+}
+.takeaway-body p {
+  font-size: 14px; color: var(--secondary); line-height: 1.85;
+  border-top: 1px solid var(--border); padding-top: 14px;
+}
+.takeaway-body .example {
+  margin-top: 10px; padding: 10px 14px;
+  background: var(--surface2); border-radius: 8px;
+  font-size: 13px; color: var(--secondary); line-height: 1.8;
+}
+.takeaway-body .example strong { color: var(--accent); }
+/* ─── ANKI CARDS ─── */
+.anki-controls {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px; flex-wrap: wrap; gap: 10px;
+}
+.anki-filter { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-btn {
+  padding: 6px 14px; border-radius: 20px; font-size: 13px;
+  border: 1px solid var(--border); background: var(--surface);
+  cursor: pointer; font-family: inherit; color: var(--secondary);
+  transition: all 0.15s;
+}
+.filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+.anki-progress { font-size: 12px; color: var(--muted); }
+.anki-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+.anki-card {
+  perspective: 1000px; height: 170px; cursor: pointer;
+}
+.anki-inner {
+  position: relative; width: 100%; height: 100%;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.anki-card.flipped .anki-inner { transform: rotateY(180deg); }
+.anki-front, .anki-back {
+  position: absolute; inset: 0; backface-visibility: hidden;
+  border-radius: var(--radius); border: 1px solid var(--border);
+  padding: 16px; display: flex; flex-direction: column; gap: 8px;
+}
+.anki-front { background: var(--surface); }
+.anki-back {
+  background: var(--primary); color: #F7F3EE;
+  transform: rotateY(180deg);
+}
+.card-tag {
+  font-size: 10px; font-weight: 600; padding: 2px 7px;
+  border-radius: 3px; display: inline-block; align-self: flex-start;
+}
+.anki-q {
+  font-size: 14px; font-weight: 500; line-height: 1.55;
+  color: var(--primary); flex: 1;
+}
+.anki-hint { font-size: 11px; color: var(--muted); }
+.anki-a {
+  font-size: 13px; line-height: 1.75; color: rgba(247,243,238,0.9);
+  flex: 1; overflow-y: auto;
+}
+.anki-flip-hint {
+  font-size: 10px; text-align: center;
+  color: var(--muted); margin-top: auto;
+}
+.anki-back .anki-flip-hint { color: rgba(247,243,238,0.4); }
+
+/* ─── SELF TEST FORM ─── */
+.test-form { display: flex; flex-direction: column; gap: 20px; }
+.test-q-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden;
+}
+.test-q-header {
+  padding: 16px 20px; display: flex; align-items: flex-start; gap: 12px;
+  background: var(--surface2);
+}
+.test-q-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; flex-shrink: 0;
+}
+.lv1-num { background: var(--green-light); color: var(--green); }
+.lv2-num { background: var(--gold-light); color: #8B6414; }
+.lv3-num { background: var(--coral-light); color: var(--coral); }
+.test-q-meta { flex: 1; }
+.test-q-level {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 4px;
+}
+.lv1 { color: var(--green); }
+.lv2 { color: #8B6414; }
+.lv3 { color: var(--coral); }
+.test-q-text { font-size: 15px; font-weight: 500; line-height: 1.55; color: var(--primary); }
+.test-q-hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.test-q-body { padding: 16px 20px; }
+.test-textarea {
+  width: 100%; min-height: 90px; padding: 12px;
+  border: 1px solid var(--border); border-radius: 8px;
+  font-size: 14px; font-family: inherit; color: var(--primary);
+  background: var(--bg); resize: vertical; outline: none;
+  transition: border-color 0.2s;
+}
+.test-textarea:focus { border-color: var(--accent2); }
+.test-char-count { font-size: 11px; color: var(--muted); text-align: right; margin-top: 4px; }
+.test-submit-area {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 24px; text-align: center;
+}
+.test-submit-area p { font-size: 13px; color: var(--secondary); margin-bottom: 16px; }
+.test-submit-btn {
+  padding: 12px 32px; background: var(--primary); color: #F7F3EE;
+  border: none; border-radius: 8px; font-size: 14px; font-weight: 500;
+  cursor: pointer; font-family: inherit; transition: all 0.2s;
+}
+.test-submit-btn:hover { background: var(--accent); }
+.submit-toast {
+  display: none; margin-top: 16px; padding: 12px 16px;
+  background: var(--green-light); border: 1px solid #7EC9A0;
+  border-radius: 8px; font-size: 13px; color: var(--green);
+}
+
+/* ─── 30 DAY PLAN ─── */
+.plan-week { margin-bottom: 32px; }
+.plan-week-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 16px;
+}
+.week-badge {
+  font-size: 11px; font-weight: 700; padding: 4px 10px;
+  border-radius: 20px; white-space: nowrap;
+}
+.week-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 17px; font-weight: 600; color: var(--primary);
+}
+.week-goal { font-size: 12px; color: var(--muted); margin-left: auto; }
+.days-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 10px;
+}
+.day-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 16px;
+  transition: box-shadow 0.2s; cursor: pointer;
+}
+.day-card:hover { box-shadow: var(--shadow); border-color: var(--accent2); }
+.day-num { font-size: 11px; color: var(--muted); margin-bottom: 5px; }
+.day-title { font-size: 14px; font-weight: 500; color: var(--primary); margin-bottom: 6px; line-height: 1.4; }
+.day-desc { font-size: 13px; color: var(--secondary); line-height: 1.65; }
+.day-tags { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
+.day-tag {
+  font-size: 10px; padding: 2px 6px;
+  border-radius: 3px; font-weight: 500;
+}
+.tag-read { background: var(--green-light); color: var(--green); }
+.tag-practice { background: var(--gold-light); color: #8B6414; }
+.tag-review { background: var(--blue-light); color: var(--blue); }
+.tag-reflect { background: var(--coral-light); color: var(--coral); }
+
+/* ─── COMPARISON ─── */
+.compare-table {
+  width: 100%; border-collapse: collapse; font-size: 14px;
+  background: var(--surface); border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: var(--shadow);
+}
+.compare-table th {
+  background: var(--primary); color: #F7F3EE;
+  padding: 12px 14px; text-align: left; font-weight: 500;
+  font-size: 12px;
+}
+.compare-table th:first-child { width: 100px; }
+.compare-table td {
+  padding: 12px 14px; border-bottom: 1px solid var(--border);
+  line-height: 1.6; vertical-align: top;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:nth-child(even) td { background: var(--surface2); }
+.book-highlight { color: var(--accent); font-weight: 500; }
+.star-badge {
+  display: inline-block; padding: 2px 7px;
+  background: var(--gold-light); color: #8B6414;
+  border-radius: 3px; font-size: 11px; font-weight: 600;
+}
+
+/* ─── MODAL ─── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(35,20,8,0.5); z-index: 200;
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--surface); border-radius: var(--radius-lg);
+  width: 100%; max-width: 660px; max-height: 85vh;
+  display: flex; flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  animation: modal-in 0.25s ease;
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-header {
+  padding: 20px 24px 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.modal-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: var(--gold-light); display: flex; align-items: center;
+  justify-content: center; font-size: 16px; flex-shrink: 0;
+}
+.modal-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 17px; font-weight: 600; color: var(--primary);
+  flex: 1; line-height: 1.4;
+}
+.modal-close {
+  background: none; border: none; font-size: 20px;
+  color: var(--muted); cursor: pointer; padding: 4px 8px;
+  flex-shrink: 0;
+}
+.modal-close:hover { color: var(--primary); }
+.modal-body {
+  flex: 1; overflow-y: auto; padding: 20px 24px;
+}
+.modal-loading {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 14px; padding: 40px;
+}
+.spinner {
+  width: 32px; height: 32px; border: 2px solid var(--border);
+  border-top-color: var(--accent); border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.modal-loading p { font-size: 13px; color: var(--muted); }
+.modal-content {
+  font-size: 15px; line-height: 1.9; color: var(--primary);
+}
+.modal-content h3 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 16px; font-weight: 600; margin: 18px 0 10px;
+  color: var(--primary);
+}
+.modal-content h3:first-child { margin-top: 0; }
+.modal-content p { margin-bottom: 12px; color: var(--secondary); }
+.modal-content ul { padding-left: 20px; margin-bottom: 12px; }
+.modal-content li { margin-bottom: 6px; color: var(--secondary); }
+.modal-content strong { color: var(--primary); font-weight: 500; }
+.modal-content .highlight-box {
+  background: var(--gold-light); border-left: 3px solid var(--gold);
+  padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 14px 0;
+  font-size: 13px; color: #6B4A08; line-height: 1.7;
+}
+.modal-content .example-box {
+  background: var(--surface2); border-radius: 8px;
+  padding: 12px 16px; margin: 14px 0; font-size: 13px; line-height: 1.7;
+}
+.modal-error {
+  padding: 20px; background: var(--coral-light);
+  border-radius: 8px; font-size: 13px; color: var(--coral);
+  line-height: 1.7;
+}
+
+/* ─── BOOK OVERVIEW ─── */
+.overview-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px; margin-bottom: 24px;
+}
+@media (max-width: 560px) { .overview-grid { grid-template-columns: 1fr; } }
+.overview-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px;
+}
+.overview-card-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+}
+.overview-card-text { font-size: 14px; color: var(--primary); line-height: 1.75; }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 600px) {
+  .nav-btn { padding: 12px 10px; font-size: 12px; }
+  .main { padding: 24px 16px 60px; }
+  .modal { max-height: 90vh; }
+}
+
+/* ═══ THEMES ═══ */
+/* Theme 1: 暖木（默认，原色） */
+[data-theme="warm"] {
+  --bg: #F7F3EE; --surface: #FFFFFF; --surface2: #F2EDE6;
+  --primary: #231408; --secondary: #6B5A47; --muted: #9B8B78;
+  --border: #E2D8CC; --accent: #8B5E14; --accent2: #C4891A;
+  --gold: #D4A843; --gold-light: #FDF3DC;
+  --green: #3A6644; --green-light: #EAF2ED;
+  --blue: #1C4F7A; --blue-light: #E8F2FA;
+  --coral: #8B3620; --coral-light: #FAF0EC;
+  --header-bg: #231408; --header-glow: rgba(196,137,26,0.18);
+  --nav-bg: #FFFFFF;
+}
+
+/* Theme 2: 彩虹糖（儿童活泼） */
+[data-theme="rainbow"] {
+  --bg: #FFF8F0; --surface: #FFFFFF; --surface2: #FFF0E8;
+  --primary: #2D1B4E; --secondary: #5C3D7A; --muted: #9B78B8;
+  --border: #E8D5F5; --accent: #D4447A; --accent2: #F06E9E;
+  --gold: #FFB830; --gold-light: #FFF5D6;
+  --green: #2E8B57; --green-light: #E6F9F0;
+  --blue: #2272B8; --blue-light: #E3F2FD;
+  --coral: #E84040; --coral-light: #FFE8E8;
+  --header-bg: linear-gradient(135deg, #FF6B9D 0%, #C44BE0 40%, #4B6AF0 100%);
+  --header-glow: rgba(255,184,48,0.25);
+  --nav-bg: #FFFFFF;
+}
+
+/* Theme 3: 森林绿（自然温暖） */
+[data-theme="forest"] {
+  --bg: #F2F7F2; --surface: #FFFFFF; --surface2: #EBF4EB;
+  --primary: #1A3A1A; --secondary: #3D5E3D; --muted: #7A9A7A;
+  --border: #C8E0C8; --accent: #2D7A3A; --accent2: #48A858;
+  --gold: #C8A020; --gold-light: #FEF8E3;
+  --green: #1E6B3C; --green-light: #E4F5EC;
+  --blue: #1A5080; --blue-light: #E3F0FA;
+  --coral: #B54020; --coral-light: #FAEEE8;
+  --header-bg: linear-gradient(135deg, #2D7A3A 0%, #1A5A28 100%);
+  --header-glow: rgba(200,160,32,0.22);
+  --nav-bg: #FFFFFF;
+}
+
+/* ─── THEME SWITCHER ─── */
+.theme-bar {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 8px 20px; display: flex; align-items: center; gap: 10px;
+  justify-content: center; flex-wrap: wrap;
+}
+.theme-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.theme-btns { display: flex; gap: 6px; }
+.theme-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--border);
+  background: var(--surface); cursor: pointer; font-size: 12px;
+  font-family: inherit; color: var(--secondary); transition: all 0.2s;
+  white-space: nowrap;
+}
+.theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+.theme-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+.theme-swatch {
+  width: 12px; height: 12px; border-radius: 50%; display: inline-block; flex-shrink: 0;
+}
+</style>
+</head>
+<body>
+
+<!-- 返回首页导航 -->
+<div style="position:sticky;top:0;z-index:2000;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,0.08);padding:10px 20px;">
+  <a href="index.html" style="text-decoration:none;color:#555;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px;">← 返回首页</a>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-label">认知提升大师 · 完整学习系统</div>
+    <h1 class="header-title">正面管教（修订版）</h1>
+    <div class="header-sub">Jane Nelsen 著 · 阿德勒心理学 · 家庭育儿实践体系</div>
+    <div class="header-tags">
+      <span class="header-tag">6大学习阶段</span>
+      <span class="header-tag">全书知识地图</span>
+      <span class="header-tag">20张主动回忆卡片</span>
+      <span class="header-tag">10题自测</span>
+      <span class="header-tag">30天学习路线</span>
+    </div>
+  </div>
+</div>
+
+<!-- THEME SWITCHER -->
+<div class="theme-bar">
+  <span class="theme-label">🎨 主题风格：</span>
+  <div class="theme-btns">
+    <button class="theme-btn active" id="tb-warm" onclick="setTheme('warm',this)">
+      <span class="theme-swatch" style="background:#8B5E14"></span>暖木书房
+    </button>
+    <button class="theme-btn" id="tb-rainbow" onclick="setTheme('rainbow',this)">
+      <span class="theme-swatch" style="background:linear-gradient(135deg,#FF6B9D,#C44BE0,#4B6AF0)"></span>彩虹糖果
+    </button>
+    <button class="theme-btn" id="tb-forest" onclick="setTheme('forest',this)">
+      <span class="theme-swatch" style="background:#2D7A3A"></span>森林探险
+    </button>
+  </div>
+</div>
+
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="switchTab('overview', this)">📖 全书概览</button>
+    <button class="nav-btn" onclick="switchTab('map', this)">🗺 知识地图</button>
+    <button class="nav-btn" onclick="switchTab('takeaways', this)">✨ 核心精华</button>
+    <button class="nav-btn" onclick="switchTab('anki', this)">🃏 记忆卡片</button>
+    <button class="nav-btn" onclick="switchTab('test', this)">📝 知识自测</button>
+    <button class="nav-btn" onclick="switchTab('plan', this)">📅 30天路线</button>
+    <button class="nav-btn" onclick="switchTab('compare', this)">📚 横向对比</button>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+<!-- ═══════════ SECTION: OVERVIEW ═══════════ -->
+<section id="sec-overview" class="section active">
+  <div class="section-heading">全书概览</div>
+  <div class="section-desc">用5分钟建立对这本书的整体认知框架——在深入之前先看到全貌。</div>
+
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="overview-card-label">作者背景</div>
+      <div class="overview-card-text">
+        <strong>简·尼尔森（Jane Nelsen）</strong>，教育学博士，持证婚姻家庭治疗师。正面管教协会创始人之一。她本人养育了7个孩子，深知理论与现实之间的落差，这使她的方法极具实操性。正面管教已被翻译成16种语言，成为全球家长和教师使用最广泛的教育体系之一。
+      </div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-label">核心主张</div>
+      <div class="overview-card-text">
+        惩罚和骄纵都不是有效的管教方式。孩子需要的是<strong>温和（Kind）而坚定（Firm）</strong>的引导。所有的管教工具都必须同时满足两个条件：① 维护孩子的尊严，② 达到长期教育目标。
+      </div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-label">理论根基</div>
+      <div class="overview-card-text">
+        基于<strong>阿德弗雷德·阿德勒（Alfred Adler）</strong>心理学。核心假设：人类所有行为都以追求<strong>归属感（Belonging）</strong>和<strong>价值感（Significance）</strong>为目的。孩子的"问题行为"是用错误方式满足这两种需求。
+      </div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-label">修订版更新</div>
+      <div class="overview-card-text">
+        在原版基础上增加了：① 神经科学研究支持（大脑发育视角），② 更多真实家庭案例，③ 对"权力争夺"和"青少年版"的专章补充，④ 如何与电子屏幕时代的孩子沟通。
+      </div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-label">适合谁读</div>
+      <div class="overview-card-text">
+        3—12岁孩子的家长（最适合）；学龄前儿童教师；想改善亲子关系的任何人。青少年家长建议同时阅读《正面管教·青少年版》。
+      </div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-label">阅读建议</div>
+      <div class="overview-card-text">
+        不要只读，要<strong>边读边实践</strong>。每次读完一个工具，当天就在生活中用一次，哪怕不完美。这本书的价值来自应用，不来自记忆。
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;margin-bottom:16px">
+    <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:12px;letter-spacing:0.04em">全书结构速览</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
+      <div style="padding:12px;background:var(--surface2);border-radius:8px;font-size:12px;color:var(--secondary);line-height:1.6">
+        <div style="font-weight:600;color:var(--primary);margin-bottom:4px">第一部分：理论基础</div>
+        阿德勒心理学 · 归属感 · 价值感 · 行为目的论
+      </div>
+      <div style="padding:12px;background:var(--surface2);border-radius:8px;font-size:12px;color:var(--secondary);line-height:1.6">
+        <div style="font-weight:600;color:var(--primary);margin-bottom:4px">第二部分：解码行为</div>
+        四个错误目的 · 冰山理论 · 脑科学视角
+      </div>
+      <div style="padding:12px;background:var(--surface2);border-radius:8px;font-size:12px;color:var(--secondary);line-height:1.6">
+        <div style="font-weight:600;color:var(--primary);margin-bottom:4px">第三部分：核心工具</div>
+        家庭会议 · 鼓励 · 后果 · 启发式问题
+      </div>
+      <div style="padding:12px;background:var(--surface2);border-radius:8px;font-size:12px;color:var(--secondary);line-height:1.6">
+        <div style="font-weight:600;color:var(--primary);margin-bottom:4px">第四部分：场景应用</div>
+        权力争夺 · 情绪管理 · 特别时光 · 犯错修复
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:16px 0">
+    <button onclick="switchTab('map', document.querySelectorAll('.nav-btn')[1])" style="padding:10px 24px;background:var(--primary);color:#F7F3EE;border:none;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit">
+      开始学习 → 进入知识地图
+    </button>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION: MAP ═══════════ -->
+<section id="sec-map" class="section">
+  <div class="section-heading">全书知识地图</div>
+  <div class="section-desc">点击任意节点，AI 将为你深度解析该主题——包括理论背景、实操方法和真实案例。</div>
+  <div class="click-hint">💡 点击下方任意彩色节点 → 查看深度解析内容</div>
+  <div class="map-container">
+    <svg width="100%" viewBox="0 0 800 860" role="img">
+      <title>正面管教全书知识地图</title>
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- ROOT -->
+      <g class="map-node" onclick="exploreNode('adler', '阿德勒心理学 · 三大假设', '🔬')" style="cursor:pointer">
+        <rect x="240" y="20" width="320" height="56" rx="12" fill="#231408" stroke="#C4891A" stroke-width="1.5"/>
+        <text x="400" y="44" text-anchor="middle" font-family="Noto Serif SC,serif" font-size="14" font-weight="600" fill="#F7F3EE">阿德勒心理学 · 三大假设</text>
+        <text x="400" y="64" text-anchor="middle" font-family="Noto Sans SC,sans-serif" font-size="11" fill="rgba(247,243,238,0.6)">归属感 · 自我价值感 · 行为有目的</text>
+      </g>
+
+      <!-- Connector root → core -->
+      <line x1="400" y1="76" x2="400" y2="118" stroke="#C9A878" stroke-width="1" marker-end="url(#arr)"/>
+
+      <!-- CORE PRINCIPLE -->
+      <g class="map-node" onclick="exploreNode('kind_firm', '温和而坚定', '⚖️')" style="cursor:pointer">
+        <rect x="220" y="118" width="360" height="56" rx="12" fill="#3A6644" stroke="#7EC9A0" stroke-width="1"/>
+        <text x="400" y="142" text-anchor="middle" font-family="Noto Serif SC,serif" font-size="14" font-weight="600" fill="#F7F3EE">核心原则：温和（Kind）而坚定（Firm）</text>
+        <text x="400" y="162" text-anchor="middle" font-family="Noto Sans SC,sans-serif" font-size="11" fill="rgba(247,243,238,0.65)">既不惩罚，也不骄纵 · 同时做到两者</text>
+      </g>
+
+      <!-- Branches connector line -->
+      <line x1="400" y1="174" x2="400" y2="210" stroke="#C9A878" stroke-width="0.8"/>
+      <line x1="100" y1="210" x2="700" y2="210" stroke="#C9A878" stroke-width="0.8"/>
+      <line x1="100" y1="210" x2="100" y2="238" stroke="#C9A878" stroke-width="0.8"/>
+      <line x1="240" y1="210" x2="240" y2="238" stroke="#C9A878" stroke-width="0.8"/>
+      <line x1="400" y1="210" x2="400" y2="238" stroke="#C9A878" stroke-width="0.8"/>
+      <line x1="560" y1="210" x2="560" y2="238" stroke="#C9A878" stroke-width="0.8"/>
+      <line x1="700" y1="210" x2="700" y2="238" stroke="#C9A878" stroke-width="0.8"/>
+
+      <!-- PILLAR 1 -->
+      <g onclick="exploreNode('family_meeting', '家庭会议', '🏛️')" style="cursor:pointer">
+        <rect x="38" y="238" width="124" height="70" rx="8" fill="#1C4F7A" stroke="#78B4E8" stroke-width="0.8"/>
+        <text x="100" y="264" text-anchor="middle" font-size="13" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">家庭会议</text>
+        <text x="100" y="280" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">每周固定</text>
+        <text x="100" y="296" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">孩子参与决策</text>
+      </g>
+
+      <!-- PILLAR 2 -->
+      <g onclick="exploreNode('connect_correct', '连接再纠正', '🔗')" style="cursor:pointer">
+        <rect x="178" y="238" width="124" height="70" rx="8" fill="#1C4F7A" stroke="#78B4E8" stroke-width="0.8"/>
+        <text x="240" y="264" text-anchor="middle" font-size="13" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">连接再纠正</text>
+        <text x="240" y="280" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">先情感连接</text>
+        <text x="240" y="296" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">再引导行为</text>
+      </g>
+
+      <!-- PILLAR 3 -->
+      <g onclick="exploreNode('consequences', '后果 vs 惩罚', '⚡')" style="cursor:pointer">
+        <rect x="338" y="238" width="124" height="70" rx="8" fill="#1C4F7A" stroke="#78B4E8" stroke-width="0.8"/>
+        <text x="400" y="264" text-anchor="middle" font-size="13" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">后果 vs 惩罚</text>
+        <text x="400" y="280" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">自然后果</text>
+        <text x="400" y="296" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">逻辑后果3R</text>
+      </g>
+
+      <!-- PILLAR 4 -->
+      <g onclick="exploreNode('encourage', '鼓励 vs 表扬', '🌱')" style="cursor:pointer">
+        <rect x="498" y="238" width="124" height="70" rx="8" fill="#1C4F7A" stroke="#78B4E8" stroke-width="0.8"/>
+        <text x="560" y="264" text-anchor="middle" font-size="13" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">鼓励 vs 表扬</text>
+        <text x="560" y="280" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">内在动力</text>
+        <text x="560" y="296" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">vs 外部依赖</text>
+      </g>
+
+      <!-- PILLAR 5 -->
+      <g onclick="exploreNode('seven_skills', '七项感知力', '🧭')" style="cursor:pointer">
+        <rect x="638" y="238" width="124" height="70" rx="8" fill="#1C4F7A" stroke="#78B4E8" stroke-width="0.8"/>
+        <text x="700" y="264" text-anchor="middle" font-size="13" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">七项感知力</text>
+        <text x="700" y="280" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">长期目标导向</text>
+        <text x="700" y="296" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">生活技能</text>
+      </g>
+
+      <!-- Section label -->
+      <text x="400" y="350" text-anchor="middle" font-size="11" fill="#9B8B78" font-family="Noto Sans SC,sans-serif">▼ 理解孩子行为的密码</text>
+
+      <!-- BEHAVIOR SECTION - 3 boxes -->
+      <g onclick="exploreNode('four_goals', '四个错误目的', '🎯')" style="cursor:pointer">
+        <rect x="36" y="364" width="210" height="100" rx="10" fill="#8B3620" stroke="#E88070" stroke-width="0.8"/>
+        <text x="141" y="390" text-anchor="middle" font-size="13" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">四个错误目的</text>
+        <text x="141" y="410" text-anchor="middle" font-size="11" fill="rgba(247,243,238,0.8)" font-family="Noto Sans SC,sans-serif">① 寻求过度关注</text>
+        <text x="141" y="428" text-anchor="middle" font-size="11" fill="rgba(247,243,238,0.8)" font-family="Noto Sans SC,sans-serif">② 寻求权力</text>
+        <text x="141" y="446" text-anchor="middle" font-size="11" fill="rgba(247,243,238,0.8)" font-family="Noto Sans SC,sans-serif">③ 报复 · ④ 自暴自弃</text>
+      </g>
+
+      <g onclick="exploreNode('iceberg', '冰山理论', '🧊')" style="cursor:pointer">
+        <rect x="295" y="364" width="210" height="100" rx="10" fill="#8B3620" stroke="#E88070" stroke-width="0.8"/>
+        <text x="400" y="390" text-anchor="middle" font-size="13" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">冰山理论</text>
+        <text x="400" y="410" text-anchor="middle" font-size="11" fill="rgba(247,243,238,0.8)" font-family="Noto Sans SC,sans-serif">行为（可见水面上）</text>
+        <text x="400" y="428" text-anchor="middle" font-size="11" fill="rgba(247,243,238,0.8)" font-family="Noto Sans SC,sans-serif">↓ 情绪感受</text>
+        <text x="400" y="446" text-anchor="middle" font-size="11" fill="rgba(247,243,238,0.8)" font-family="Noto Sans SC,sans-serif">↓ 错误信念（根源）</text>
+      </g>
+
+      <g onclick="exploreNode('brain', '脑科学视角', '🧠')" style="cursor:pointer">
+        <rect x="554" y="364" width="210" height="100" rx="10" fill="#8B3620" stroke="#E88070" stroke-width="0.8"/>
+        <text x="659" y="390" text-anchor="middle" font-size="13" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">脑科学视角</text>
+        <text x="659" y="410" text-anchor="middle" font-size="11" fill="rgba(247,243,238,0.8)" font-family="Noto Sans SC,sans-serif">大脑盖子翻起来</text>
+        <text x="659" y="428" text-anchor="middle" font-size="11" fill="rgba(247,243,238,0.8)" font-family="Noto Sans SC,sans-serif">前额叶 vs 杏仁核</text>
+        <text x="659" y="446" text-anchor="middle" font-size="11" fill="rgba(247,243,238,0.8)" font-family="Noto Sans SC,sans-serif">冷静后才能教导</text>
+      </g>
+
+      <!-- Section label tools -->
+      <text x="400" y="498" text-anchor="middle" font-size="11" fill="#9B8B78" font-family="Noto Sans SC,sans-serif">▼ 实操工具箱</text>
+
+      <!-- TOOLS ROW -->
+      <g onclick="exploreNode('questions', '启发式问题', '❓')" style="cursor:pointer">
+        <rect x="36" y="512" width="150" height="64" rx="8" fill="#8B6914" stroke="#D4A843" stroke-width="0.8"/>
+        <text x="111" y="538" text-anchor="middle" font-size="13" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">启发式问题</text>
+        <text x="111" y="558" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">引导孩子思考解决方案</text>
+      </g>
+
+      <g onclick="exploreNode('calm_space', '冷静角', '🏠')" style="cursor:pointer">
+        <rect x="202" y="512" width="150" height="64" rx="8" fill="#8B6914" stroke="#D4A843" stroke-width="0.8"/>
+        <text x="277" y="538" text-anchor="middle" font-size="13" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">冷静角</text>
+        <text x="277" y="558" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">恢复工具，不是惩罚</text>
+      </g>
+
+      <g onclick="exploreNode('special_time', '特别时光', '⭐')" style="cursor:pointer">
+        <rect x="368" y="512" width="150" height="64" rx="8" fill="#8B6914" stroke="#D4A843" stroke-width="0.8"/>
+        <text x="443" y="538" text-anchor="middle" font-size="13" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">特别时光</text>
+        <text x="443" y="558" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">每天15分钟专注</text>
+      </g>
+
+      <g onclick="exploreNode('three_r', '犯错修复 3R', '🔄')" style="cursor:pointer">
+        <rect x="534" y="512" width="150" height="64" rx="8" fill="#8B6914" stroke="#D4A843" stroke-width="0.8"/>
+        <text x="609" y="538" text-anchor="middle" font-size="13" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">犯错修复 3R</text>
+        <text x="609" y="558" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.7)" font-family="Noto Sans SC,sans-serif">承认·和解·解决</text>
+      </g>
+
+      <!-- Scene applications -->
+      <text x="400" y="614" text-anchor="middle" font-size="11" fill="#9B8B78" font-family="Noto Sans SC,sans-serif">▼ 常见场景应用</text>
+
+      <g onclick="exploreNode('power', '权力争夺', '🤼')" style="cursor:pointer">
+        <rect x="80" y="628" width="140" height="56" rx="8" fill="#3A4060" stroke="#9098D0" stroke-width="0.8"/>
+        <text x="150" y="652" text-anchor="middle" font-size="12" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">权力争夺</text>
+        <text x="150" y="670" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.65)" font-family="Noto Sans SC,sans-serif">如何退出争斗</text>
+      </g>
+
+      <g onclick="exploreNode('emotion', '情绪崩溃应对', '😤')" style="cursor:pointer">
+        <rect x="250" y="628" width="140" height="56" rx="8" fill="#3A4060" stroke="#9098D0" stroke-width="0.8"/>
+        <text x="320" y="652" text-anchor="middle" font-size="12" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">情绪崩溃应对</text>
+        <text x="320" y="670" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.65)" font-family="Noto Sans SC,sans-serif">先连接再引导</text>
+      </g>
+
+      <g onclick="exploreNode('boundary', '界限设置', '🚧')" style="cursor:pointer">
+        <rect x="420" y="628" width="140" height="56" rx="8" fill="#3A4060" stroke="#9098D0" stroke-width="0.8"/>
+        <text x="490" y="652" text-anchor="middle" font-size="12" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">界限设置</text>
+        <text x="490" y="670" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.65)" font-family="Noto Sans SC,sans-serif">温和而坚定执行</text>
+      </g>
+
+      <g onclick="exploreNode('siblings', '兄弟姐妹冲突', '👫')" style="cursor:pointer">
+        <rect x="590" y="628" width="140" height="56" rx="8" fill="#3A4060" stroke="#9098D0" stroke-width="0.8"/>
+        <text x="660" y="652" text-anchor="middle" font-size="12" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">兄弟姐妹冲突</text>
+        <text x="660" y="670" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.65)" font-family="Noto Sans SC,sans-serif">不偏袒协同解决</text>
+      </g>
+
+      <!-- Long term goal -->
+      <line x1="400" y1="684" x2="400" y2="714" stroke="#C9A878" stroke-width="0.8" marker-end="url(#arr)"/>
+      <g onclick="exploreNode('long_term', '长期培养目标', '🌳')" style="cursor:pointer">
+        <rect x="160" y="714" width="480" height="54" rx="12" fill="#231408" stroke="#C4891A" stroke-width="1.5"/>
+        <text x="400" y="738" text-anchor="middle" font-size="13" font-weight="600" fill="#F7F3EE" font-family="Noto Serif SC,serif">长期目标：自律 · 合作 · 责任感 · 解决问题能力</text>
+        <text x="400" y="758" text-anchor="middle" font-size="10" fill="rgba(247,243,238,0.6)" font-family="Noto Sans SC,sans-serif">培养有用的孩子，而不仅是听话的孩子</text>
+      </g>
+    </svg>
+
+    <div class="map-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#231408"></div>理论根基</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#3A6644"></div>核心原则</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#1C4F7A"></div>五大支柱</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#8B3620"></div>行为解码</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#8B6914"></div>实操工具</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#3A4060"></div>场景应用</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION: TAKEAWAYS ═══════════ -->
+<section id="sec-takeaways" class="section">
+  <div class="section-heading">核心10大精华</div>
+  <div class="section-desc">每条都附有费曼式简单解释、生活类比和实操例句。点击任意条目展开查看完整内容。</div>
+  <div class="takeaway-list" id="takeawayList"></div>
+</section>
+
+<!-- ═══════════ SECTION: ANKI ═══════════ -->
+<section id="sec-anki" class="section">
+  <div class="section-heading">主动回忆卡片</div>
+  <div class="section-desc">点击卡片翻转查看答案。间隔重复建议：第 1 / 3 / 7 / 14 / 30 天复习。主动回忆是记忆效率最高的学习方式。</div>
+  <div class="anki-controls">
+    <div class="anki-filter">
+      <button class="filter-btn active" onclick="filterAnki('all', this)">全部 (20)</button>
+      <button class="filter-btn" onclick="filterAnki('理论', this)">理论</button>
+      <button class="filter-btn" onclick="filterAnki('原则', this)">原则</button>
+      <button class="filter-btn" onclick="filterAnki('工具', this)">工具</button>
+      <button class="filter-btn" onclick="filterAnki('应用', this)">应用</button>
+      <button class="filter-btn" onclick="filterAnki('脑科学', this)">脑科学</button>
+    </div>
+    <span class="anki-progress" id="ankiProgress">已翻看 0 / 20</span>
+  </div>
+  <div class="anki-grid" id="ankiGrid"></div>
+</section>
+
+<!-- ═══════════ SECTION: TEST ═══════════ -->
+<section id="sec-test" class="section">
+  <div class="section-heading">知识缺口自测</div>
+  <div class="section-desc">用自己的话回答以下10道开放题，写完后提交。测试设计遵循渐进认知负荷：基础回忆 → 变式应用 → 批判创造。</div>
+  <div class="test-form" id="testForm"></div>
+</section>
+
+<!-- ═══════════ SECTION: PLAN ═══════════ -->
+<section id="sec-plan" class="section">
+  <div class="section-heading">30天间隔重复学习路线</div>
+  <div class="section-desc">每天15-20分钟，分散学习优于集中突击。每个阶段有明确的认知目标和具体任务说明，点击每天卡片查看详细指引。</div>
+  <div id="planContent"></div>
+</section>
+
+<!-- ═══════════ SECTION: COMPARE ═══════════ -->
+<section id="sec-compare" class="section">
+  <div class="section-heading">横向对比 · 相关经典书单</div>
+  <div class="section-desc">理解《正面管教》在整个育儿知识体系中的位置，以及它与其他经典的异同。</div>
+
+  <div style="overflow-x:auto;border-radius:var(--radius-lg);box-shadow:var(--shadow)">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th>《正面管教》<br>尼尔森</th>
+          <th>《如何说孩子<br>才会听》法伯</th>
+          <th>《父母效能训练》<br>戈登</th>
+          <th>《全脑教养法》<br>西格尔</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>理论根基</td>
+          <td>阿德勒心理学</td>
+          <td>人本主义心理学</td>
+          <td>人本主义+沟通理论</td>
+          <td>神经科学+依恋理论</td>
+        </tr>
+        <tr>
+          <td>核心工具</td>
+          <td><span class="book-highlight">家庭会议、逻辑后果、启发式问题</span></td>
+          <td>反映式倾听、描述感受</td>
+          <td>"我信息"、积极倾听、双赢解决</td>
+          <td>整合左右脑、联结再纠正</td>
+        </tr>
+        <tr>
+          <td>独特贡献</td>
+          <td><span class="star-badge">★最佳</span> 系统最完整、有学校版本、工具最多</td>
+          <td>语言脚本最实用具体，新手家长友好</td>
+          <td>冲突解决方法最深入，尊重最彻底</td>
+          <td>脑科学解释最权威，理解孩子行为原因</td>
+        </tr>
+        <tr>
+          <td>主要局限</td>
+          <td>需要孩子有一定认知发展（3岁以上最佳）</td>
+          <td>方法较零散，缺乏系统框架</td>
+          <td>操作性偏弱，需大量练习才上手</td>
+          <td>偏理论，实操工具较少</td>
+        </tr>
+        <tr>
+          <td>适合年龄</td>
+          <td>3—12岁（青少年有单独版）</td>
+          <td>任何年龄</td>
+          <td>任何年龄</td>
+          <td>0—12岁</td>
+        </tr>
+        <tr>
+          <td>阅读难度</td>
+          <td>中等，案例丰富</td>
+          <td>易，对话式</td>
+          <td>中等，略学术</td>
+          <td>中高，有些术语</td>
+        </tr>
+        <tr>
+          <td>推荐顺序</td>
+          <td>🥇 先读这本</td>
+          <td>🥈 配套工具书</td>
+          <td>🥉 深度补充</td>
+          <td>🔬 原理深化</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px">
+    <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:12px">延伸学习地图</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">
+      <div style="padding:12px;background:var(--surface2);border-radius:8px;font-size:12px;line-height:1.7">
+        <div style="font-weight:600;color:var(--primary);margin-bottom:4px">🔗 这本书读完后</div>
+        <div style="color:var(--secondary)">《正面管教 · 青少年版》—— 孩子进入青春期后的特殊挑战</div>
+      </div>
+      <div style="padding:12px;background:var(--surface2);border-radius:8px;font-size:12px;line-height:1.7">
+        <div style="font-weight:600;color:var(--primary);margin-bottom:4px">🧠 脑科学深化</div>
+        <div style="color:var(--secondary)">《全脑教养法》西格尔 —— 理解大脑发育，科学依据更扎实</div>
+      </div>
+      <div style="padding:12px;background:var(--surface2);border-radius:8px;font-size:12px;line-height:1.7">
+        <div style="font-weight:600;color:var(--primary);margin-bottom:4px">💬 语言实操</div>
+        <div style="color:var(--secondary)">《如何说孩子才会听》—— 具体句型脚本，语言训练最好用</div>
+      </div>
+      <div style="padding:12px;background:var(--surface2);border-radius:8px;font-size:12px;line-height:1.7">
+        <div style="font-weight:600;color:var(--primary);margin-bottom:4px">🌱 理论溯源</div>
+        <div style="color:var(--secondary)">阿德勒《自卑与超越》—— 了解核心心理学理论的原始来源</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════ MODAL ═══════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOverlay(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-icon" id="modalIcon">📖</div>
+      <div class="modal-title" id="modalTitle">正在加载...</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <div class="modal-loading" id="modalLoading" style="display:none">
+        <div class="spinner"></div>
+        <p>AI 正在深度解析这个主题...</p>
+      </div>
+      <div class="modal-content" id="modalContent" style="display:none"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ DAY DETAIL MODAL ═══════════ -->
+<div class="modal-overlay" id="dayModalOverlay" onclick="closeDayModalOverlay(event)">
+  <div class="modal" id="dayModal">
+    <div class="modal-header">
+      <div class="modal-icon" id="dayModalIcon">📅</div>
+      <div class="modal-title" id="dayModalTitle"></div>
+      <button class="modal-close" onclick="closeDayModal()">✕</button>
+    </div>
+    <div class="modal-body" id="dayModalBody"></div>
+  </div>
+</div>
+
+<script>
+const NODE_CONTENT = {
+  adler: { title: `阿德勒心理学三大核心假设`, content: `
+<h3>为什么阿德勒改变了育儿视角</h3>
+<p>传统育儿观认为，孩子做坏事是因为"本性不好"或"故意捣乱"，解决办法自然是惩罚。阿德勒心理学从根本上推翻了这个假设，它提出了三个截然不同的前提，是整本《正面管教》的理论地基。</p>
+<h3>假设一：人类最深层的渴望是归属感和价值感</h3>
+<p>每个孩子都在不断追问两个问题：<strong>①"我在这个家庭/班级里有没有位置？"（归属感）②"我重要吗？有人需要我吗？"（价值感）</strong>这不是奢侈品，而是心理生存的必需品。当这两种需求得到满足，孩子会表现出合作、快乐和自律；当需求未被满足，孩子就会用各种方式——哪怕是"问题行为"——来寻求满足。</p>
+<div class="highlight-box">核心转变：孩子不是"坏"，是"迷路"。他在用错误的方式寻找正确的东西。</div>
+<h3>假设二：行为是有目的的</h3>
+<p>孩子没有任何一个行为是"无缘无故"的。哭闹、打人、拒绝吃饭、发脾气……每个行为背后都有一个目的——通常是为了寻求归属感或价值感。家长的任务不是"消灭行为"，而是"读懂目的"，然后帮助孩子用更健康的方式实现同样的目的。</p>
+<h3>假设三：人是社会性动物，行为受社会情境影响</h3>
+<p>孩子的行为不能脱离他所处的环境来理解。同一个孩子，在感到被爱和安全的环境里，和在感到被忽视或被威胁的环境里，行为会完全不同。改变环境（尤其是亲子关系的质量），比改变孩子更有效。</p>
+<div class="example-box"><strong>实践应用：</strong>下次孩子出现问题行为，先停下来问自己——"他通过这个行为，想得到什么？他是在寻求关注、权力、还是感觉自己有价值？"这个问题会帮你找到真正的解决方向，而不只是扑灭表面的"火"。</div>
+` },
+  kind_firm: { title: `温和而坚定`, content: `
+<h3>大多数家长在两个极端之间摇摆</h3>
+<p>观察大多数亲子互动，家长往往处于两种模式之一：<strong>太严（坚定但不温和）</strong>——命令、威胁、惩罚，孩子表面服从，内心积累愤恨；<strong>太软（温和但不坚定）</strong>——无限妥协、满足无理要求，孩子感觉没有边界，反而更不安全。</p>
+<div class="highlight-box">正面管教的核心技能：同时做到温和（尊重孩子的感受）和坚定（维持界限不妥协）。这不是妥协，是更高水平的技能。</div>
+<h3>什么是真正的"温和"</h3>
+<p>温和不是软弱，不是"好吧随便你"。温和指的是<strong>态度和语气</strong>：蹲下来与孩子平视，声音平稳不威胁，承认孩子的感受，使用尊重的语言。温和的本质是：我在维持界限，但我尊重你作为一个人的尊严。</p>
+<h3>什么是真正的"坚定"</h3>
+<p>坚定不是冷漠，不是"我说不行就不行"。坚定指的是<strong>行为和结果</strong>：说了就算，不因为孩子哭闹而改变，用行动代替语言，不进入无谓的争论。坚定的本质是：规则和约定是真实存在的，不是可以谈判的装饰品。</p>
+<h3>同一件事的三种说法</h3>
+<div class="example-box">
+<strong>场景：孩子不肯关电视</strong><br><br>
+❌ 太严："现在给我关掉！说不行就不行！再不关我就砸掉它！"<br>
+❌ 太软："哎呀好吧，再看一集，就一集哦……好不好？行了行了就这次……"<br>
+✅ 温和而坚定："我知道你很想继续看（温和），我们昨天约好的是7点关，现在已经7点了（坚定），我们把电视关掉。"——然后不争辩，走过去关掉。
+</div>
+<p>关键细节：<strong>说完就用行动执行，不重复同一句话三遍</strong>。重复说话会让孩子学到"妈妈说了不算，哭了才算"。</p>
+` },
+  family_meeting: { title: `家庭会议完整指南`, content: `
+<h3>家庭会议是什么？不是什么？</h3>
+<p>家庭会议不是"把孩子叫来训话"，不是"宣布家规"，也不是"批评大会"。它是一个<strong>每周固定的家庭民主空间</strong>，所有成员——包括最小的孩子——都有平等的发言权，家长和孩子共同解决问题、共同做决定。</p>
+<div class="highlight-box">核心原则：孩子参与制定的规则，执行率远高于家长单方面命令的规则。这是"心理所有权"的力量。</div>
+<h3>完整的四个环节（建议顺序）</h3>
+<p><strong>环节一：感谢与称赞（5分钟）</strong><br>每个人轮流说一件这周感谢另一位家庭成员的事。从积极情感开始，为整个会议定下温暖基调。可以从大人先示范："我想感谢小明这周主动帮我拿了快递。"</p>
+<p><strong>环节二：检查上次议题（3分钟）</strong><br>上次会议定的方案执行得怎么样？哪些有效？哪些需要调整？不是批评，是诚实回顾。</p>
+<p><strong>环节三：新问题讨论与投票（15分钟）</strong><br>任何人都可以提出问题（可提前准备"议题本"让家人写下来）。讨论时每人发言，然后共同投票选出解决方案。家长也要尊重投票结果。</p>
+<p><strong>环节四：计划家庭乐趣（5分钟）</strong><br>用开心的事结束会议——本周末去哪里？玩什么游戏？这让孩子期待每次会议而不是害怕。</p>
+<h3>常见问题与处理</h3>
+<div class="example-box">
+<strong>Q：孩子太小（3-5岁）能参与吗？</strong><br>
+可以。从简化版开始：只做"感谢"和"计划乐趣"两个环节，每次10分钟。孩子会逐渐理解会议的意义。<br><br>
+<strong>Q：孩子不认真，当成游戏怎么办？</strong><br>
+正常现象，不要强制严肃。幽默对待，但维持基本流程。几次之后孩子会发现，这里是真的可以提出想法并被认真对待的地方。<br><br>
+<strong>Q：伴侣不配合怎么办？</strong><br>
+从三人版本（一个大人+孩子）开始，让结果说话——当孩子自觉执行"我们会议上决定的规则"时，另一半通常会改变态度。
+</div>
+` },
+  connect_correct: { title: `连接再纠正`, content: `
+<h3>为什么顺序颠倒会失败</h3>
+<p>大多数家长的习惯顺序是：孩子做错 → 批评/惩罚 → （也许）安慰。这个顺序在神经科学层面行不通。孩子情绪激动时，大脑杏仁核（情绪中枢）激活，前额叶（学习/理性区域）几乎关闭。此时的批评，孩子<strong>物理上</strong>无法完整接收和处理。</p>
+<div class="highlight-box">正确顺序：① 先连接（情感上靠近孩子）→ ② 等孩子平静（前额叶重新上线）→ ③ 再纠正（讨论解决方案）</div>
+<h3>第一步：连接——具体怎么做</h3>
+<p>连接不是夸奖，不是哄骗，是<strong>让孩子感觉到"我被看见了"</strong>。具体动作：蹲下来与孩子平视，轻轻触碰（如果孩子接受），用平静语气说出你观察到的情绪——不评判，只是描述。</p>
+<div class="example-box">
+<strong>场景一：孩子推倒了弟弟</strong><br>
+❌ 直接纠正："你怎么可以推弟弟！去反思！"<br>
+✅ 先连接："我看到你好像很生气，能告诉我发生了什么吗？"→ 等孩子说完 → "弟弟抢了你的玩具，你感觉很不公平，是这样吗？" → 孩子点头（连接成功）→ 然后："我们来想想，下次弟弟抢你东西，有没有比推他更好的方法？"<br><br>
+<strong>场景二：孩子大哭不肯上学</strong><br>
+❌ 直接纠正："哭什么哭，上学有什么好哭的！快走！"<br>
+✅ 先连接："你看起来今天不想去学校，是有什么让你担心吗？"（蹲下，等待，不催促）
+</div>
+<h3>什么时候才是"纠正"的时机</h3>
+<p>等待信号：孩子的呼吸变慢、肢体不再僵硬、眼神开始有交流——这说明前额叶重新上线，是最佳的教导窗口。这个过程可能需要5分钟，也可能需要20分钟。<strong>不要催"你好了吗？好了吗？"</strong>，等孩子自己示意。</p>
+` },
+  consequences: { title: `自然后果与逻辑后果`, content: `
+<h3>三种处理方式的根本区别</h3>
+<p><strong>惩罚</strong>：与行为无关、由家长单方面施加的负面结果，目的是让孩子"付出代价"。<br><strong>自然后果</strong>：行为自然导致的现实结果，无需家长介入。<br><strong>逻辑后果</strong>：人为设置的、与行为有逻辑关联的结果，需满足3R标准。</p>
+<div class="highlight-box">逻辑后果的3R标准：Relevant（相关）· Respectful（尊重）· Reasonable（合理）。三者缺一，就变成了变相惩罚。</div>
+<h3>自然后果：何时用，何时不用</h3>
+<p>自然后果是最有效的老师，因为它不带有家长的情绪色彩，是现实本身在"说话"。<br>✅ 适用：不穿外套→感冒 / 不吃饭→肚子饿 / 忘带作业→被老师批评<br>❌ 不适用：危险情况（不能让孩子跑到马路上去体验"后果"）/ 后果需要很长时间才会发生（孩子无法建立联系）</p>
+<h3>逻辑后果：正确 vs 错误案例对比</h3>
+<div class="example-box">
+<strong>✅ 正确的逻辑后果：</strong><br>
+孩子把玩具乱扔 → 玩具被放到"玩具医院"休养一天（相关：玩具/失去玩具；尊重：没有羞辱；合理：一天）<br>
+孩子弄脏了墙 → 孩子自己擦干净（直接相关）<br>
+孩子迟到了很久才回家 → 下次出去的时间缩短（相关，合理）<br><br>
+<strong>❌ 伪逻辑后果（其实是惩罚）：</strong><br>
+孩子不吃饭 → "那你今天没有电视看"（无逻辑关联）<br>
+孩子打了弟弟 → "那你今天不能去同学家"（无逻辑关联）<br>
+孩子写作业慢 → "好，那玩具全没收"（完全无关，且过度）
+</div>
+<h3>实用判断清单</h3>
+<p>在设置逻辑后果前，快速问自己三个问题：① 这个后果和孩子的行为有直接关联吗？② 我设置这个后果时，是带着愤怒和报复心吗（如果是，暂停）？③ 这个后果对孩子的年龄和情况来说合理吗？</p>
+` },
+  encourage: { title: `鼓励与表扬的区别`, content: `
+<h3>一个关键问题：焦点在谁身上</h3>
+<p><strong>表扬</strong>的焦点在家长：家长评价孩子的作品/行为，孩子从你的评价中获得价值感。长期结果：孩子需要外部认可才有动力，没有人夸就不努力，遇到困难容易放弃（因为怕失败被评价）。<br><strong>鼓励</strong>的焦点在孩子：引导孩子感受自己的内心，从自身成长中获得满足感。长期结果：孩子发展出内在标准，不依赖外部认可。</p>
+<div class="highlight-box">鼓励公式：描述你观察到的过程/努力 + 反问孩子的内心感受</div>
+<h3>10组日常替换示范</h3>
+<div class="example-box">
+❌ "你真棒！" → ✅ "你把这个完成了，你感觉怎么样？"<br>
+❌ "你好聪明！" → ✅ "你用了什么方法解决这道题的？"<br>
+❌ "画得真漂亮！" → ✅ "你在这幅画里花了很多时间，你最喜欢哪个部分？"<br>
+❌ "你今天表现很好！" → ✅ "今天你帮助了同学，你自己感觉怎么样？"<br>
+❌ "你真是个好孩子！" → ✅ "你做了一个很难的选择，我注意到了。"<br>
+❌ "你跑得真快！" → ✅ "你这次比上次快了3秒，你注意到了吗？"<br>
+❌ "你弹得太好了！" → ✅ "你练习了那么多遍，今天弹出来感觉怎么样？"<br>
+❌ "你真勇敢！" → ✅ "那个挺难的，你是怎么鼓励自己去做的？"<br>
+❌ "妈妈/爸爸为你骄傲！" → ✅ "你自己为自己感到骄傲吗？"<br>
+❌ "你真的进步了！" → ✅ "你觉得自己哪里做得和上次不一样了？"
+</div>
+<h3>切换时的注意事项</h3>
+<p>刚开始转变时，孩子可能会不适应（因为习惯了直接听"棒棒的"）。有时孩子会反问"你觉得我画得好吗？"——可以温和地回应："我更想知道你自己觉得呢？"坚持2-3周，孩子的内在评价系统会开始激活。</p>
+` },
+  seven_skills: { title: `七项感知力与技能`, content: `
+<h3>正面管教的终极"毕业标准"</h3>
+<p>正面管教的所有工具都服务于一个长期目标：培养具备七项感知力和技能的孩子。这些不是学科成绩，而是孩子成年后真正需要的心理和社会能力。</p>
+<h3>七项能力详解</h3>
+<p><strong>① 对个人能力的感知力</strong>——"我能行"<br>相信自己有能力面对挑战。培养方式：让孩子做力所能及的事，不过度保护，犯错后帮助修复而非羞辱。</p>
+<p><strong>② 对自身在重要关系中地位的感知力</strong>——"我有贡献"<br>感觉自己对家庭/群体有价值、被需要。培养方式：分配真实的家务责任，让孩子参与家庭决策。</p>
+<p><strong>③ 对生活中人际关系和社会影响力的感知力</strong>——"我重要"<br>相信自己可以影响他人，但不需要控制他人。培养方式：家庭会议、尊重孩子的观点。</p>
+<p><strong>④ 人际沟通技能</strong>——能好好说话<br>能表达情绪、倾听他人、解决冲突。培养方式：用启发式问题而非命令，示范"我信息"沟通。</p>
+<p><strong>⑤ 系统性思考和道德判断力</strong>——能分辨对错<br>能理解规则背后的原因，而不只是"被告知"。培养方式：解释规则的原因，而不只是执行规则。</p>
+<p><strong>⑥ 以负责任的方式行事的能力</strong>——承担后果<br>知道自己的行为会带来结果，并愿意承担。培养方式：让孩子体验自然后果，犯错后用3R修复。</p>
+<p><strong>⑦ 面对人生挑战的适应性</strong>——有韧性<br>遇到困难时能反弹，不逃避，能寻求帮助。培养方式：把困难描述为"学习机会"，家长自己示范从错误中站起来。</p>
+<div class="highlight-box">检验你当下的每个管教行为：它在培养这七项能力中的哪一项？还是反而在削弱它？</div>
+` },
+  four_goals: { title: `四个错误目的详解`, content: `
+<h3>为什么孩子"故意"惹麻烦</h3>
+<p>当孩子无法用健康方式获得归属感和价值感时，他们会转向四种错误策略。了解这四种目的，是正面管教最核心的"诊断工具"。</p>
+<div class="highlight-box">识别技巧：家长自己感受到的情绪，是判断孩子处于哪种错误目的的最准确线索。</div>
+<h3>第一目的：寻求过度关注</h3>
+<p><strong>孩子的错误信念：</strong>"只有当我让人注意我时，我才有价值。"<br><strong>家长的情绪：</strong>烦躁、被打扰、不耐烦<br><strong>孩子的行为：</strong>不停打扰、哭闹、缠人、在你打电话时捣乱<br><strong>有效回应：</strong>忽视问题行为，但在孩子没有不良行为时给予充分关注；建立特别时光；告诉孩子如何用正确方式获得关注</p>
+<h3>第二目的：寻求权力</h3>
+<p><strong>孩子的错误信念：</strong>"只有当我说了算或没人能控制我时，我才有价值。"<br><strong>家长的情绪：</strong>被激怒、想要"赢"、感到权威被挑战<br><strong>孩子的行为：</strong>顶嘴、拒绝、对抗、争论到底<br><strong>有效回应：</strong>退出权力争夺，给孩子有限的选择（让他有控制感），家庭会议中给孩子真实的决策权</p>
+<h3>第三目的：报复</h3>
+<p><strong>孩子的错误信念：</strong>"我很受伤，我要让你们也受伤，这样我才有价值。"<br><strong>家长的情绪：</strong>受伤、震惊、"我怎么养了这样一个孩子"<br><strong>孩子的行为：</strong>故意破坏、说伤人的话、针对性地攻击家长最在意的事<br><strong>有效回应：</strong>不反击，先处理关系（"我看到你很受伤"），用3R法修复关系；从根源上检查哪里让孩子感觉被伤害</p>
+<h3>第四目的：自暴自弃</h3>
+<p><strong>孩子的错误信念：</strong>"我什么都做不好，所以干脆不试了。"<br><strong>家长的情绪：</strong>无奈、绝望、不知如何帮助<br><strong>孩子的行为：</strong>完全放弃、拒绝尝试、"我做不到""我不会"<br><strong>有效回应：</strong>降低期望、把任务拆成极小步骤确保每次成功、大量鼓励（而非表扬）、绝不放弃孩子</p>
+` },
+  iceberg: { title: `冰山理论`, content: `
+<h3>我们只看到了冰山一角</h3>
+<p>当孩子打人、大叫、拒绝配合时，家长看到的是行为——冰山露出水面的部分。但真正驱动这些行为的，是藏在水面下的两个更深的层次。</p>
+<h3>三层结构详解</h3>
+<p><strong>第一层（水面上）：行为</strong><br>可以被直接观察到的部分。比如：孩子打了弟弟、拒绝去上学、大哭不停。大多数传统管教只处理这一层——"打人不行，去反思！"</p>
+<p><strong>第二层（水面下浅层）：情绪感受</strong><br>驱动行为的情绪。孩子可能感到：嫉妒、委屈、被忽视、害怕、羞耻、无聊。大多数孩子无法用语言表达这一层，所以用行为来表达。</p>
+<p><strong>第三层（水面下深层）：错误信念</strong><br>关于自己、他人和这个世界的错误解读。比如："弟弟比我重要"、"我不够好，所以没人喜欢我"、"我必须赢，否则我没有价值"。这才是行为问题真正的根源。</p>
+<div class="highlight-box">真正有效的管教，必须触及第三层——帮助孩子修正错误信念，而不只是控制表面行为。</div>
+<h3>如何"下潜"到更深的层次</h3>
+<div class="example-box">
+<strong>场景：孩子打了弟弟</strong><br>
+只处理行为层："打人不行！去面壁！"（无效，明天还会打）<br><br>
+触及情绪层："你刚才打了弟弟，看起来你很生气，发生了什么让你这么生气？"<br><br>
+深入信念层："弟弟有了新玩具，你感觉他比你重要，是这样吗？"（孩子点头）"我想告诉你，你们对我来说同样重要……"<br><br>
+→ 这一层的对话，才能真正改变孩子未来的行为。
+</div>
+` },
+  brain: { title: `大脑盖子与脑科学`, content: `
+<h3>理解孩子的大脑，是管教的前提</h3>
+<p>《全脑教养法》的作者西格尔博士用一个简单的手势解释了孩子情绪崩溃的神经机制，正面管教大量引用了这个模型。</p>
+<h3>"大脑盖子"比喻</h3>
+<p>握起一只拳头：大拇指代表<strong>杏仁核</strong>（情绪脑，深层），四个手指代表<strong>前额叶皮层</strong>（理性脑，盖子）。<br>正常状态：四个手指"盖住"大拇指，前额叶覆盖和调节情绪脑。孩子能思考、能学习、能控制冲动。<br>情绪崩溃时：四个手指翻起来，大拇指"暴露"了——杏仁核直接主导行为，孩子完全被情绪驱动：攻击、逃跑、崩溃、冻僵。</p>
+<div class="highlight-box">关键事实：盖子翻起来时，前额叶几乎无法工作。这意味着孩子<strong>物理上</strong>无法理性思考、接受教导、或控制自己的行为。这不是"故意的"。</div>
+<h3>帮助孩子"盖子合上"的方法</h3>
+<p><strong>①不要在此刻讲道理或惩罚</strong>——你加入的任何负面刺激，只会让杏仁核更活跃。<br><strong>②物理层面的安抚</strong>——降低声音、放慢语速、减少外部刺激（关电视、离开嘈杂环境）。<br><strong>③情感层面的连接</strong>——安静地靠近、轻柔地说"我在这里"、如果孩子愿意，轻轻抱住他。研究显示，温柔的身体接触能快速降低皮质醇（压力激素）水平。<br><strong>④等待，不催促</strong>——"你好了吗""停止哭"会延长崩溃时间，不会缩短。</p>
+<h3>家长的大脑盖子同样重要</h3>
+<div class="example-box">当孩子崩溃时，家长自己的杏仁核也很容易被激活（感到愤怒/无助/羞耻）。家长自己的盖子先合上，才能帮助孩子的盖子合上。实用方法：在孩子面前做3次深呼吸，让孩子看到——这本身就是在示范情绪调节。</div>
+` },
+  questions: { title: `启发式问题完整指南`, content: `
+<h3>命令 vs 问题：两种不同的大脑激活</h3>
+<p>命令型话语（"你去把玩具收好！"）激活孩子大脑的防御区域——孩子要么服从（外部驱动），要么反抗（保护自主感）。启发式问题（"你觉得这些玩具现在需要怎么样？"）激活孩子大脑的问题解决区域，孩子开始主动思考，并因为是"自己的想法"而更愿意执行。</p>
+<div class="highlight-box">启发式问题的本质：把决策权还给孩子，同时保持家长的引导方向。</div>
+<h3>20个可直接使用的启发式问题（按场景）</h3>
+<p><strong>当孩子发生冲突时：</strong></p>
+<ul>
+<li>发生了什么？（让孩子叙述事件，不是你定性）</li>
+<li>你现在感觉怎么样？</li>
+<li>你觉得另一个人（弟弟/同学）感觉怎么样？</li>
+<li>你希望接下来发生什么？</li>
+<li>你觉得有什么办法可以解决这个问题？</li>
+</ul>
+<p><strong>当孩子犯错时：</strong></p>
+<ul>
+<li>你觉得发生这件事，和你做的什么有关系？</li>
+<li>如果可以重来，你会做什么不同的事？</li>
+<li>怎么样可以让事情变得好一点？</li>
+<li>你需要什么帮助？</li>
+</ul>
+<p><strong>当孩子遇到困难时：</strong></p>
+<ul>
+<li>这个对你来说最难的部分是什么？</li>
+<li>你觉得可以从哪里开始？</li>
+<li>你之前有没有遇到过类似的情况，那次你怎么解决的？</li>
+<li>有没有你觉得可能有帮助的人或方法？</li>
+</ul>
+<p><strong>培养思考习惯的日常问题：</strong></p>
+<ul>
+<li>今天你学到了什么新东西？</li>
+<li>今天什么事让你感觉最好/最不好？</li>
+<li>有什么是你今天希望自己做得不一样的？</li>
+<li>如果你来做决定，你会怎么做？</li>
+</ul>
+<div class="example-box"><strong>孩子不回答怎么办？</strong>等待，不催促。沉默是孩子在思考，不是拒绝。如果沉默超过30秒，可以轻轻说："你不用马上回答，想好了再告诉我。"然后去做别的事。</div>
+` },
+  calm_space: { title: `冷静角的正确建立与使用`, content: `
+<h3>最大的误解：冷静角 ≠ 惩罚角落</h3>
+<p>很多家长把"去你的房间反思！"叫做冷静角，这是完全错误的。惩罚性暂停的本质是隔离和羞辱；正面管教的冷静角是一个帮助孩子<strong>主动恢复情绪的工具</strong>，不是惩罚，不带有羞辱，孩子决定何时准备好出来。</p>
+<div class="highlight-box">关键区别：冷静角在孩子平静时建立，不是在冲突时突然使用；孩子参与设计，不是家长强制安排。</div>
+<h3>如何建立冷静角（在平静时做）</h3>
+<p><strong>第一步：和孩子一起选地点</strong><br>不是关小黑屋，是孩子感觉舒适的角落——沙发旁、卧室一角，甚至帐篷里都可以。</p>
+<p><strong>第二步：一起决定放什么</strong><br>可以放：软玩具（可以抱的）、画画材料、感官玩具（压力球等）、喜欢的书、耳机（听舒缓的音乐）。不放：屏幕、奖励性玩具（避免孩子故意去那里）。</p>
+<p><strong>第三步：给冷静角起个名字</strong><br>让孩子命名——"充电站"、"平静角"、"思考小屋"。名字带来主人翁感。</p>
+<p><strong>第四步：解释给孩子听</strong><br>"这是一个帮你冷静下来的地方，不是因为你做错了什么，是因为有时候我们的情绪太大了，需要一个安静的地方让它变小。"</p>
+<h3>不同年龄的使用方式</h3>
+<div class="example-box">
+<strong>3-5岁：</strong>家长陪孩子一起去，坐在旁边，不说话，只是陪伴。孩子独自情绪调节能力还很弱，需要共同调节。<br><br>
+<strong>6-9岁：</strong>引导孩子自己去（"你现在可以去充电站坐一会儿"），但告知家长在附近。孩子准备好了自己出来。<br><br>
+<strong>10岁以上：</strong>孩子通常已能自主识别情绪，可以自己决定何时需要冷静角。家长的任务是尊重这个选择，不在孩子主动走进去时追进去讲道理。
+</div>
+` },
+  special_time: { title: `特别时光完整操作指南`, content: `
+<h3>为什么叫"特别"——不是普通的陪伴</h3>
+<p>普通的陪伴：孩子在旁边玩，家长刷手机或做家务，偶尔回应。这不是特别时光。特别时光的"特别"在于：这15分钟里，孩子是绝对的主角，家长<strong>完全跟随，不主导，不评判，不教导，不看手机</strong>。</p>
+<div class="highlight-box">科学依据：研究显示，每天仅15分钟高质量的一对一专注陪伴，比3小时的"在场但不在心"的陪伴，对孩子归属感的满足效果更显著。</div>
+<h3>完整操作步骤</h3>
+<p><strong>①选定固定时间</strong>（建议每天同一时段，让孩子有可预期感）</p>
+<p><strong>②提前告知孩子</strong>："等一下是你的特别时光，你想做什么你决定。"（这句话会让孩子整个下午都期待）</p>
+<p><strong>③进入孩子的世界</strong>：孩子想玩什么游戏、读什么书、搭什么积木，你跟随。不引导，不改变方向。</p>
+<p><strong>④把手机放在另一个房间</strong>（不是放在旁边面朝下——孩子能感觉到你的注意力在哪里）</p>
+<p><strong>⑤不评价，不教导</strong>：忍住"你这个积木应该这样搭"；忍住"这本书你上次读过了"；只是跟随，只是在场。</p>
+<h3>常见误区与处理</h3>
+<div class="example-box">
+<strong>孩子选择了奇怪的活动怎么办？</strong><br>
+允许。孩子想一直转圈圈，你就跟着转。这个活动本身不重要，重要的是孩子感受到"我说了算，我被完全关注"。<br><br>
+<strong>有两个孩子，怎么做特别时光？</strong><br>
+分开做，每人一次。不要把两个孩子放在一起说"这是你们的特别时光"——这就不再是"特别"的了。<br><br>
+<strong>坚持多久才能看到效果？</strong><br>
+通常2-3周后，孩子"粘人"、"无理取闹"的频率开始下降。第一周孩子可能反而更粘，因为他的系统在测试"这是不是真的"——坚持下去。
+</div>
+` },
+  three_r: { title: `3R犯错修复法`, content: `
+<h3>为什么犯错是机会，不是灾难</h3>
+<p>大多数家长害怕孩子犯错，于是用批评和惩罚来"防止以后再犯"。但研究显示，被羞辱之后孩子不会学到"如何做得更好"，而是学到"犯错是可怕的，要隐瞒"。正面管教把犯错定义为<strong>学习责任感的最佳机会</strong>。</p>
+<div class="highlight-box">3R修复法：Recognize（承认）→ Reconcile（和解）→ Resolve（解决）</div>
+<h3>第一步：Recognize · 承认</h3>
+<p>帮助孩子（或自己）清晰说出发生了什么，不带评判。不是"你承认你错了吗"（这会激发防御），而是"你能描述一下发生了什么吗？"孩子用自己的话描述出来，这就是承认的开始。</p>
+<h3>第二步：Reconcile · 和解</h3>
+<p>向受影响的人表达歉意。注意：<strong>道歉不是表演，不是念台词</strong>。帮助孩子理解为什么道歉，以及如何真诚地表达——"你觉得你的行为让弟弟有什么感受？你想对他说什么？"</p>
+<h3>第三步：Resolve · 解决</h3>
+<p>想出补救方案。"你觉得可以怎么让事情变得好一点？"让孩子提出方案（不是家长规定），孩子执行自己想出来的方案意愿更高。</p>
+<h3>家长自己犯错时的3R示范</h3>
+<div class="example-box">
+<strong>家长对孩子大喊大叫之后：</strong><br>
+承认："妈妈刚才对你大声说话了，这不对。"<br>
+和解："对不起，你不应该被这样对待。妈妈当时很累、很着急，但这不是理由。"<br>
+解决："以后当妈妈感觉快要失控时，我会先去喝杯水冷静一下，再来和你说话。"<br><br>
+这是你给孩子最强大的示范：大人也会犯错，大人也可以修复，这个过程不丢人。
+</div>
+` },
+  power: { title: `权力争夺应对策略`, content: `
+<h3>识别你是否已经进入权力争夺</h3>
+<p>当你感到被激怒、想要"赢"孩子、感觉自己的权威被挑战——这些情绪信号说明你已经进入权力争夺了。权力争夺有一个特点：<strong>越争，孩子越升级；你输了（妥协），孩子学到"闹就有用"；你赢了（强压），孩子暂时沉默但愤恨积累。</strong></p>
+<div class="highlight-box">唯一的赢法：不玩这个游戏。退出争夺，才能打破循环。</div>
+<h3>当下的处理：退出争夺</h3>
+<p><strong>第一步：识别时机</strong>——感觉到自己开始升温，孩子开始对抗，这就是信号。<br><strong>第二步：用行动代替语言</strong>——停止说话（重复同一句话只会升级）。改变你的行为：安静地离开房间，或安静地去执行后果，不解释，不争论。<br><strong>第三步：给孩子保留面子</strong>——不要在他面前宣布"你输了"或"你看，我说的是对的"。胜利的感觉对家长来说一文不值，对孩子来说是灾难性的羞耻。</p>
+<h3>事后的处理：给孩子真实的权力感</h3>
+<div class="example-box">
+孩子寻求权力，根本原因是感觉自己"没有控制感"。处理方法不是消灭他对权力的渴望，而是满足他对控制感的真实需求：<br><br>
+✅ 给有限选择："你想先做数学还是先做语文？"（两个选项都是你可接受的）<br>
+✅ 家庭会议中的真实发言权<br>
+✅ 让孩子负责某些真实的家庭事务（"你来决定今晚吃什么蔬菜"）<br><br>
+当孩子在正常生活中有足够的权力感，他就不需要用对抗来寻求控制感了。
+</div>
+` },
+  emotion: { title: `情绪崩溃完整应对方案`, content: `
+<h3>情绪崩溃的四个阶段与对应策略</h3>
+<p>孩子情绪爆发不是突然发生的，通常经历四个阶段。识别阶段，有助于在最早期介入，避免完全崩溃。</p>
+<p><strong>阶段一：预警期</strong>（声音变大、身体僵硬、眼神改变）<br>→ <strong>此时是最佳介入时机</strong>。温柔地靠近，转移注意力，或主动描述情绪："你看起来有点沮丧，是什么事吗？"</p>
+<p><strong>阶段二：升级期</strong>（开始哭叫、坚持要求）<br>→ <strong>减少语言刺激</strong>。不要问"你怎么了"（孩子此时无法回答），只是静静待在旁边，降低声音说"我在这里"。</p>
+<p><strong>阶段三：高峰期</strong>（完全爆发、哭闹踢踹）<br>→ <strong>保证安全，不要说话，不要离开</strong>。确保孩子不会伤害自己或他人。等待，不催促。</p>
+<p><strong>阶段四：恢复期</strong>（哭声减弱、身体放松）<br>→ <strong>这是连接的时机</strong>。轻声说"你感觉好一点了？"然后给个拥抱，不立刻说教。</p>
+<div class="highlight-box">事后教导的最佳时机：情绪完全平复后（通常30分钟到几小时后），简短地讨论，不重提细节，重点是"下次可以怎么做"。</div>
+<h3>公共场所的情绪崩溃</h3>
+<div class="example-box">
+超市里孩子因为不买玩具大哭：<br>
+① 不跟孩子争论（"你再哭我就……"）<br>
+② 平静地蹲下："我知道你很想要那个玩具，那种感觉很难受。"<br>
+③ 如果孩子持续：安静地把孩子带出商店（用行动，不解释），在外面等孩子平静<br>
+④ 不因为公众目光而妥协——一次妥协，孩子学到：公共场所哭得越厉害，越有用<br>
+⑤ 回家后（不是当场），简短讨论：下次再发生，你希望用什么方式告诉我你想要什么？
+</div>
+` },
+  boundary: { title: `有效界限的设置方法`, content: `
+<h3>界限的本质：安全感的来源</h3>
+<p>很多家长以为孩子不喜欢界限。其实恰恰相反——没有界限的孩子更焦虑，因为他不知道世界的边界在哪里。清晰的界限让孩子感到安全：<strong>"我知道规则是什么，世界是可预期的。"</strong></p>
+<div class="highlight-box">界限设置的两个原则：① 预先约定优于临时命令；② 一旦约定，温和而坚定地执行，不因哭闹而改变。</div>
+<h3>如何设置孩子真正会接受的界限</h3>
+<p><strong>第一步：提前约定，不临时命令</strong><br>临时命令（"你现在立刻关电视！"）让孩子感到突然被控制，激发反抗。提前约定（"今天下午我们说好是看30分钟电视，到时间了我会提醒你"）让孩子有预期，接受度大幅提高。</p>
+<p><strong>第二步：让孩子参与制定</strong><br>家庭会议是最好的场所。"关于玩手机/看电视的时间，你觉得怎么安排比较合理？"孩子参与制定的规则，执行时不会说"这是你规定的，凭什么"。</p>
+<p><strong>第三步：温和而坚定地执行</strong><br>约定到了，不重复提醒三遍，不争论。走过去，温和地执行（关掉电视），不解释，不道歉。孩子哭闹时，承认情绪（"我知道你还想看"），但不改变行动。</p>
+<div class="example-box">
+<strong>孩子挑战界限时：</strong>"你说了是30分钟，但我只看了20分钟，中间去喝水了，所以我还有10分钟！"<br><br>
+这是孩子在测试界限的灵活性（很正常）。<br>
+✅ 回应方式：轻轻笑一下（不被激怒），"我们约定的是下午4点关，现在4点了。"然后执行。不争论时间的计算方式——争论就进入了权力争夺。
+</div>
+` },
+  siblings: { title: `兄弟姐妹冲突处理`, content: `
+<h3>为什么"偏袒"会加剧冲突</h3>
+<p>当兄弟姐妹争吵，家长的本能反应是找出谁对谁错，保护"受害者"，惩罚"施害者"。但这个做法有两个问题：① 家长很难真正看到全部真相；② 被判定为"错的那个"积累愤恨，被判定为"对的那个"学会"只要哭就有人帮我"。双方关系都变差。</p>
+<div class="highlight-box">核心原则：不当法官，当调解员。不判断谁对谁错，帮助两个孩子自己解决问题。</div>
+<h3>具体介入步骤</h3>
+<p><strong>第一步：先稳定局面</strong><br>"我看到你们两个都很生气。停一下。"（物理上介入，但不立刻评判）</p>
+<p><strong>第二步：分别认可情绪</strong><br>"小明，你感觉很生气。小红，你也感觉很委屈。"（不说谁对谁错，只是描述情绪）</p>
+<p><strong>第三步：让双方说话</strong><br>"小明，你来说说你看到发生了什么。小红，先不要打断，等一下你也有机会说。"（轮流陈述）</p>
+<p><strong>第四步：引导寻找解决方案</strong><br>"你们两个都想玩这个玩具，有什么方法可以让你们都觉得公平？"（让孩子自己提方案）</p>
+<div class="example-box">
+<strong>孩子提的方案总是偏向自己怎么办？</strong><br>
+"你觉得如果换成你是弟弟，这个方案公平吗？"让孩子站在对方立场思考。<br><br>
+<strong>孩子太小，根本没法协商怎么办？</strong><br>
+3岁以下：家长直接介入保证安全，同时给年龄小的更多情感支持，给年龄大的更多解释。协商能力随年龄发展，不用操之过急。
+</div>
+` },
+  long_term: { title: `正面管教的长期教育哲学`, content: `
+<h3>一个改变所有决定的问题</h3>
+<p>正面管教的创始人简·尼尔森在书中提出了一个核心问题，它能帮助家长在任何管教决定面前找到正确方向：<strong>"我希望孩子20年后成为什么样的人？"</strong></p>
+<p>当你被孩子的某个行为激怒，准备惩罚时，先停一秒，问这个问题。你会发现，很多"立竿见影"的惩罚，和你真正的长期目标完全相反。</p>
+<h3>「听话」vs「有用」：两种截然不同的目标</h3>
+<p><strong>"听话"的孩子长大后：</strong>需要外部权威告诉他该做什么；遇到没有规则的情况不知所措；容易被同伴压力影响（因为习惯了服从）；缺乏内在道德判断力。</p>
+<p><strong>"有用"的孩子长大后：</strong>有内在动力；遇到困难会寻找解决方案；能在没有人监督的情况下做正确的事；有同理心，能考虑他人感受。</p>
+<div class="highlight-box">检验标准：我现在的这个反应，是在培养孩子的内在能力，还是只是让我现在少烦一点？</div>
+<h3>如何在日常中植入长期视角</h3>
+<div class="example-box">
+<strong>孩子忘带作业：</strong>帮他拿去学校（短期目标：避免孩子被批评）vs 让他承担被老师批评的自然后果（长期目标：培养责任感）<br><br>
+<strong>孩子收拾慢：</strong>帮他收拾好（短期目标：不迟到）vs 等他，让他亲身体验迟到的结果（长期目标：时间管理能力）<br><br>
+没有哪个选择永远正确，但每次做选择前，有意识地问问长期目标，会帮你做出更有智慧的决定。
+</div>
+` },
+  take1: { title: `归属感与价值感`, content: `
+<h3>两种需求，一切行为的根源</h3>
+<p>阿德勒心理学认为，人类最核心的两种心理需求是归属感（"我属于这里"）和价值感（"我是有意义的"）。对于孩子来说，这两种需求不是奢侈品，而是心理生存的必需品——就像食物和水一样。</p>
+<h3>每天如何主动满足这两种需求</h3>
+<p><strong>满足归属感的日常行动：</strong></p>
+<ul>
+<li>特别时光：每天15分钟完全专注的陪伴</li>
+<li>家庭会议：让孩子感觉自己是家庭的重要成员</li>
+<li>固定的家庭仪式：睡前故事、周末活动——可预期的温暖建立归属感</li>
+<li>在孩子面对困难时陪在旁边（不一定要解决，只是在）</li>
+</ul>
+<p><strong>满足价值感的日常行动：</strong></p>
+<ul>
+<li>分配真实的家庭责任（不是"任务"，是"贡献"）</li>
+<li>鼓励而非表扬——帮助孩子感受自己的成长</li>
+<li>在家庭决策中认真对待孩子的意见</li>
+<li>让孩子帮助比他小的孩子（给予机会成为"有能力的人"）</li>
+</ul>
+<div class="highlight-box">关键洞见：当孩子的归属感和价值感被充分满足时，绝大多数的"问题行为"会自然减少——因为驱动行为的需求已经被正确地满足了。</div>
+` },
+  take2: { title: `惩罚的四种长期危害`, content: `
+<h3>为什么惩罚让家长感觉有效</h3>
+<p>惩罚确实有即时效果：孩子停止了当下的行为。但这个效果产生的机制是<strong>恐惧</strong>，而不是学习。孩子停止行为，是因为怕受到更多惩罚，不是因为理解了为什么这样做不对。</p>
+<h3>四种长期危害的心理机制</h3>
+<p><strong>① 愤恨（Resentment）</strong><br>孩子在心里的独白："这不公平，你竟然这样对我。"长期积累：对家长的信任感下降，关系疏远，青春期时以对抗爆发。</p>
+<p><strong>② 报复（Revenge）</strong><br>孩子在心里的独白："你伤害了我，我也要让你付出代价。"表现：故意挑衅、伤害家长最在意的事情（成绩、社交面子）。</p>
+<p><strong>③ 反叛（Rebellion）</strong><br>孩子在心里的独白："我要证明你管不了我。"表现：更隐蔽地违规、寻找父母视线之外的空间。长期：形成"规则只是用来被打破的"人格。</p>
+<p><strong>④ 退缩（Retreat）</strong><br>孩子在心里的独白："我就是不行，放弃吧。"或"我要完全不引起注意才安全。"表现：自我怀疑、习得性无助、回避挑战。</p>
+<div class="highlight-box">替代惩罚的问题：与其问"孩子应该受到什么惩罚"，不如问"孩子需要什么来改变这个行为？他缺少的是技能、理解，还是情感支持？"</div>
+` },
+  take3: { title: `温和坚定进阶操作`, content: `
+<h3>最难的时刻：愤怒中保持温和</h3>
+<p>所有家长都理解温和而坚定的理念，难的是在孩子第五次不听的时候还能做到。这里是经过验证的实操技巧。</p>
+<h3>愤怒时的即时降温策略</h3>
+<ul>
+<li><strong>物理暂停：</strong>感觉要爆发时，离开现场30秒（"我去喝杯水，马上回来"）。这不是逃避，是保护孩子不被你的情绪伤害。</li>
+<li><strong>降低你的身体高度：</strong>蹲下或坐下来——物理上的下降会触发心理上的降温。</li>
+<li><strong>降低声音：</strong>反直觉但有效。你说话越小声，孩子越安静下来听。</li>
+<li><strong>3次深呼吸：</strong>让孩子看到你在做深呼吸——你在示范情绪调节，同时你自己真的在调节。</li>
+</ul>
+<h3>10个高频场景的温和坚定话语</h3>
+<div class="example-box">
+"我知道你不想……，同时我们今天约定的是……"（承认情绪+维持界限）<br>
+"我爱你，我不会让你……"（建立连接+坚定限制）<br>
+"你可以生气，你不可以……"（允许情绪+限制行为）<br>
+"我们昨天说好了……，现在是时候……"（引用事先约定，不是临时命令）<br>
+"你有两个选择：……或者……，你来决定。"（有限选择，保留孩子的控制感）<br>
+"我会等你准备好。"（不催促，不争论，传递信任）<br>
+"这件事不在讨论范围内，我们来想想在这个范围内你想怎么做。"（设定边界+给予空间）<br>
+"我看到你努力了。"（观察事实，不评判结果）<br>
+"告诉我当你准备好了。"（把时间控制权给孩子）<br>
+"我们来重新开始。"（用于争吵后，不追究，给孩子台阶）
+</div>
+` },
+  take4: { title: `连接再纠正神经科学深度`, content: `
+<h3>大脑为什么会"关机"</h3>
+<p>人类大脑在感受到威胁时，会激活"战-逃-冻"反应（Fight-Flight-Freeze）。对孩子来说，家长的批评、愤怒的语气、或感觉被羞辱，都会触发这个古老的生存系统。杏仁核发出"危险"信号，大脑把资源从前额叶（思考/学习）转移到边缘系统（求生）。</p>
+<div class="highlight-box">神经科学的清晰结论：孩子感受到威胁时，大脑的学习中枢关闭。任何"教导"在这个状态下都是无效的。</div>
+<h3>共情语言库：具体怎么说</h3>
+<p>共情不是夸奖，不是哄骗，是<strong>准确描述孩子正在经历的情绪</strong>，让孩子感觉"被看见"。这个"被看见"的感觉，能快速激活孩子前额叶的重新连接。</p>
+<p><strong>基础共情句型：</strong></p>
+<ul>
+<li>"你看起来很……（难过/生气/失望/委屈）"</li>
+<li>"那一定很难受。"</li>
+<li>"如果我是你，我也会很……"</li>
+<li>"我能感觉到你现在很……"</li>
+<li>"这件事对你来说很重要，是吗？"</li>
+</ul>
+<p><strong>进阶：情绪命名（帮助孩子区分情绪）：</strong></p>
+<ul>
+<li>"你感觉是生气，还是有点害怕？"</li>
+<li>"是委屈（别人对你不公平），还是失望（你自己没达到期望）？"</li>
+</ul>
+<p>研究显示，能准确命名情绪的孩子，情绪调节能力显著更强——"命名即驯服"（Name it to tame it）。</p>
+<div class="example-box"><strong>注意：</strong>共情不等于认可行为。"我知道你很生气"不等于"所以打弟弟是对的"。共情是为了让孩子平静，行为的讨论在之后进行。</div>
+` },
+  take5: { title: `鼓励语言实践指南`, content: `
+<h3>为什么改变说话方式这么难</h3>
+<p>"你真棒"是从我们的父母那里学来的语言模式，已经储存在自动反应里了。改变需要有意识的练习。好消息是：只需要2-4周的刻意练习，新的语言模式就会开始变成新的自动反应。</p>
+<h3>鼓励的三种层次</h3>
+<p><strong>第一层：描述过程</strong>（替代结果评价）<br>"你在这个问题上花了很长时间" 比 "你做得很好"更鼓励。</p>
+<p><strong>第二层：反问内心感受</strong>（激活内在评价系统）<br>"完成了，你自己感觉怎么样？" 帮助孩子关注自己的内心，而不是等待外部评价。</p>
+<p><strong>第三层：具体观察</strong>（让孩子知道被真正看见）<br>"我注意到你今天第一次试着自己解决，没有叫妈妈帮忙。" 孩子感受到的是：我做的具体的事被看见了，不只是笼统地被夸。</p>
+<h3>20个日常场景的鼓励话语</h3>
+<div class="example-box">
+完成作业→"你坐下来专心做完了，这需要坚持。"<br>
+运动比赛→"你练了这么久，今天上场感觉怎么样？"<br>
+交到新朋友→"你是怎么认识他的？"<br>
+克服了害怕→"那一定需要很大的勇气，你是怎么做到的？"<br>
+分享了玩具→"你注意到弟弟想要玩，然后你分给他了。"<br>
+坚持读完一本书→"这本书有点难，你读完了，你怎么看这本书？"<br>
+帮助了同学→"你帮了他，他看起来怎么样？"<br>
+摔倒后站起来→"你摔倒了，然后你站起来继续——你觉得自己怎么样？"<br>
+第一次尝试新食物→"你尝了！哪怕只是一口，这需要勇气。"<br>
+主动认错→"跟别人道歉不容易，你今天做到了。"
+</div>
+` },
+  take6: { title: `逻辑后果进阶辨析`, content: `
+<h3>最常见的五个"伪逻辑后果"</h3>
+<p>很多家长认为自己在用"逻辑后果"，其实在用惩罚。关键检验：这个后果与行为有<strong>直接</strong>的、<strong>孩子能理解</strong>的逻辑关联吗？</p>
+<div class="example-box">
+<strong>❌ 伪逻辑后果（实为惩罚）：</strong><br>
+孩子不吃蔬菜 → 没有甜点（无直接关联）<br>
+孩子打了弟弟 → 取消明天的游乐场（无直接关联）<br>
+孩子成绩差 → 没收游戏机（无直接关联）<br>
+孩子撒谎 → 一周不能出门（过度，无直接关联）<br>
+孩子忘做作业 → 周末不能玩（无直接关联）<br><br>
+<strong>✅ 真正的逻辑后果：</strong><br>
+孩子不吃饭 → 饭后不提供零食（自然后果）<br>
+孩子把弟弟的书撕坏了 → 用自己的零花钱或劳动换一本新书（相关：书/赔偿书）<br>
+孩子忘做作业 → 在学校被老师批评（自然后果，家长不介入救援）<br>
+孩子撒谎 → 接下来一段时间家长需要多核实（相关：信任受损需要重建）<br>
+孩子把房间弄乱 → 找不到自己需要的东西时，家长不帮忙（自然后果）
+</div>
+<h3>逻辑后果不起效时怎么办</h3>
+<p>如果逻辑后果实施了但孩子行为没有改变，通常有三种可能：① 后果还不够真实（孩子不在乎）→ 更换后果；② 后果已经变成惩罚的味道（家长带着愤怒执行）→ 先处理自己的情绪；③ 问题的根源不是后果能解决的（孩子缺乏的是技能或情感支持）→ 回到连接和沟通。</p>
+` },
+  take7: { title: `家庭会议常见问题解答`, content: `
+<h3>最常见的10个家庭会议难题</h3>
+<p><strong>Q1：孩子太小（2-4岁）能参加吗？</strong><br>可以，但简化版。只做"感谢"（让孩子说一件好事）和"乐趣计划"两个环节，10分钟结束。重点是建立仪式感和参与感，不是讨论复杂议题。</p>
+<p><strong>Q2：孩子把会议当成游戏，根本不认真。</strong><br>这很正常，尤其是前几次。不要强制严肃。幽默对待，维持基本流程。孩子会逐渐发现，这里是真的可以提出想法并被认真对待的地方。通常3-4次后态度会改变。</p>
+<p><strong>Q3：伴侣不配合，觉得这是浪费时间。</strong><br>先从不需要伴侣配合的版本开始（你+孩子）。让结果说话——当孩子主动说"我们会议上决定的……"时，伴侣通常会开始感兴趣。</p>
+<p><strong>Q4：孩子在会议上提出完全不合理的要求（"我要没有上学时间"）。</strong><br>认真对待这个提案："我听到了，上学让你很累。这个可以讨论的范围是……（列出可讨论的）。在这个范围里，我们怎么让上学变得好一点？"</p>
+<div class="example-box">
+<strong>Q5：我们讨论出了一个方案，孩子回去就忘了遵守。</strong><br>这是正常的，尤其是年龄较小的孩子。两个应对方法：① 把方案写下来贴在显眼处（孩子参与写或画）；② 下次会议检查时，不是批评，而是"这个方案对你来说执行起来最难的是哪里？"重新调整。<br><br>
+<strong>Q6：会议变成了互相抱怨大会。</strong><br>加强"感谢与称赞"环节的重量（放在最前面，花足够时间），正向情感铺垫后，抱怨的能量会自然降低。同时，家长需要示范：把问题转化为"我希望……"的表达，而不是"你总是……"。
+</div>
+` },
+  take8: { title: `3R修复法家长应用版`, content: `
+<h3>家长承认错误：最有力量的示范</h3>
+<p>当家长向孩子道歉，很多父母担心"这会不会让孩子觉得我软弱，以后不好管"。恰恰相反——孩子尊重的是有担当的大人，而不是从不犯错的大人。向孩子道歉，示范的是：<strong>犯错不是羞耻，修复才是有力量的。</strong></p>
+<h3>家长最常需要3R的五种情况</h3>
+<ul>
+<li>对孩子大吼大叫之后</li>
+<li>说了不应该说的话（"你就是懒"、"你真让我失望"）</li>
+<li>没有兑现承诺</li>
+<li>在盛怒下实施了过重的惩罚</li>
+<li>因为工作压力把情绪发泄在孩子身上</li>
+</ul>
+<h3>如何道歉而不失权威</h3>
+<div class="example-box">
+<strong>家长对孩子大喊大叫之后的3R完整示范：</strong><br><br>
+承认（Recognize）："妈妈刚才对你大声说话了，说了一些不好的话，这不对。"<br>
+——注意：直接说行为，不用"如果我让你难过，对不起"这种条件式道歉。<br><br>
+和解（Reconcile）："对不起，你不应该被这样对待。"<br>
+——注意：不过度解释原因（"因为妈妈很累"）——解释可以有，但不能用来替代道歉。<br><br>
+解决（Resolve）："以后当妈妈感觉要控制不住时，我会先离开房间冷静一下。如果我又做了类似的事，你可以告诉我。"<br>
+——注意：给孩子一个"下次可以做什么"的信号，也给孩子赋权（"你可以告诉我"）。
+</div>
+<p>孩子不接受道歉怎么办？说："我能理解你还需要一点时间，我在这里。"然后等待，不催促孩子原谅你。原谅是孩子的权利，不是义务。</p>
+` },
+  take9: { title: `特别时光的科学依据`, content: `
+<h3>依恋理论的核心发现</h3>
+<p>约翰·鲍尔比（John Bowlby）的依恋理论和后续大量研究证实：孩子与主要照顾者的关系质量，在很大程度上决定了孩子的情绪调节能力、社交能力、和面对压力的韧性。</p>
+<p>关键发现：决定依恋质量的，不是陪伴时间的长短，而是<strong>照顾者的回应性</strong>——孩子发出信号时，照顾者是否敏感地回应。特别时光正是在每天15分钟内，创造高密度的"我看见你，我回应你"的体验。</p>
+<h3>归属感缺口与问题行为的关系</h3>
+<p>研究显示，很多"注意力缺陷"、"无理取闹"、"多动"等被诊断为行为问题的情况，在增加了一对一的专注陪伴后，症状显著减轻。原因很简单：<strong>孩子通过问题行为获得的，是家长的注意力。当注意力通过正确方式被满足，问题行为的驱动力消失了。</strong></p>
+<h3>为什么15分钟胜过偶尔3小时</h3>
+<div class="highlight-box">
+孩子需要的是"可预期的归属感"——"我知道每天某个时刻，爸爸/妈妈只属于我。"这种稳定的可预期性，让孩子建立安全感。<br><br>
+不规律的长时间陪伴，会让孩子在"空白期"更焦虑，需要通过问题行为来测试"你是否真的在意我"。
+</div>
+<p>对大脑发育的影响：规律的温暖互动促进前额叶的健康发育（增强情绪调节、决策和社交能力），同时降低皮质醇（压力激素）的基线水平，让孩子在整体上更平静、更有弹性。</p>
+` },
+  take10: { title: `正面管教的育儿哲学`, content: `
+<h3>20年后，你的孩子是什么样的人</h3>
+<p>大多数日常管教决定都在解决一个问题："现在的这个问题怎么让它停下来"。正面管教邀请家长退一步，问一个不同的问题：<strong>"我希望我的孩子20年后成为什么样的人？"</strong></p>
+<p>当你把这个问题放在面前，很多"立竿见影"的管教方式会显现出它们的代价：它们在让当下的问题消失，同时在削弱孩子将来需要的能力。</p>
+<h3>「有用」的孩子是什么样的</h3>
+<p>正面管教所说的"有用"（useful）不是"有用处"，而是<strong>有内在功能</strong>——能在没有外部监督时做出好的决定，能在遇到困难时想办法而不是放弃，能在关系中既照顾自己也照顾他人。</p>
+<h3>用长期目标检验日常决定</h3>
+<div class="example-box">
+<strong>孩子忘了带作业：</strong><br>
+帮他送去学校→"我救了他，但他没有学到：我的行为有后果"<br>
+让他承担→"他今天被批评，但他多一次机会学：我需要记住我的责任"<br><br>
+<strong>没有哪个选择永远正确。</strong>有时孩子生病了就送，有时就让他承担。关键是有意识地做选择——而不是自动地"反正我先解决了再说"。
+</div>
+<div class="highlight-box">
+每次管教前的三秒钟问题：<br>
+① 这件事20年后还重要吗？<br>
+② 我现在的反应，在教孩子什么？<br>
+③ 这个时刻可以培养哪种能力？<br><br>
+不需要每次都做出"完美"的选择。有意识地问问题，就是在成为更好的父母。
+</div>
+` }
+};
+
+// ─── NAV ───
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ─── TAKEAWAYS DATA ───
+const takeaways = [
+  {
+    num:'01', color:'t-purple',
+    title:'行为背后都有目的——孩子不是"坏"，是"迷路"',
+    body:`孩子所有"问题行为"的根本原因，是他在用错误的方式寻求两件事：<strong>归属感</strong>（我属于这个家庭）和<strong>价值感</strong>（我是重要的）。
+
+当孩子大闹时，他真正想说的是"我想被看见"，而不是"我想惹你烦"。当孩子对抗时，他说的是"我需要有一些控制感"，而不是"我要打败你"。`,
+    example:`<strong>类比：</strong>就像一个迷路的人可能会做出很奇怪的事——翻垃圾桶找食物，抢别人的手机打电话——但这不说明他是坏人，说明他是迷路了。孩子行为怪异，是因为他"迷路了"，找不到正确的归属方式。<br><br><strong>家长可以问自己：</strong>"我的孩子通过这个行为，想得到什么？他是在寻求哪种归属感？"`,
+    topic:'阿德勒心理学如何解释孩子的问题行为——归属感和价值感的深度解析'
+  },
+  {
+    num:'02', color:'t-purple',
+    title:'惩罚有效吗？短期"有效"，长期有四种毒种子',
+    body:`惩罚在短期确实能让孩子安静——但孩子内心种下了4颗种子：<strong>愤恨（Resentment）、报复（Revenge）、反叛（Rebellion）、退缩（Retreat）</strong>。
+
+真正的管教目标是：孩子在没有人监督的情况下，仍然做出正确的选择——这叫内化规则。惩罚只能制造"有人盯着我"时的服从。`,
+    example:`<strong>类比：</strong>如果你在公司被老板羞辱了，你会心服口服地下次做得更好吗？你更可能在心里想"等着瞧"或者"算了，我不在乎了"。孩子的心理机制完全一样。<br><br><strong>检验问题：</strong>你希望孩子20年后因为"我爸妈会打我"而不做坏事，还是因为"这是错的"而不做？`,
+    topic:'惩罚的四个长期危害与替代方案'
+  },
+  {
+    num:'03', color:'t-teal',
+    title:'温和而坚定——这是一个"且"，不是"或"',
+    body:`大多数家长在两个错误的极端之间摇摆：
+- <strong>严格型</strong>：坚定但不温和 → 孩子压抑、愤恨、习得性无助
+- <strong>溺爱型</strong>：温和但不坚定 → 孩子无边界、缺乏自律
+
+正面管教要求<strong>同时做到两者</strong>。这不是妥协，而是更高水平的技能。关键：行动上坚定，态度上温和。`,
+    example:`<strong>同一件事的三种说法：</strong><br>
+❌ 严格型："现在给我关掉电视，说不行就不行！"<br>
+❌ 溺爱型："哎呀好吧再看一集就一集好不好？"<br>
+✅ 温和而坚定："我知道你很想继续看（温和），我们约好的是7点，现在已经到了（坚定），我们把电视关掉。"——然后不争辩，用行动执行。`,
+    topic:'温和而坚定的具体操作方法和常见误区'
+  },
+  {
+    num:'04', color:'t-teal',
+    title:'先连接，再纠正——顺序颠倒就会失败',
+    body:`这是正面管教里最实用的一条原则。孩子情绪激动时，大脑前额叶（负责学习和理性）几乎关闭。此时：
+- 讲道理 = 对牛弹琴（他听不进去）
+- 批评惩罚 = 加油添火（他更激动）
+
+<strong>正确顺序：</strong>① 先蹲下来共情，表达理解（连接大脑）→ ② 等孩子平静（盖子合上）→ ③ 再一起讨论解决方案`,
+    example:`<strong>孩子摔玩具大哭：</strong><br>
+❌ 直接说教："你这样是不对的！玩具要好好放！"（孩子根本没在听）<br>
+✅ 先连接："你刚才看起来很难过，是发生什么事了吗？"（等孩子平静下来）<br>
+→ 孩子平静后："我们来想想，玩具摔坏了怎么处理？下次有这种感觉时可以怎么办？"`,
+    topic:'连接再纠正的神经科学依据和具体操作步骤'
+  },
+  {
+    num:'05', color:'t-coral',
+    title:'鼓励 ≠ 表扬——区别在于焦点在哪里',
+    body:`这个区别很多家长一开始觉得"那不一样吗"，但对孩子长期心理影响巨大：
+
+- <strong>表扬</strong>：评判性，焦点在父母对孩子的评价。孩子习得：我的价值来自外部认可。
+- <strong>鼓励</strong>：启发性，焦点在孩子内心的感受和成长。孩子习得：我的价值来自自己内心标准。
+
+长期靠表扬的孩子：没有人夸就不努力，遇到困难容易放弃，害怕失败。`,
+    example:`<strong>同一件作品，两种反应：</strong><br>
+❌ 表扬："你画得真棒！你真是个小天才！"（她依赖你的评价）<br>
+✅ 鼓励："你花了很长时间在这幅画上，你最满意哪个部分？完成之后你感觉怎么样？"<br><br>
+<strong>鼓励公式：</strong>描述过程（"你花了很多时间……"）+ 反问内心感受（"你觉得……？"）`,
+    topic:'鼓励与表扬的心理学差异，以及100个鼓励语言替换方案'
+  },
+  {
+    num:'06', color:'t-coral',
+    title:'自然后果 vs 逻辑后果——区别至关重要',
+    body:`这两种后果都比惩罚有效，但使用方式完全不同：
+
+<strong>自然后果</strong>：大自然或现实本身设置的后果（不用家长介入）
+- 不穿外套 → 感冒（大自然教）
+- 不吃饭 → 肚子饿（身体教）
+
+<strong>逻辑后果</strong>：人为设置，但必须满足3R：
+- Relevant（相关）：与行为有逻辑联系
+- Respectful（尊重）：维护孩子尊严
+- Reasonable（合理）：适度，不过分`,
+    example:`<strong>常见错误——把惩罚伪装成"逻辑后果"：</strong><br>
+❌ 孩子不吃饭 → "那你今天没有电视看"（无逻辑关联，这是惩罚）<br>
+✅ 孩子不吃饭 → 饭后不额外提供零食（自然后果让他体验饿的感觉）<br><br>
+<strong>真正的逻辑后果：</strong><br>
+孩子乱扔玩具 → 玩具被收走一天（相关：玩具乱扔/失去玩具；合理：一天；尊重：不骂人）`,
+    topic:'逻辑后果的3R原则、正确案例和常见误用辨析'
+  },
+  {
+    num:'07', color:'t-amber',
+    title:'家庭会议——孩子最需要的归属感训练场',
+    body:`家庭会议不是开会，是建立家庭民主文化。它解决的根本问题是：孩子感觉"我在这个家里有位置和发言权"。
+
+<strong>完整流程（每周约30分钟）：</strong>
+① 每人说一件感谢或称赞
+② 检查上次议题的执行情况
+③ 提出新问题并讨论
+④ 共同投票制定解决方案
+⑤ 计划本周家庭乐趣活动`,
+    example:`<strong>为什么孩子参与的规则执行率更高？</strong><br>
+心理学原理：人们更容易执行自己参与制定的规则（"心理所有权"）。你强制规定的，是"你的规则"；他参与制定的，是"我们的规则"。<br><br>
+<strong>关键：</strong>家长也要把"想让孩子改变的事"带到会议上，不能独裁。如果家长有否决权，孩子会发现这不是真正的民主。`,
+    topic:'家庭会议完整操作手册：流程、常见问题和真实案例'
+  },
+  {
+    num:'08', color:'t-amber',
+    title:'犯错是学习机会——用3R法修复而非羞辱',
+    body:`大多数家长对孩子犯错的反应是：批评 + 惩罚。这让孩子学到：犯错是可怕的、我要隐瞒、我很坏。
+
+正面管教对犯错的态度：<strong>这是一个完美的学习机会</strong>。
+
+<strong>3R修复法：</strong>
+① Recognize 承认错误（帮助孩子说出"我做了……"）
+② Reconcile 和解（向受影响的人道歉）
+③ Resolve 解决（想出补救方法）`,
+    example:`<strong>家长自己犯错时也用3R示范：</strong><br>
+"我刚才因为太累对你大喊大叫了（承认），这样做不对，对不起（和解），下次我感觉要失控的时候，我会先去喝杯水冷静一下再跟你说话（解决）。"<br><br>
+这是你能给孩子最好的示范——大人也会犯错，也可以修复，这很正常。`,
+    topic:'如何用3R修复法代替惩罚，帮助孩子从错误中真正学习'
+  },
+  {
+    num:'09', color:'t-blue',
+    title:'特别时光——15分钟比3小时更有效',
+    body:`很多孩子的行为问题，根源是归属感缺口。特别时光是最直接填补这个缺口的方法。
+
+<strong>操作要点：</strong>
+- 每天固定时间（哪怕15分钟）
+- 孩子完全决定做什么，家长跟随
+- 家长不主导、不教导、不评价、不看手机
+- 提前告知"这是你的特别时光"
+- 必须定期稳定，比偶尔2小时更有效`,
+    example:`<strong>为什么短而规律比长而偶尔更有效？</strong><br>
+孩子需要的是"可预期的归属感"——"我知道每天某个时候，爸爸/妈妈只属于我"。这给孩子安全感。不规律的时候很久，期间孩子反而更焦虑、更需要用问题行为来测试你是否在意他。<br><br>
+<strong>观察指标：</strong>坚持特别时光2-3周后，很多孩子的"无理取闹"频率自然下降。`,
+    topic:'特别时光的科学依据、具体操作细节和常见误区'
+  },
+  {
+    num:'10', color:'t-blue',
+    title:'长期目标：培养"有用"的孩子，不是"听话"的孩子',
+    body:`这是整本书的终极框架——所有方法的检验标准。
+
+尼尔森的核心问题：<strong>"我希望孩子20年后成为什么样的人？"</strong>
+
+正面管教希望培养的孩子：自律（内在动力）、有责任感（能承担后果）、能合作（既考虑自己也考虑他人）、有韧性（能从错误中学习站起来）、能解决问题（遇到困难会思考方案）。
+
+"听话的孩子"长大后：需要外部权威才知道该做什么，缺乏独立判断力。`,
+    example:`<strong>检验你每个决定的问题：</strong><br>
+"我现在的这个反应/方法，会帮助孩子发展哪种长期能力？还是只是让我现在少烦一点？"<br><br>
+当你想靠吼、靠打、靠贿赂解决问题时，问自己这个问题。它会帮你找回方向。`,
+    topic:'正面管教的长期教育哲学和七项感知力与技能详解'
+  }
+];
+
+// Render takeaways
+const tl = document.getElementById('takeawayList');
+takeaways.forEach((t,i) => {
+  tl.innerHTML += `
+  <div class="takeaway-item">
+    <div class="takeaway-header" onclick="toggleTakeaway(${i})">
+      <span class="takeaway-num ${t.color}">${t.num}</span>
+      <span class="takeaway-title">${t.title}</span>
+      <span class="takeaway-arrow">▼</span>
+    </div>
+    <div class="takeaway-body" id="tb-${i}">
+      <div>
+        <p>${t.body.replace(/\n/g,'<br>')}</p>
+        <div class="example">${t.example.replace(/\n/g,'<br>')}</div>
+      </div>
+    </div>
+  </div>`;
+});
+
+function toggleTakeaway(i) {
+  const body = document.getElementById('tb-'+i);
+  const item = body.closest('.takeaway-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.takeaway-item.open').forEach(el=>{
+    el.classList.remove('open');
+    el.querySelector('.takeaway-body').style.maxHeight = '0';
+    el.querySelector('.takeaway-body').style.paddingBottom = '0';
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 32 + 'px';
+    body.style.paddingBottom = '18px';
+  }
+}
+
+// ─── ANKI DATA ───
+const ankiCards = [
+  {tag:'理论',tc:'t-purple',q:'阿德勒心理学的两个核心需求是什么？',a:'归属感（Belonging）和价值感（Significance）。孩子所有行为都是在尝试满足这两种需求——只是方式可能是错误的。'},
+  {tag:'理论',tc:'t-purple',q:'孩子行为不当的四个错误目的是什么？',a:'① 寻求过度关注（"注意我"）② 寻求权力（"你管不了我"）③ 报复（"你伤害我，我也要伤害你"）④ 自暴自弃（"我什么都不行"）。家长的情绪感受可帮助判断。'},
+  {tag:'原则',tc:'t-teal',q:'温和而坚定——这两个词各指什么？',a:'温和 = 尊重孩子的感受和尊严（态度层面）。坚定 = 维持界限，不妥协（行为层面）。两者必须同时存在，缺一不可。'},
+  {tag:'原则',tc:'t-teal',q:'为什么说"情绪激动时不教导"？',a:'孩子情绪激动时，大脑杏仁核激活，前额叶（负责理性、学习）几乎关闭。此时讲道理=对牛弹琴，批评惩罚=加油添火。必须等孩子平静后再沟通。'},
+  {tag:'原则',tc:'t-teal',q:'什么叫"连接再纠正"？正确顺序是什么？',a:'顺序：① 先用语言/行动表达理解和连接（"我看到你很难过"）② 等孩子平静 ③ 共同讨论解决方案。颠倒顺序（先批评再安慰）会失败，因为孩子先感受到的是拒绝。'},
+  {tag:'工具',tc:'t-coral',q:'鼓励和表扬的核心区别？各举一个例子',a:'表扬："你好棒！"→ 聚焦父母评价，孩子依赖外部认可。鼓励："你在这上面花了很多时间，你觉得哪里做得好？"→ 聚焦孩子内心感受，培养内驱力。'},
+  {tag:'工具',tc:'t-coral',q:'逻辑后果必须满足的3R是什么？',a:'Relevant（相关）：与行为有直接逻辑联系。Respectful（尊重）：维护孩子尊严，不羞辱。Reasonable（合理）：适度，不过分。三者缺一不可，否则就是变相惩罚。'},
+  {tag:'工具',tc:'t-coral',q:'家庭会议的4个核心环节是什么？',a:'① 感谢与称赞（每人说一件）② 检查上次议题执行 ③ 提出并讨论新问题 ④ 共同投票制定解决方案，并计划家庭乐趣活动。平等发言，孩子与家长同权。'},
+  {tag:'工具',tc:'t-coral',q:'什么是启发式问题？举3个例子',a:'引导孩子思考而非命令的问题。例："发生了什么？""你现在感觉怎么样？""你觉得下次可以怎么做？"目的是激活孩子问题解决能力，不是直接给答案。'},
+  {tag:'工具',tc:'t-coral',q:'犯错的3R修复法步骤是什么？',a:'① Recognize承认（帮孩子说出"我做了……"）② Reconcile和解（向受影响的人道歉）③ Resolve解决（想出弥补方式）。家长自己犯错也同样用3R示范。'},
+  {tag:'应用',tc:'t-amber',q:'孩子发脾气时，正确的第一步是什么？',a:'先管理自己的情绪（深呼吸），然后保持冷静、靠近孩子，用平稳语气说"我在这里"或"我看到你很难受"。不要在此刻讲道理或惩罚——等孩子平静后再说。'},
+  {tag:'应用',tc:'t-amber',q:'孩子不肯收玩具，如何运用正面管教？',a:'① 事先约定（不是临时命令）② 给有限选择："你现在收还是5分钟后收？" ③ 温和坚定执行约定（不收→玩具进"玩具医院"暂停使用）④ 不唠叨说教，用行动代替语言。'},
+  {tag:'应用',tc:'t-amber',q:'冷静角与惩罚性暂停的本质区别？',a:'惩罚性暂停：让孩子去角落反思，本质是孤立和羞辱，目的是让孩子付出代价。冷静角：孩子主动去的恢复空间，里面有安抚物品，目的是帮助情绪恢复，孩子决定何时准备好再出来。'},
+  {tag:'应用',tc:'t-amber',q:'如何正确执行"特别时光"？',a:'① 每天固定15分钟 ② 孩子决定做什么，家长跟随 ③ 不主导、不批评、不评价、不看手机 ④ 提前告知"这是你的特别时光" ⑤ 稳定规律 > 偶尔时间长。'},
+  {tag:'应用',tc:'t-amber',q:'如何判断自己是在惩罚而非正面管教？',a:'问自己：① 我的出发点是"让孩子付出代价"还是"帮孩子学习"？② 这个方法是否维护了孩子尊严？③ 这是否教会了孩子实际技能？如果答案令你怀疑，可能就是在惩罚。'},
+  {tag:'脑科学',tc:'t-blue',q:'什么是"大脑盖子翻起来"？',a:'比喻：前额叶（理性/盖子）本来覆盖杏仁核（情绪脑）。情绪过激时，盖子"翻起来"，杏仁核暴露并主导行为→冲动、攻击、崩溃。解决：先帮孩子恢复安全感，让前额叶重新上线。'},
+  {tag:'脑科学',tc:'t-blue',q:'为什么羞辱和严厉惩罚会损害孩子的长期发展？',a:'反复经历羞辱/恐惧使大脑长期处于应激状态，削弱前额叶发育（影响自控、决策），强化杏仁核过度反应。安全温暖的关系环境才能支持健康的神经发育和大脑结构形成。'},
+  {tag:'理论',tc:'t-purple',q:'正面管教对"权力争夺"的核心建议是什么？',a:'"从争斗中退出"。技巧：① 暂时离开现场 ② 用行动代替语言 ③ 事后（平静时）讨论 ④ 给孩子适当的权力感（有限选择）。父母越是拉锯，孩子越觉得通过争夺能得到控制感。'},
+  {tag:'原则',tc:'t-teal',q:'正面管教的最终长期目标是什么？',a:'培养一个有自律性、能合作、有责任感、有解决问题能力的孩子——而不仅仅是一个听话的孩子。所有短期工具都要服务于这个长期目标。'},
+  {tag:'应用',tc:'t-amber',q:'当孩子在公共场所大发脾气时怎么做？',a:'① 不要与孩子在公众面前争论 ② 平静地把孩子带离现场（"我们去那边坐一下"）③ 等孩子平静后简短共情 ④ 如需离开就离开，不要用物质安抚来阻止哭闹 ⑤ 回家后再讨论和约定。'}
+];
+
+let flippedCount = 0;
+let currentFilter = 'all';
+
+function renderAnki() {
+  const grid = document.getElementById('ankiGrid');
+  grid.innerHTML = '';
+  const filtered = currentFilter === 'all' ? ankiCards : ankiCards.filter(c=>c.tag===currentFilter);
+  filtered.forEach((c,i)=>{
+    const gi = ankiCards.indexOf(c);
+    grid.innerHTML += `
+    <div class="anki-card" id="ac-${gi}" onclick="flipCard(${gi})">
+      <div class="anki-inner">
+        <div class="anki-front">
+          <span class="card-tag ${c.tc}" style="margin-bottom:4px">${c.tag}</span>
+          <div class="anki-q">${c.q}</div>
+          <div class="anki-flip-hint">点击翻转查看答案</div>
+        </div>
+        <div class="anki-back">
+          <div style="font-size:10px;opacity:0.5;margin-bottom:6px">${c.tag}</div>
+          <div class="anki-a">${c.a}</div>
+          <div class="anki-flip-hint">再次点击翻回</div>
+        </div>
+      </div>
+    </div>`;
+  });
+}
+
+function flipCard(i) {
+  const card = document.getElementById('ac-'+i);
+  const wasFlipped = card.classList.contains('flipped');
+  card.classList.toggle('flipped');
+  if (!wasFlipped) {
+    flippedCount++;
+    document.getElementById('ankiProgress').textContent = `已翻看 ${flippedCount} / ${ankiCards.length}`;
+  }
+}
+
+function filterAnki(tag, btn) {
+  currentFilter = tag;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAnki();
+}
+
+renderAnki();
+
+// ─── SELF TEST ───
+const testQuestions = [
+  {
+    num:'01', level:'基础回忆', lv:'lv1',
+    q:'用你自己的话解释：正面管教为什么不用惩罚来管教孩子？惩罚的问题在哪里？',
+    hint:'提示：想想孩子被惩罚时心里可能在想什么，以及它对孩子长期态度的影响。'
+  },
+  {
+    num:'02', level:'基础回忆', lv:'lv1',
+    q:'列出孩子行为不当的四个"错误目的"，并描述家长如何识别孩子处于哪个阶段？',
+    hint:'提示：家长在孩子这个行为出现时，自己感受到的情绪是重要线索。'
+  },
+  {
+    num:'03', level:'基础回忆', lv:'lv1',
+    q:'自然后果和逻辑后果的区别是什么？各举一个你在日常生活中会遇到的真实例子。',
+    hint:'提示：哪一个是"大自然或现实"设置的？哪一个是人为设置但要有逻辑关联？'
+  },
+  {
+    num:'04', level:'变式应用', lv:'lv2',
+    q:'你4岁的孩子每次睡前都要大哭闹腾不肯睡觉。请用正面管教的框架分析这个行为的可能原因，并设计一个应对方案。',
+    hint:'提示：先判断他的"错误目的"是什么，再选择合适的工具——是需要建立睡前仪式？还是需要更多特别时光？'
+  },
+  {
+    num:'05', level:'变式应用', lv:'lv2',
+    q:'对比这两句话的长期影响："你画得真棒！"（表扬）vs "你花了很长时间在这幅画上，你觉得哪个部分最满意？"（鼓励）——孩子的内在动机会如何不同发展？',
+    hint:'提示：10年后，孩子在没有人表扬他的情况下，会如何对待一件事情？'
+  },
+  {
+    num:'06', level:'变式应用', lv:'lv2',
+    q:'家庭会议到底在解决什么深层问题？为什么孩子参与制定的规则比家长单方面规定的更容易被遵守？',
+    hint:'提示：心理所有权、归属感、控制感——这些词可以帮助你思考。'
+  },
+  {
+    num:'07', level:'变式应用', lv:'lv2',
+    q:'描述你会如何分步骤应对这个场景：你的孩子在超市里因为你不给买玩具而大发脾气，哭倒在地、又踢又叫。当下和事后你分别会怎么做？',
+    hint:'提示：记住顺序——先连接（情绪），再纠正（行为），不要混淆。当下和事后是两个完全不同的任务。'
+  },
+  {
+    num:'08', level:'批判思考', lv:'lv3',
+    q:'有人说"正面管教太软了，孩子就是要严管，打一顿就老实了"。你如何客观评价这个观点？它有什么合理之处，局限在哪里？',
+    hint:'提示：区分短期效果和长期结果；惩罚在哪些情况下是有效的，在哪些情况下适得其反？'
+  },
+  {
+    num:'09', level:'批判思考', lv:'lv3',
+    q:'你认为正面管教在什么情况下最难执行？这本书有哪些你认为的局限性或盲区？',
+    hint:'提示：家长自己的情绪调节能力、文化背景差异、孩子气质差异、双职工家庭的时间压力……任何你觉得现实中会遇到的障碍。'
+  },
+  {
+    num:'10', level:'创造整合', lv:'lv3',
+    q:'用正面管教的框架，针对你目前孩子最让你头疼的一个具体问题，写出你的分析和行动计划（至少3步）。',
+    hint:'这是最重要的题——把学到的知识真正对准你的生活。你的孩子多大？什么行为？你分析是什么错误目的？你准备用什么工具？'
+  }
+];
+
+const tf = document.getElementById('testForm');
+testQuestions.forEach((q,i)=>{
+  tf.innerHTML += `
+  <div class="test-q-card">
+    <div class="test-q-header">
+      <div class="test-q-num ${q.lv}-num">${q.num}</div>
+      <div class="test-q-meta">
+        <div class="test-q-level ${q.lv}">${q.level}</div>
+        <div class="test-q-text">${q.q}</div>
+        <div class="test-q-hint">${q.hint}</div>
+      </div>
+    </div>
+    <div class="test-q-body">
+      <textarea class="test-textarea" id="ta-${i}" placeholder="写下你的想法……" oninput="updateCharCount(${i})"></textarea>
+      <div class="test-char-count" id="cc-${i}">0 字</div>
+    </div>
+  </div>`;
+});
+tf.innerHTML += `
+  <div class="test-submit-area">
+    <p>写完你的答案后提交——这个提交动作本身就是一次强烈的主动回忆。<br>每道题不求完美，写出你真实的理解即可。</p>
+    <button class="test-submit-btn" onclick="submitTest()">提交所有答案</button>
+    <div class="submit-toast" id="submitToast">
+      ✅ 感谢你认真完成了自测！<br>
+      此功能完整版将支持 AI 逐题点评你的答案，识别你的知识盲点并给出个性化反馈。<br>
+      目前请将你的答案复制后发送给 AI 助手进行分析。
+    </div>
+  </div>`;
+
+function updateCharCount(i) {
+  const ta = document.getElementById('ta-'+i);
+  document.getElementById('cc-'+i).textContent = ta.value.length + ' 字';
+}
+
+function submitTest() {
+  document.getElementById('submitToast').style.display = 'block';
+  window.scrollTo({top: document.getElementById('submitToast').offsetTop - 100, behavior: 'smooth'});
+}
+
+// ─── 30-DAY PLAN DATA ───
+const planData = [
+  {
+    week:1, badge:'第一周', badgeBg:'#3A6644', badgeColor:'white',
+    title:'理论地基：知道"是什么"和"为什么"',
+    goal:'建立完整的理论认知框架',
+    days:[
+      { d:1, title:'阿德勒心理学的三大核心假设', desc:'精读第1章。理解：① 人类追求归属感和价值感；② 行为是有目的的；③ 孩子是社会人，不是战场上的对手。', tags:['精读'], activity:'读完后写3句话：用自己的话解释阿德勒的三个假设。', why:'这是整本书的底层逻辑，理解了这个，所有工具才有意义。'},
+      { d:2, title:'四个错误目的：读懂孩子行为密码', desc:'精读"错误目的"章节。重点：① 每个目的对应的孩子信念是什么；② 家长情绪如何帮助识别目的；③ 每种目的的有效回应策略。', tags:['精读'], activity:'打印或画出"错误目的表格"，贴在家里显眼处。', why:'这是正面管教最核心的诊断工具——知道行为背后是什么，才能正确回应。'},
+      { d:3, title:'主动回忆：用自己的话重述理论', desc:'不翻书，在纸上写出：阿德勒假设是什么？四个错误目的是什么？对应的家长回应是什么？写完后翻书对照，找出遗漏和偏差。', tags:['主动回忆'], activity:'重述练习——写出来，不是默背，写出来效果是默背的3倍。', why:'主动回忆是记忆效率最高的方法，比再读一遍效果好400%。'},
+      { d:4, title:'温和而坚定：核心原则深度理解', desc:'精读温和而坚定的章节。思考：我平时更偏向哪个极端（太严/太软）？举3个生活中的例子，分析应如何改成温和且坚定。', tags:['精读','反思'], activity:'找一个你上周处理得不好的亲子互动，用温和而坚定重新设计你的回应。', why:'这个原则贯穿整本书，是执行所有工具的态度基础。'},
+      { d:5, title:'脑科学章节：大脑盖子和情绪调节', desc:'读脑科学相关章节（大脑盖子翻起来的比喻）。重点：前额叶 vs 杏仁核；为什么情绪激动时不要教导；如何帮助孩子"盖子合上"。', tags:['精读'], activity:'今天观察孩子一次情绪激动的时刻——识别"盖子翻起来"的迹象。', why:'神经科学给了家长"不讲道理"的合理理由，减少自责和冲突。'},
+      { d:6, title:'生活观察：记录孩子行为与错误目的', desc:'今天用"侦探眼光"观察孩子。每次孩子出现问题行为时，暂停一下，问自己："他现在处于四个错误目的中的哪一个？我的第一反应情绪是什么？"记录下来。', tags:['反思记录'], activity:'用手机备忘录或小本子，记3次以上观察。', why:'把理论应用到真实观察，是从"知道"到"理解"的关键一步。'},
+      { d:7, title:'第一周间隔复习·完成自测Q1-Q3', desc:'回顾本周所有内容。完成自测题Q1（惩罚问题）、Q2（四个错误目的）、Q3（自然vs逻辑后果）。翻开书对照，找出你的理解盲点。', tags:['间隔复习'], activity:'复习时间：20分钟。优先复习你感觉模糊的部分，不要平均用力。', why:'7天间隔复习是记忆曲线的最佳节点，帮助将知识从短期记忆转入长期记忆。'}
+    ]
+  },
+  {
+    week:2, badge:'第二周', badgeBg:'#1C4F7A', badgeColor:'white',
+    title:'核心工具：知道"怎么做"',
+    goal:'掌握5个核心实操工具的具体使用方法',
+    days:[
+      { d:8, title:'鼓励 vs 表扬：准备你的语言工具箱', desc:'深度读鼓励章节。重点：① 鼓励公式（描述过程+反问感受）；② 把10句常用表扬语改成鼓励语；③ 避免评判性语言的替代说法。', tags:['精读','实践'], activity:'写出你最常说的5句表扬，用鼓励语改写，今天试用至少一次。', why:'语言习惯改变需要反复练习，早准备工具包，越快上手。'},
+      { d:9, title:'自然后果/逻辑后果：3R原则精读', desc:'精读后果章节。重点：① 自然后果何时适用，何时不适用（危险情况）；② 逻辑后果3R检验标准；③ 常见"伪逻辑后果"识别。', tags:['精读'], activity:'列出你家孩子目前最常见的3个问题行为，分析每个适合用哪种后果。', why:'这个工具是替代惩罚的核心，用错了反而变成变相惩罚。'},
+      { d:10, title:'启发式问题：准备你的问题清单', desc:'学习启发式问题的使用方法。区分：告知型话语（"你应该……"）vs 启发型问题（"你觉得……"）。整理出15个你在不同场景可以使用的问题。', tags:['精读','实践'], activity:'把15个问题写在手机便签，今天至少用2次代替指令。', why:'启发式问题改变了亲子互动的权力结构，孩子感觉被尊重，配合度自然提升。'},
+      { d:11, title:'正式开始特别时光：第1天', desc:'今天开始执行特别时光。选定固定时间（建议下午或睡前）、固定时长（15分钟）。提前告知孩子"这是你的特别时光"，完全由孩子决定。记录孩子的反应。', tags:['实践'], activity:'记录今天特别时光：孩子选择了什么？你感觉如何？有哪些地方你想主导或教导但忍住了？', why:'特别时光对行为问题的改善需要2-3周才能显现，越早开始越好。'},
+      { d:12, title:'家庭会议：设计你家的版本', desc:'精读家庭会议章节。设计适合你家情况的会议格式：① 什么时候开？② 需要哪些固定环节？③ 如何处理孩子不认真或捣乱？④ 第一次会议准备讨论什么主题？', tags:['精读','实践'], activity:'准备好，本周或下周举行第一次家庭会议。写出你的会议议程草稿。', why:'家庭会议是正面管教里效果最长远的工具，建立家庭文化层面的改变。'},
+      { d:13, title:'本周工具回忆·完成自测Q4-Q6', desc:'不翻书，快速列出本周学到的5个工具及其核心要点。完成自测Q4（睡前哭闹场景）、Q5（鼓励vs表扬对比）、Q6（家庭会议）。', tags:['间隔复习'], activity:'对照书本找出你的理解偏差，重点标记。', why:'工具学完要立刻形成记忆索引，否则在需要的时候调不出来。'},
+      { d:14, title:'第1+2周综合复习·卡片全套复习', desc:'今天花20分钟，把学习系统中所有Anki卡片过一遍（点击翻转测试自己）。特别关注你上次回答不确定的卡片。同时回顾本周特别时光的效果。', tags:['间隔复习'], activity:'完成20张Anki卡片复习，标记你觉得还不熟练的3-5张重点复习。', why:'14天是记忆曲线的重要节点，此时复习的内容将在记忆中大幅加固。'}
+    ]
+  },
+  {
+    week:3, badge:'第三周', badgeBg:'#8B3620', badgeColor:'white',
+    title:'场景实战：在真实生活中使用工具',
+    goal:'把理论工具真正用到具体家庭场景中',
+    days:[
+      { d:15, title:'建立你家的冷静角', desc:'精读冷静角章节。在家里布置一个冷静角（不是关小黑屋）：舒适、有安抚物品、孩子知道这是"恢复的地方"不是惩罚。与孩子共同设计，让他参与布置。', tags:['实践'], activity:'今天和孩子一起设计冷静角，问他：想在里面放什么东西？叫什么名字？', why:'冷静角需要在平静时建立和介绍，不能在冲突时突然使用。'},
+      { d:16, title:'权力争夺场景演练', desc:'精读权力争夺章节。重点学习：① 如何识别自己是否已经进入权力争夺；② "从争斗中退出"的具体做法；③ 事后如何重新建立连接并约定。', tags:['场景演练'], activity:'回想上周一次权力争夺，分析哪个步骤做错了，下次如何改进。', why:'权力争夺是家长最容易被情绪带走的场景，事前演练很重要。'},
+      { d:17, title:'3R犯错修复法实践', desc:'精读犯错修复章节。今天找机会用3R法：① 孩子犯错时引导他走3R步骤；② 更重要的：家长自己犯错（对孩子大喊大叫、说了不对的话）时，主动示范3R。', tags:['实践'], activity:'写下你作为父母上周犯的一个"错"，现在用3R法修复。', why:'家长示范3R比教孩子用3R更有效。孩子学的是你做的，不是你说的。'},
+      { d:18, title:'举办第一次家庭会议', desc:'执行上周计划好的家庭会议。流程：感谢→议题讨论→投票方案→计划乐趣活动。时长控制在20-30分钟。孩子年龄小可以从10分钟开始。', tags:['实践'], activity:'会议后记录：孩子参与度如何？讨论了什么问题？达成了什么共识？遇到什么困难？', why:'第一次会议不必完美，建立仪式感和习惯最重要。'},
+      { d:19, title:'本周效果回顾与记录', desc:'回顾本周实践：特别时光坚持了几天？冷静角用了吗？有没有成功避开权力争夺？哪个工具最有效？哪个最困难？诚实记录，不要美化。', tags:['反思记录'], activity:'写一段200字左右的周记：本周印象最深的亲子时刻是什么？', why:'元认知反思（思考自己的思考）是知识内化最后一步，不可跳过。'},
+      { d:20, title:'完成自测Q7·对照书中案例', desc:'完成自测Q7（超市发脾气场景的分步应对）。写完后翻书查找类似案例，对比你的方案和书中建议的差距。记录你的学习点。', tags:['间隔复习'], activity:'重点分析：你的方案里，哪个步骤遗漏了？哪个步骤做得好？', why:'把理论应用到真实场景是检验理解深度最准确的方式。'},
+      { d:21, title:'第1-3周完整复习·全部核心卡片', desc:'20分钟复习所有20张Anki卡片，给自己标记：熟练（绿）/ 还好（黄）/ 不确定（红）。优先把红色标记的卡片再深入回顾一遍。', tags:['间隔复习'], activity:'21天节点：回顾你行为上的改变——你现在哪些反应已经开始自然地调整了？', why:'21天是习惯初步形成的时间节点，值得有意识地观察自己的改变。'}
+    ]
+  },
+  {
+    week:4, badge:'第四周', badgeBg:'#8B6914', badgeColor:'white',
+    title:'深化整合：批判性思考与体系内化',
+    goal:'形成可迁移的知识体系和长期实践计划',
+    days:[
+      { d:22, title:'横向对比：读《如何说孩子才会听》', desc:'快速阅读（或重读）《如何说孩子才会听》中的关键章节，对比与正面管教的异同。重点：两本书的工具在哪些场景互补？', tags:['横向对比'], activity:'列一张对比表：同一个场景，两本书分别建议怎么做？', why:'知识联网比单点学习深刻10倍，理解了"为什么不同"，才真正理解了各自的逻辑。'},
+      { d:23, title:'完成自测Q8-Q9：批判性思考练习', desc:'认真写Q8（评价"要严管"的观点）和Q9（正面管教的局限）。这两题没有标准答案，考的是你的独立思考。写完后看看是否能说服自己。', tags:['深度思考'], activity:'和一位家长朋友/伴侣讨论你的观点，听听对方的不同看法。', why:'能指出一个理论的局限，比只能夸它好更说明你真正理解了它。'},
+      { d:24, title:'整理"我家定制工具箱"', desc:'回顾30天所有学到的工具，选出最适合你家孩子、你自己性格、你们生活节奏的5个核心工具。写出每个工具的使用场景和你的个人版操作步骤。', tags:['个人化'], activity:'制作你自己的"正面管教备忘卡"——手写或打印，放在你容易看到的地方。', why:'个性化才能持续。最好的工具是你真正会用的工具，不是书里写的所有工具。'},
+      { d:25, title:'完成自测Q10：针对真实问题的行动计划', desc:'这是最重要的一题。认真写你孩子目前最让你头疼的一个具体问题的分析和行动计划。要具体：这个行为背后是什么错误目的？你打算用什么工具？具体怎么做？', tags:['应用整合'], activity:'计划写完后，今天就开始执行第一步。', why:'知识不变成行动，学再多也只是"了解过"而不是"会用"。'},
+      { d:26, title:'费曼输出：把全书讲给家人听', desc:'今天找一个机会（和伴侣吃饭、和老人聊天），用10-15分钟把正面管教的核心理念讲给他们听——就像你在给一个完全不了解的人讲解。能讲清楚，说明你真正懂了。', tags:['费曼输出'], activity:'记录：哪些部分你解释起来磕磕绊绊？那些就是你还没真正内化的知识点。', why:'费曼技术：能用简单语言解释，才是真正理解。讲给别人的过程会暴露所有知识盲点。'},
+      { d:27, title:'第二次家庭会议·对比第一次效果', desc:'举行第二次家庭会议。这次更有经验了：能改进上次的问题吗？孩子参与度有变化吗？讨论本月执行情况，以及接下来想改变什么。', tags:['实践'], activity:'对比第一次和第二次会议的差异，孩子的反应有什么变化？', why:'家庭会议的效果是随着坚持而累积的，第二次往往比第一次顺很多。'},
+      { d:28, title:'全书回忆地图·不看书画出来', desc:'拿一张A4纸，不翻书，凭记忆画出整本书的知识地图：从阿德勒理论到五大工具到场景应用。画完后翻书核对，找出你遗漏的内容。', tags:['主动回忆'], activity:'这个知识地图保留下来——它代表了你目前真实的知识体系状态。', why:'能画出地图，说明你对书中知识有了整体的结构化理解，而不只是零散的记忆点。'},
+      { d:29, title:'全部Anki卡片复习·标记掌握程度', desc:'最后一次完整复习所有20张卡片，给每张标记掌握等级。把"不确定"的卡片加入你的长期复习清单（建议第45天、第60天、第90天再各复习一次）。', tags:['间隔复习'], activity:'制定你的长期复习计划：未来3个月什么时候复习这些卡片？', why:'间隔重复的最后环节是安排好未来的复习节点，否则知识会在30-60天内大幅遗忘。'},
+      { d:30, title:'制定下一个90天实践计划', desc:'今天不读书，只做计划。回答三个问题：① 过去30天，我最大的改变是什么？② 我目前还在哪里挣扎或做得不好？③ 未来90天，我要重点练习哪3件事？', tags:['长期规划'], activity:'写一份简短的"90天实践宣言"：我承诺在未来90天里，每天至少做到……', why:'知识学习的终点不是读完一本书，而是开始了一段持续实践的旅程。'}
+    ]
+  }
+];
+
+const planEl = document.getElementById('planContent');
+planData.forEach(week=>{
+  planEl.innerHTML += `
+  <div class="plan-week">
+    <div class="plan-week-header">
+      <span class="week-badge" style="background:${week.badgeBg};color:${week.badgeColor}">${week.badge}</span>
+      <span class="week-title">${week.title}</span>
+      <span class="week-goal">${week.goal}</span>
+    </div>
+    <div class="days-grid">
+      ${week.days.map(d=>`
+        <div class="day-card" onclick="showDayDetail(${d.d}, ${week.days.indexOf(d)}, ${planData.indexOf(week)})">
+          <div class="day-num">Day ${d.d}</div>
+          <div class="day-title">${d.title}</div>
+          <div class="day-desc">${d.desc.substring(0,80)}…</div>
+          <div class="day-tags">${d.tags.map(t=>`<span class="day-tag tag-${
+            t==='精读'?'read':t==='实践'?'practice':t==='主动回忆'||t==='间隔复习'?'review':'reflect'
+          }">${t}</span>`).join('')}</div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+});
+
+function showDayDetail(dayNum, dayIdx, weekIdx) {
+  const day = planData[weekIdx].days[dayIdx];
+  const week = planData[weekIdx];
+  document.getElementById('dayModalIcon').textContent = '📅';
+  document.getElementById('dayModalTitle').textContent = `Day ${dayNum} · ${day.title}`;
+  document.getElementById('dayModalBody').innerHTML = `
+    <div style="padding:20px 24px">
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+        <span style="font-size:11px;padding:2px 8px;border-radius:3px;background:${week.badgeBg};color:${week.badgeColor}">${week.badge}</span>
+        ${day.tags.map(t=>`<span class="day-tag tag-${t==='精读'?'read':t==='实践'?'practice':t==='主动回忆'||t==='间隔复习'?'review':'reflect'}">${t}</span>`).join('')}
+      </div>
+      <div style="background:var(--surface2);border-radius:10px;padding:16px 18px;margin-bottom:14px">
+        <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:6px;letter-spacing:0.06em">📖 今日任务</div>
+        <div style="font-size:14px;line-height:1.8;color:var(--primary)">${day.desc}</div>
+      </div>
+      <div style="background:var(--gold-light);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:14px">
+        <div style="font-size:11px;font-weight:600;color:#8B6414;margin-bottom:6px">✏️ 具体行动</div>
+        <div style="font-size:13px;line-height:1.7;color:#6B4A08">${day.activity}</div>
+      </div>
+      <div style="background:var(--surface2);border-radius:8px;padding:12px 16px">
+        <div style="font-size:11px;font-weight:600;color:var(--secondary);margin-bottom:6px">💡 为什么这样安排</div>
+        <div style="font-size:13px;line-height:1.7;color:var(--secondary)">${day.why}</div>
+      </div>
+    </div>`;
+  document.getElementById('dayModalOverlay').classList.add('open');
+}
+
+function closeDayModal() { document.getElementById('dayModalOverlay').classList.remove('open'); }
+function closeDayModalOverlay(e) { if(e.target===document.getElementById('dayModalOverlay')) closeDayModal(); }
+
+// ─── MODAL & AI ───
+function exploreNode(nodeKey, title, icon) {
+  document.getElementById('modalIcon').textContent = icon || '📖';
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalLoading').style.display = 'none';
+  document.getElementById('modalContent').style.display = 'block';
+  document.getElementById('modalOverlay').classList.add('open');
+
+  const node = NODE_CONTENT[nodeKey];
+  if (node) {
+    document.getElementById('modalTitle').textContent = node.title;
+    document.getElementById('modalContent').innerHTML = node.content;
+  } else {
+    document.getElementById('modalContent').innerHTML = '<p style="color:var(--muted)">内容加载中...</p>';
+  }
+}
+
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+function closeModalOverlay(e) { if(e.target===document.getElementById('modalOverlay')) closeModal(); }
+
+// Keyboard close
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeModal(); closeDayModal(); }
+});
+
+// ─── THEME SWITCHER ───
+function setTheme(theme, btn) {
+  document.documentElement.setAttribute('data-theme', theme);
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  localStorage.setItem('pd_theme', theme);
+}
+// Restore saved theme
+(function(){
+  const saved = localStorage.getItem('pd_theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+    const btn = document.getElementById('tb-' + saved);
+    if (btn) {
+      document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  }
+})();
+</script>
+</body>
+</html>
