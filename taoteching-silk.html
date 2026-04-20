@@ -7,42 +7,56 @@
 <meta name="description" content="马王堆帛书版《道德经》完整章节导航，用丝绸智慧为现代家庭带来宁静与力量。AIGC 优雅呈现。">
 <meta name="keywords" content="道德经, 帛书版, 道家智慧, AIGC, 家庭修身">
 <link rel="canonical" href="https://aigc.jogiter.cn/taoteching-silk.html">
+<link rel="stylesheet" href="/theme.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500&family=IM+Fell+English:ital@0;1&display=swap');
 
 :root {
-  --bg:        #0d0d0b;
-  --bg2:       #131310;
-  --bg3:       #1a1a16;
-  --bg4:       #222220;
-  --gold:      #c9a84c;
-  --gold-lt:   #e4c97e;
-  --gold-dk:   #8c6d2a;
-  --ink:       #f0ead8;
-  --ink2:      #b8b09a;
-  --ink3:      #6e6858;
-  --border:    rgba(201,168,76,0.15);
-  --border2:   rgba(201,168,76,0.30);
+  /* 深色丝绸主题：覆盖语义 token */
+  --background:      var(--neutral-900);
+  --surface:         #131310;
+  --surface-2:       #1a1a16;
+  --primary:         var(--gold-500);
+  --primary-light:   #e4c97e;
+  --text-primary:    #f0ead8;
+  --text-secondary:  #b8b09a;
+  --text-muted:      #6e6858;
+  --border:          rgba(196,137,26,.15);
+  --outline:         rgba(196,137,26,.30);
 
-  --dao-bg:    rgba(99,80,32,0.18);
+  /* 本页别名 */
+  --bg:       var(--background);
+  --bg2:      var(--surface);
+  --bg3:      var(--surface-2);
+  --bg4:      #222220;
+  --gold:     var(--primary);
+  --gold-lt:  var(--primary-light);
+  --gold-dk:  var(--warm-700);
+  --ink:      var(--text-primary);
+  --ink2:     var(--text-secondary);
+  --ink3:     var(--text-muted);
+  --border2:  rgba(196,137,26,.30);
+
+  /* 分类颜色（页面专属） */
+  --dao-bg:    rgba(99,80,32,.18);
   --dao-txt:   #e4c97e;
-  --dao-bdr:   rgba(201,168,76,0.35);
+  --dao-bdr:   rgba(196,137,26,.35);
 
-  --de-bg:     rgba(32,72,52,0.22);
+  --de-bg:     rgba(32,72,52,.22);
   --de-txt:    #7ecfa8;
-  --de-bdr:    rgba(40,140,90,0.35);
+  --de-bdr:    rgba(40,140,90,.35);
 
-  --pol-bg:    rgba(80,40,20,0.22);
+  --pol-bg:    rgba(80,40,20,.22);
   --pol-txt:   #e0a060;
-  --pol-bdr:   rgba(180,90,30,0.35);
+  --pol-bdr:   rgba(180,90,30,.35);
 
-  --dial-bg:   rgba(50,30,70,0.22);
+  --dial-bg:   rgba(50,30,70,.22);
   --dial-txt:  #c09ee0;
-  --dial-bdr:  rgba(130,70,180,0.35);
+  --dial-bdr:  rgba(130,70,180,.35);
 
-  --xiu-bg:    rgba(20,55,80,0.22);
+  --xiu-bg:    rgba(20,55,80,.22);
   --xiu-txt:   #70b8e0;
-  --xiu-bdr:   rgba(40,120,190,0.35);
+  --xiu-bdr:   rgba(40,120,190,.35);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -62,8 +76,8 @@ body::before {
   position: fixed;
   inset: 0;
   background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(201,168,76,0.025) 60px),
-    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(201,168,76,0.025) 60px);
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(196,137,26,.025) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(196,137,26,.025) 60px);
   pointer-events: none;
   z-index: 0;
 }
