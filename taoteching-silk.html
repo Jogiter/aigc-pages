@@ -8,78 +8,55 @@
 <meta name="keywords" content="道德经, 帛书版, 道家智慧, AIGC, 家庭修身">
 <link rel="canonical" href="https://aigc.jogiter.cn/taoteching-silk.html">
 <link rel="stylesheet" href="/theme.css">
+<script src="/theme-switcher.js" defer></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500&family=IM+Fell+English:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
 
 :root {
-  /* 深色丝绸主题：覆盖语义 token */
-  --background:      var(--neutral-900);
-  --surface:         #131310;
-  --surface-2:       #1a1a16;
-  --primary:         var(--gold-500);
-  --primary-light:   #e4c97e;
-  --text-primary:    #f0ead8;
-  --text-secondary:  #b8b09a;
-  --text-muted:      #6e6858;
-  --border:          rgba(196,137,26,.15);
-  --outline:         rgba(196,137,26,.30);
-
-  /* 本页别名 */
+  /* 本页别名（全部指向 theme.css 语义 token） */
   --bg:       var(--background);
   --bg2:      var(--surface);
   --bg3:      var(--surface-2);
-  --bg4:      #222220;
+  --bg4:      var(--surface-2);
   --gold:     var(--primary);
   --gold-lt:  var(--primary-light);
-  --gold-dk:  var(--warm-700);
+  --gold-dk:  var(--primary);
   --ink:      var(--text-primary);
   --ink2:     var(--text-secondary);
   --ink3:     var(--text-muted);
-  --border2:  rgba(196,137,26,.30);
+  --border2:  var(--outline);
 
-  /* 分类颜色（页面专属） */
-  --dao-bg:    rgba(99,80,32,.18);
-  --dao-txt:   #e4c97e;
-  --dao-bdr:   rgba(196,137,26,.35);
+  /* 分类颜色（浅底标签） */
+  --dao-bg:    var(--warm-100);
+  --dao-txt:   var(--warm-700);
+  --dao-bdr:   var(--warm-300);
 
-  --de-bg:     rgba(32,72,52,.22);
-  --de-txt:    #7ecfa8;
-  --de-bdr:    rgba(40,140,90,.35);
+  --de-bg:     var(--green-100);
+  --de-txt:    var(--green-500);
+  --de-bdr:    #A9C2AD;
 
-  --pol-bg:    rgba(80,40,20,.22);
-  --pol-txt:   #e0a060;
-  --pol-bdr:   rgba(180,90,30,.35);
+  --pol-bg:    var(--coral-100);
+  --pol-txt:   var(--coral-500);
+  --pol-bdr:   #D9B4A4;
 
-  --dial-bg:   rgba(50,30,70,.22);
-  --dial-txt:  #c09ee0;
-  --dial-bdr:  rgba(130,70,180,.35);
+  --dial-bg:   var(--gold-100);
+  --dial-txt:  #7A5308;
+  --dial-bdr:  #D9C684;
 
-  --xiu-bg:    rgba(20,55,80,.22);
-  --xiu-txt:   #70b8e0;
-  --xiu-bdr:   rgba(40,120,190,.35);
+  --xiu-bg:    var(--blue-100);
+  --xiu-txt:   var(--blue-500);
+  --xiu-bdr:   #B5CBDE;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: var(--bg);
+  background: linear-gradient(135deg, var(--warm-50) 0%, var(--warm-100) 100%);
   color: var(--ink);
-  font-family: 'Noto Sans SC', sans-serif;
+  font-family: 'Noto Sans SC', system-ui, sans-serif;
   font-size: 14px;
   line-height: 1.7;
   min-height: 100vh;
-}
-
-/* Subtle background pattern */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(196,137,26,.025) 60px),
-    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(196,137,26,.025) 60px);
-  pointer-events: none;
-  z-index: 0;
 }
 
 /* ── Header ── */
@@ -92,28 +69,25 @@ header {
 }
 
 .header-eyebrow {
-  font-family: 'IM Fell English', serif;
   font-style: italic;
   font-size: 12px;
-  color: var(--gold);
+  color: var(--primary);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   margin-bottom: 12px;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .header-title {
-  font-family: 'Noto Serif SC', serif;
   font-size: 42px;
-  font-weight: 600;
-  color: var(--gold-lt);
+  font-weight: 700;
+  color: var(--primary);
   letter-spacing: 0.12em;
   line-height: 1.2;
   margin-bottom: 6px;
 }
 
 .header-sub {
-  font-family: 'Noto Serif SC', serif;
   font-size: 15px;
   color: var(--ink2);
   letter-spacing: 0.1em;
@@ -132,7 +106,7 @@ header {
 .gold-rule {
   width: 80px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
   margin: 16px auto;
 }
 
@@ -175,29 +149,30 @@ main {
 
 .fbtn {
   padding: 5px 13px;
-  border-radius: 2px;
-  border: 1px solid var(--border2);
-  background: transparent;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
   color: var(--ink2);
-  font-family: 'Noto Sans SC', sans-serif;
+  font-family: inherit;
   font-size: 11px;
   cursor: pointer;
   transition: all .15s;
   letter-spacing: 0.04em;
 }
-.fbtn:hover { color: var(--gold-lt); border-color: var(--gold); }
+.fbtn:hover { color: var(--primary); border-color: var(--primary); }
 .fbtn.on {
-  background: var(--gold);
-  color: var(--bg);
-  border-color: var(--gold);
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
   font-weight: 500;
 }
 
 .toggle-grp {
   display: flex;
-  border: 1px solid var(--border2);
-  border-radius: 2px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   overflow: hidden;
+  background: var(--surface);
 }
 .tg-btn {
   padding: 5px 14px;
@@ -206,13 +181,13 @@ main {
   border: none;
   color: var(--ink2);
   cursor: pointer;
-  font-family: 'Noto Sans SC', sans-serif;
+  font-family: inherit;
   letter-spacing: 0.03em;
   transition: all .15s;
 }
-.tg-btn + .tg-btn { border-left: 1px solid var(--border2); }
-.tg-btn.on { background: var(--gold); color: var(--bg); font-weight: 500; }
-.tg-btn:not(.on):hover { color: var(--gold-lt); }
+.tg-btn + .tg-btn { border-left: 1px solid var(--border); }
+.tg-btn.on { background: var(--primary); color: var(--on-primary); font-weight: 500; }
+.tg-btn:not(.on):hover { color: var(--primary); }
 
 /* Search */
 .search-wrap {
@@ -223,17 +198,17 @@ main {
 .search-input {
   width: 100%;
   padding: 7px 12px;
-  background: var(--bg3);
-  border: 1px solid var(--border2);
-  border-radius: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   color: var(--ink);
-  font-family: 'Noto Sans SC', sans-serif;
+  font-family: inherit;
   font-size: 12px;
   outline: none;
   transition: border-color .15s;
 }
 .search-input::placeholder { color: var(--ink3); }
-.search-input:focus { border-color: var(--gold); }
+.search-input:focus { border-color: var(--primary); }
 
 /* ── Stats bar ── */
 .stats-bar {
@@ -293,28 +268,29 @@ main {
 
 /* ── Card ── */
 .card {
-  background: var(--bg2);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 3px;
+  border-radius: var(--radius-md);
   padding: 12px 13px 10px;
   cursor: pointer;
-  transition: border-color .15s, background .15s, transform .12s;
+  transition: border-color .15s, box-shadow .15s, transform .12s;
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 .card::before {
   content: '';
   position: absolute;
   top: 0; left: 0;
-  width: 2px;
+  width: 3px;
   height: 100%;
   opacity: 0;
   transition: opacity .15s;
 }
 .card:hover {
-  border-color: var(--gold-dk);
-  background: var(--bg3);
-  transform: translateY(-1px);
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 .card:hover::before { opacity: 1; }
 .card.type-dao::before { background: var(--dao-txt); }
@@ -331,7 +307,7 @@ main {
 }
 
 .ch-num {
-  font-family: 'IM Fell English', serif;
+  font-family: 'Georgia', serif;
   font-size: 11px;
   color: var(--ink3);
   letter-spacing: 0.04em;
@@ -353,10 +329,9 @@ main {
 .bdg-sec-de  { background: var(--de-bg);  color: var(--de-txt);  border: 1px solid var(--de-bdr); }
 
 .card-quote {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--gold-lt);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
   margin-bottom: 4px;
   line-height: 1.45;
   white-space: nowrap;
@@ -388,7 +363,7 @@ main {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.75);
+  background: rgba(44,22,8,.45);
   z-index: 100;
   align-items: center;
   justify-content: center;
@@ -398,15 +373,16 @@ main {
 .overlay.open { display: flex; }
 
 .modal {
-  background: var(--bg2);
-  border: 1px solid var(--border2);
-  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   width: 100%;
   max-width: 560px;
   max-height: 80vh;
   overflow-y: auto;
   position: relative;
   animation: slide-up .2s ease;
+  box-shadow: var(--shadow-lg);
 }
 
 @keyframes slide-up {
@@ -419,7 +395,7 @@ main {
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  background: var(--bg2);
+  background: var(--surface);
   z-index: 1;
 }
 
@@ -431,17 +407,16 @@ main {
 }
 
 .modal-chnum {
-  font-family: 'IM Fell English', serif;
+  font-family: 'Georgia', serif;
   font-size: 13px;
-  color: var(--gold);
+  color: var(--primary);
   letter-spacing: 0.06em;
 }
 
 .modal-title {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--gold-lt);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
   line-height: 1.4;
   letter-spacing: 0.08em;
   margin-bottom: 4px;
@@ -458,11 +433,11 @@ main {
   top: 16px;
   right: 16px;
   background: transparent;
-  border: 1px solid var(--border2);
+  border: 1px solid var(--border);
   color: var(--ink3);
   width: 28px;
   height: 28px;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 14px;
   display: flex;
@@ -470,7 +445,7 @@ main {
   justify-content: center;
   transition: all .15s;
 }
-.close-btn:hover { color: var(--gold-lt); border-color: var(--gold); }
+.close-btn:hover { color: var(--primary); border-color: var(--primary); }
 
 .modal-body {
   padding: 20px 24px 24px;
@@ -495,9 +470,9 @@ main {
 }
 
 .modal-text.serif {
-  font-family: 'Noto Serif SC', serif;
-  color: var(--gold-lt);
-  font-size: 15px;
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 600;
   letter-spacing: 0.06em;
   line-height: 2;
 }
@@ -525,17 +500,17 @@ main {
 .nav-btn {
   flex: 1;
   padding: 8px;
-  background: transparent;
-  border: 1px solid var(--border2);
+  background: var(--surface);
+  border: 1px solid var(--border);
   color: var(--ink2);
-  font-family: 'Noto Sans SC', sans-serif;
+  font-family: inherit;
   font-size: 11px;
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
   transition: all .15s;
   letter-spacing: 0.04em;
 }
-.nav-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold-lt); }
+.nav-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
 .nav-btn:disabled { opacity: 0.3; cursor: default; }
 
 /* ── Empty ── */
@@ -558,9 +533,9 @@ main {
 kbd {
   font-size: 9px;
   padding: 1px 4px;
-  border: 1px solid var(--border2);
-  border-radius: 2px;
-  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
   color: var(--ink2);
   font-family: monospace;
 }
@@ -579,16 +554,64 @@ footer {
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--gold-dk); border-radius: 2px; }
+::-webkit-scrollbar-track { background: var(--surface-2); }
+::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 2px; }
+
+/* ── Top Nav（与 index.html 对齐） ── */
+nav.site-nav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+nav.site-nav .nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+nav.site-nav .logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+nav.site-nav .nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0; padding: 0;
+}
+nav.site-nav .nav-links a {
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color .3s;
+}
+nav.site-nav .nav-links a:hover,
+nav.site-nav .nav-links a.active { color: var(--primary); }
 </style>
 </head>
 <body>
 
-<!-- 返回首页导航 -->
-<div style="position:sticky;top:0;z-index:2000;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,0.08);padding:10px 20px;">
-  <a href="index.html" style="text-decoration:none;color:#555;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px;">← 返回首页</a>
-</div>
+<nav class="site-nav">
+  <div class="nav-container">
+    <a href="index.html" class="logo">🏠 温暖小家</a>
+    <ul class="nav-links">
+      <li><a href="dual-track-6y.html">双轨成长</a></li>
+      <li><a href="taoteching-silk.html" class="active">道德经</a></li>
+      <li><a href="positive-discipline-revised-nelsen.html">正面管教</a></li>
+    </ul>
+  </div>
+</nav>
 
 <header>
   <div class="header-eyebrow">Mawangdui Silk Manuscript · 马王堆帛书</div>
