@@ -1,59 +1,90 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="warm">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>正面管教 · 完整认知学习系统</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/theme.css">
+<script src="/theme-switcher.js" defer></script>
 <style>
 :root {
-  --bg: #F7F3EE;
-  --surface: #FFFFFF;
-  --surface2: #F2EDE6;
-  --primary: #231408;
-  --secondary: #6B5A47;
-  --muted: #9B8B78;
-  --border: #E2D8CC;
-  --accent: #8B5E14;
-  --accent2: #C4891A;
-  --gold: #D4A843;
-  --gold-light: #FDF3DC;
-  --green: #3A6644;
-  --green-light: #EAF2ED;
-  --blue: #1C4F7A;
-  --blue-light: #E8F2FA;
-  --coral: #8B3620;
-  --coral-light: #FAF0EC;
-  --radius: 10px;
-  --radius-lg: 16px;
-  --shadow: 0 1px 3px rgba(35,20,8,0.07), 0 4px 16px rgba(35,20,8,0.05);
-  --shadow-lg: 0 4px 24px rgba(35,20,8,0.12);
+  --bg:          var(--background);
+  --surface2:    var(--surface-2);
+  --muted:       var(--text-muted);
+  --secondary:   var(--text-secondary);
+  --accent:      var(--primary);
+  --accent2:     var(--accent);
+  --gold:        var(--gold-500);
+  --gold-light:  var(--gold-100);
+  --green:       var(--green-500);
+  --green-light: var(--green-100);
+  --blue:        var(--blue-500);
+  --blue-light:  var(--blue-100);
+  --coral:       var(--coral-500);
+  --coral-light: var(--coral-100);
+  --radius:      var(--radius-md);
+  --shadow:      var(--shadow-sm);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
-  background: var(--bg);
-  color: var(--primary);
+  font-family: 'Noto Sans SC', system-ui, sans-serif;
+  background: linear-gradient(135deg, var(--warm-50) 0%, var(--warm-100) 100%);
+  color: var(--text-primary);
   line-height: 1.7;
   font-size: 16px;
   min-height: 100vh;
 }
 
-/* ─── HEADER ─── */
+/* ─── TOP NAV（与 index.html 对齐） ─── */
+nav.site-nav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+nav.site-nav .nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+nav.site-nav .logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+nav.site-nav .nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0; padding: 0;
+}
+nav.site-nav .nav-links a {
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color .3s;
+}
+nav.site-nav .nav-links a:hover,
+nav.site-nav .nav-links a.active { color: var(--accent); }
+
+/* ─── HERO（原深色 header 重写为浅色标题区） ─── */
 .header {
-  background: var(--header-bg, var(--primary));
-  color: #F7F3EE;
   padding: 48px 0 36px;
   position: relative;
-  overflow: hidden;
-}
-.header::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 70% 50%, var(--header-glow, rgba(196,137,26,0.18)) 0%, transparent 65%);
 }
 .header-inner {
   max-width: 860px; margin: 0 auto; padding: 0 28px;
@@ -61,30 +92,30 @@ body {
 }
 .header-label {
   font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--gold); font-weight: 500; margin-bottom: 12px;
+  color: var(--accent); font-weight: 500; margin-bottom: 12px;
 }
 .header-title {
-  font-family: 'Noto Serif SC', serif;
-  font-size: clamp(26px, 5vw, 40px); font-weight: 600;
-  color: #F7F3EE; line-height: 1.25; margin-bottom: 8px;
+  font-size: clamp(26px, 5vw, 40px); font-weight: 700;
+  color: var(--text-primary); line-height: 1.25; margin-bottom: 8px;
 }
 .header-sub {
-  font-size: 15px; color: rgba(247,243,238,0.65); margin-bottom: 20px;
+  font-size: 15px; color: var(--text-secondary); margin-bottom: 20px;
 }
 .header-tags {
   display: flex; flex-wrap: wrap; gap: 8px;
 }
 .header-tag {
   font-size: 11px; padding: 3px 10px;
-  border: 1px solid rgba(212,168,67,0.4);
-  border-radius: 20px; color: rgba(247,243,238,0.75);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 20px; color: var(--text-secondary);
 }
 
 /* ─── API KEY BAR ─── */
 /* ─── NAV ─── */
 .nav {
   background: var(--surface); border-bottom: 1px solid var(--border);
-  position: sticky; top: 0; z-index: 100;
+  position: sticky; top: 64px; z-index: 90;
 }
 .nav-inner {
   max-width: 860px; margin: 0 auto; padding: 0 20px;
@@ -97,7 +128,7 @@ body {
   border-bottom: 2px solid transparent; white-space: nowrap;
   font-family: inherit; transition: all 0.2s;
 }
-.nav-btn:hover { color: var(--primary); }
+.nav-btn:hover { color: var(--accent); }
 .nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
 
 /* ─── MAIN ─── */
@@ -108,7 +139,7 @@ body {
 .section.active { display: block; }
 .section-heading {
   font-family: 'Noto Serif SC', serif;
-  font-size: 24px; font-weight: 600; color: var(--primary);
+  font-size: 24px; font-weight: 600; color: var(--text-primary);
   margin-bottom: 8px;
 }
 .section-desc { font-size: 15px; color: var(--secondary); margin-bottom: 28px; line-height: 1.7; }
@@ -154,7 +185,7 @@ body {
 .t-amber  { background: #FAEEDA; color: #633806; }
 .t-blue   { background: #E6F1FB; color: #0C447C; }
 .takeaway-title {
-  font-size: 15px; font-weight: 500; color: var(--primary);
+  font-size: 15px; font-weight: 500; color: var(--text-primary);
   flex: 1; line-height: 1.5;
 }
 .takeaway-arrow {
@@ -191,7 +222,7 @@ body {
   cursor: pointer; font-family: inherit; color: var(--secondary);
   transition: all 0.15s;
 }
-.filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+.filter-btn.active { background: var(--primary); color: white; border-color: var(--text-primary); }
 .anki-progress { font-size: 12px; color: var(--muted); }
 .anki-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -213,7 +244,7 @@ body {
 }
 .anki-front { background: var(--surface); }
 .anki-back {
-  background: var(--primary); color: #F7F3EE;
+  background: var(--primary); color: var(--neutral-50);
   transform: rotateY(180deg);
 }
 .card-tag {
@@ -222,7 +253,7 @@ body {
 }
 .anki-q {
   font-size: 14px; font-weight: 500; line-height: 1.55;
-  color: var(--primary); flex: 1;
+  color: var(--text-primary); flex: 1;
 }
 .anki-hint { font-size: 11px; color: var(--muted); }
 .anki-a {
@@ -261,13 +292,13 @@ body {
 .lv1 { color: var(--green); }
 .lv2 { color: #8B6414; }
 .lv3 { color: var(--coral); }
-.test-q-text { font-size: 15px; font-weight: 500; line-height: 1.55; color: var(--primary); }
+.test-q-text { font-size: 15px; font-weight: 500; line-height: 1.55; color: var(--text-primary); }
 .test-q-hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
 .test-q-body { padding: 16px 20px; }
 .test-textarea {
   width: 100%; min-height: 90px; padding: 12px;
   border: 1px solid var(--border); border-radius: 8px;
-  font-size: 14px; font-family: inherit; color: var(--primary);
+  font-size: 14px; font-family: inherit; color: var(--text-primary);
   background: var(--bg); resize: vertical; outline: none;
   transition: border-color 0.2s;
 }
@@ -279,7 +310,7 @@ body {
 }
 .test-submit-area p { font-size: 13px; color: var(--secondary); margin-bottom: 16px; }
 .test-submit-btn {
-  padding: 12px 32px; background: var(--primary); color: #F7F3EE;
+  padding: 12px 32px; background: var(--primary); color: var(--neutral-50);
   border: none; border-radius: 8px; font-size: 14px; font-weight: 500;
   cursor: pointer; font-family: inherit; transition: all 0.2s;
 }
@@ -302,7 +333,7 @@ body {
 }
 .week-title {
   font-family: 'Noto Serif SC', serif;
-  font-size: 17px; font-weight: 600; color: var(--primary);
+  font-size: 17px; font-weight: 600; color: var(--text-primary);
 }
 .week-goal { font-size: 12px; color: var(--muted); margin-left: auto; }
 .days-grid {
@@ -316,7 +347,7 @@ body {
 }
 .day-card:hover { box-shadow: var(--shadow); border-color: var(--accent2); }
 .day-num { font-size: 11px; color: var(--muted); margin-bottom: 5px; }
-.day-title { font-size: 14px; font-weight: 500; color: var(--primary); margin-bottom: 6px; line-height: 1.4; }
+.day-title { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 6px; line-height: 1.4; }
 .day-desc { font-size: 13px; color: var(--secondary); line-height: 1.65; }
 .day-tags { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
 .day-tag {
@@ -335,7 +366,7 @@ body {
   overflow: hidden; box-shadow: var(--shadow);
 }
 .compare-table th {
-  background: var(--primary); color: #F7F3EE;
+  background: var(--primary); color: var(--neutral-50);
   padding: 12px 14px; text-align: left; font-weight: 500;
   font-size: 12px;
 }
@@ -383,7 +414,7 @@ body {
 }
 .modal-title {
   font-family: 'Noto Serif SC', serif;
-  font-size: 17px; font-weight: 600; color: var(--primary);
+  font-size: 17px; font-weight: 600; color: var(--text-primary);
   flex: 1; line-height: 1.4;
 }
 .modal-close {
@@ -391,7 +422,7 @@ body {
   color: var(--muted); cursor: pointer; padding: 4px 8px;
   flex-shrink: 0;
 }
-.modal-close:hover { color: var(--primary); }
+.modal-close:hover { color: var(--accent); }
 .modal-body {
   flex: 1; overflow-y: auto; padding: 20px 24px;
 }
@@ -407,18 +438,18 @@ body {
 @keyframes spin { to { transform: rotate(360deg); } }
 .modal-loading p { font-size: 13px; color: var(--muted); }
 .modal-content {
-  font-size: 15px; line-height: 1.9; color: var(--primary);
+  font-size: 15px; line-height: 1.9; color: var(--text-primary);
 }
 .modal-content h3 {
   font-family: 'Noto Serif SC', serif;
   font-size: 16px; font-weight: 600; margin: 18px 0 10px;
-  color: var(--primary);
+  color: var(--text-primary);
 }
 .modal-content h3:first-child { margin-top: 0; }
 .modal-content p { margin-bottom: 12px; color: var(--secondary); }
 .modal-content ul { padding-left: 20px; margin-bottom: 12px; }
 .modal-content li { margin-bottom: 6px; color: var(--secondary); }
-.modal-content strong { color: var(--primary); font-weight: 500; }
+.modal-content strong { color: var(--text-primary); font-weight: 500; }
 .modal-content .highlight-box {
   background: var(--gold-light); border-left: 3px solid var(--gold);
   padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 14px 0;
@@ -448,7 +479,7 @@ body {
   font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
   text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
 }
-.overview-card-text { font-size: 14px; color: var(--primary); line-height: 1.75; }
+.overview-card-text { font-size: 14px; color: var(--text-primary); line-height: 1.75; }
 
 /* ─── SCROLLBAR ─── */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
@@ -462,76 +493,20 @@ body {
   .modal { max-height: 90vh; }
 }
 
-/* ═══ THEMES ═══ */
-/* Theme 1: 暖木（默认，原色） */
-[data-theme="warm"] {
-  --bg: #F7F3EE; --surface: #FFFFFF; --surface2: #F2EDE6;
-  --primary: #231408; --secondary: #6B5A47; --muted: #9B8B78;
-  --border: #E2D8CC; --accent: #8B5E14; --accent2: #C4891A;
-  --gold: #D4A843; --gold-light: #FDF3DC;
-  --green: #3A6644; --green-light: #EAF2ED;
-  --blue: #1C4F7A; --blue-light: #E8F2FA;
-  --coral: #8B3620; --coral-light: #FAF0EC;
-  --header-bg: #231408; --header-glow: rgba(196,137,26,0.18);
-  --nav-bg: #FFFFFF;
-}
-
-/* Theme 2: 彩虹糖（儿童活泼） */
-[data-theme="rainbow"] {
-  --bg: #FFF8F0; --surface: #FFFFFF; --surface2: #FFF0E8;
-  --primary: #2D1B4E; --secondary: #5C3D7A; --muted: #9B78B8;
-  --border: #E8D5F5; --accent: #D4447A; --accent2: #F06E9E;
-  --gold: #FFB830; --gold-light: #FFF5D6;
-  --green: #2E8B57; --green-light: #E6F9F0;
-  --blue: #2272B8; --blue-light: #E3F2FD;
-  --coral: #E84040; --coral-light: #FFE8E8;
-  --header-bg: linear-gradient(135deg, #FF6B9D 0%, #C44BE0 40%, #4B6AF0 100%);
-  --header-glow: rgba(255,184,48,0.25);
-  --nav-bg: #FFFFFF;
-}
-
-/* Theme 3: 森林绿（自然温暖） */
-[data-theme="forest"] {
-  --bg: #F2F7F2; --surface: #FFFFFF; --surface2: #EBF4EB;
-  --primary: #1A3A1A; --secondary: #3D5E3D; --muted: #7A9A7A;
-  --border: #C8E0C8; --accent: #2D7A3A; --accent2: #48A858;
-  --gold: #C8A020; --gold-light: #FEF8E3;
-  --green: #1E6B3C; --green-light: #E4F5EC;
-  --blue: #1A5080; --blue-light: #E3F0FA;
-  --coral: #B54020; --coral-light: #FAEEE8;
-  --header-bg: linear-gradient(135deg, #2D7A3A 0%, #1A5A28 100%);
-  --header-glow: rgba(200,160,32,0.22);
-  --nav-bg: #FFFFFF;
-}
-
-/* ─── THEME SWITCHER ─── */
-.theme-bar {
-  background: var(--surface); border-bottom: 1px solid var(--border);
-  padding: 8px 20px; display: flex; align-items: center; gap: 10px;
-  justify-content: center; flex-wrap: wrap;
-}
-.theme-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
-.theme-btns { display: flex; gap: 6px; }
-.theme-btn {
-  display: flex; align-items: center; gap: 6px;
-  padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--border);
-  background: var(--surface); cursor: pointer; font-size: 12px;
-  font-family: inherit; color: var(--secondary); transition: all 0.2s;
-  white-space: nowrap;
-}
-.theme-btn:hover { border-color: var(--accent); color: var(--accent); }
-.theme-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
-.theme-swatch {
-  width: 12px; height: 12px; border-radius: 50%; display: inline-block; flex-shrink: 0;
-}
 </style>
 </head>
 <body>
 
-<!-- 返回首页导航 -->
-<div style="position:sticky;top:0;z-index:2000;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,0.08);padding:10px 20px;">
-  <a href="index.html" style="text-decoration:none;color:#555;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px;">← 返回首页</a>
-</div>
+<nav class="site-nav">
+  <div class="nav-container">
+    <a href="index.html" class="logo">🏠 温暖小家</a>
+    <ul class="nav-links">
+      <li><a href="dual-track-6y.html">双轨成长</a></li>
+      <li><a href="taoteching-silk.html">道德经</a></li>
+      <li><a href="positive-discipline-revised-nelsen.html" class="active">正面管教</a></li>
+    </ul>
+  </div>
+</nav>
 
 <!-- HEADER -->
 <div class="header">
@@ -548,23 +523,6 @@ body {
     </div>
   </div>
 </div>
-
-<!-- THEME SWITCHER -->
-<div class="theme-bar">
-  <span class="theme-label">🎨 主题风格：</span>
-  <div class="theme-btns">
-    <button class="theme-btn active" id="tb-warm" onclick="setTheme('warm',this)">
-      <span class="theme-swatch" style="background:#8B5E14"></span>暖木书房
-    </button>
-    <button class="theme-btn" id="tb-rainbow" onclick="setTheme('rainbow',this)">
-      <span class="theme-swatch" style="background:linear-gradient(135deg,#FF6B9D,#C44BE0,#4B6AF0)"></span>彩虹糖果
-    </button>
-    <button class="theme-btn" id="tb-forest" onclick="setTheme('forest',this)">
-      <span class="theme-swatch" style="background:#2D7A3A"></span>森林探险
-    </button>
-  </div>
-</div>
-
 
 <!-- NAV -->
 <nav class="nav">
@@ -2014,25 +1972,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeModal(); closeDayModal(); }
 });
 
-// ─── THEME SWITCHER ───
-function setTheme(theme, btn) {
-  document.documentElement.setAttribute('data-theme', theme);
-  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  localStorage.setItem('pd_theme', theme);
-}
-// Restore saved theme
-(function(){
-  const saved = localStorage.getItem('pd_theme');
-  if (saved) {
-    document.documentElement.setAttribute('data-theme', saved);
-    const btn = document.getElementById('tb-' + saved);
-    if (btn) {
-      document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    }
-  }
-})();
 </script>
 </body>
 </html>

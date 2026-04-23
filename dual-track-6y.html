@@ -11,105 +11,41 @@
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/theme.css">
+<script src="/theme-switcher.js" defer></script>
 <style>
 /* ══════════════════════════════════════════
-   MATERIAL DESIGN 3 TOKEN SYSTEM
-   Three themes: coral / sunflower / dawn
+   本页别名（全部指向 theme.css 语义 token）
 ══════════════════════════════════════════ */
-
 :root {
-  --md-shape-sm:   8px;
-  --md-shape-md:  12px;
-  --md-shape-lg:  16px;
-  --md-shape-xl:  24px;
-  --md-elev-1: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
-  --md-elev-2: 0 3px 8px rgba(0,0,0,.09), 0 1px 3px rgba(0,0,0,.07);
-  --transition: .22s cubic-bezier(.4,0,.2,1);
-}
+  --md-shape-sm:     var(--radius-sm);
+  --md-shape-md:     var(--radius-md);
+  --md-shape-lg:     var(--radius-lg);
+  --md-shape-xl:     var(--radius-xl);
+  --md-elev-1:       var(--shadow-sm);
+  --md-elev-2:       var(--shadow-md);
+  --transition:      .22s cubic-bezier(.4,0,.2,1);
 
-/* ── Theme A: 暖阳珊瑚 ── */
-[data-theme="coral"] {
-  --bg:              #FFF8F4;
-  --surface:         #FFFFFF;
-  --surface-variant: #FAF0EB;
-  --primary:         #C95E2F;
-  --primary-con:     #FCDFD0;
-  --on-primary-con:  #4A1800;
-  --secondary:       #4D8A6D;
-  --secondary-con:   #CCEEDD;
-  --on-secondary-con:#093D28;
-  --tertiary:        #B8720E;
-  --tertiary-con:    #FDEFD4;
-  --on-tertiary-con: #3D2200;
-  --on-surface:      #1E1209;
-  --on-surface-var:  #614F44;
-  --on-surface-3:    #A08878;
-  --outline:         rgba(201,94,47,.20);
-  --outline-strong:  rgba(201,94,47,.35);
-  --tab-active-bg:   #C95E2F;
-  --tab-active-fg:   #FFFFFF;
-  --header-bg:       #2C1209;
-  --header-accent:   #C95E2F;
-  --progress-a:      #C95E2F;
-  --progress-b:      #4D8A6D;
-  --shadow-color:    rgba(201,94,47,.12);
-}
-
-/* ── Theme B: 向日葵园 ── */
-[data-theme="sunflower"] {
-  --bg:              #FFFBF0;
-  --surface:         #FFFFFF;
-  --surface-variant: #FEF7E0;
-  --primary:         #C17B00;
-  --primary-con:     #FFEEBB;
-  --on-primary-con:  #3D2600;
-  --secondary:       #2E7B5C;
-  --secondary-con:   #B6EDDB;
-  --on-secondary-con:#003825;
-  --tertiary:        #B04A72;
-  --tertiary-con:    #F8D4E4;
-  --on-tertiary-con: #3E0020;
-  --on-surface:      #1A1200;
-  --on-surface-var:  #5C4A1E;
-  --on-surface-3:    #9A8050;
-  --outline:         rgba(193,123,0,.20);
-  --outline-strong:  rgba(193,123,0,.35);
-  --tab-active-bg:   #C17B00;
-  --tab-active-fg:   #FFFFFF;
-  --header-bg:       #1A1200;
-  --header-accent:   #C17B00;
-  --progress-a:      #C17B00;
-  --progress-b:      #2E7B5C;
-  --shadow-color:    rgba(193,123,0,.12);
-}
-
-/* ── Theme C: 晨曦温柔 ── */
-[data-theme="dawn"] {
-  --bg:              #FDF6EE;
-  --surface:         #FFFFFF;
-  --surface-variant: #F7EDE4;
-  --primary:         #A5421E;
-  --primary-con:     #F8E2D8;
-  --on-primary-con:  #3A1000;
-  --secondary:       #5C876E;
-  --secondary-con:   #D4EDDF;
-  --on-secondary-con:#0A3320;
-  --tertiary:        #6B52A8;
-  --tertiary-con:    #E8E0F8;
-  --on-tertiary-con: #1E0060;
-  --on-surface:      #1C120D;
-  --on-surface-var:  #5A4A40;
-  --on-surface-3:    #9A8878;
-  --outline:         rgba(165,66,30,.20);
-  --outline-strong:  rgba(165,66,30,.35);
-  --tab-active-bg:   #A5421E;
-  --tab-active-fg:   #FFFFFF;
-  --header-bg:       #1C0E08;
-  --header-accent:   #A5421E;
-  --progress-a:      #A5421E;
-  --progress-b:      #6B52A8;
-  --shadow-color:    rgba(165,66,30,.12);
+  --bg:              var(--background);
+  --surface-variant: var(--surface-2);
+  --primary-con:     var(--surface-2);
+  --on-primary-con:  var(--text-primary);
+  --secondary:       var(--accent);
+  --secondary-con:   var(--surface-2);
+  --on-secondary-con: var(--text-primary);
+  --tertiary:        var(--primary-light);
+  --tertiary-con:    var(--surface-2);
+  --on-tertiary-con: var(--text-primary);
+  --on-surface:      var(--text-primary);
+  --on-surface-var:  var(--text-secondary);
+  --on-surface-3:    var(--text-muted);
+  --outline-strong:  var(--outline);
+  --tab-active-bg:   var(--primary);
+  --tab-active-fg:   var(--on-primary);
+  --progress-a:      var(--primary);
+  --progress-b:      var(--accent);
+  --shadow-color:    rgba(var(--primary-rgb), .12);
 }
 
 /* ══════════════════════════════════════════
@@ -127,131 +63,63 @@ body {
 }
 
 /* ══════════════════════════════════════════
-   THEME SWITCHER FLOATING BUTTON
+   TOP NAV（与 index.html 对齐）
 ══════════════════════════════════════════ */
-.theme-fab {
-  position: fixed;
-  bottom: 28px;
-  right: 24px;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
+nav.site-nav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
-
-.theme-fab-btn {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-size: 22px;
+nav.site-nav .nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 14px var(--shadow-color), 0 2px 6px rgba(0,0,0,.12);
-  transition: transform .2s, box-shadow .2s, background var(--transition);
-  flex-shrink: 0;
+  justify-content: space-between;
 }
-.theme-fab-btn:hover { transform: scale(1.08); box-shadow: 0 6px 20px var(--shadow-color); }
-.theme-fab-btn:active { transform: scale(0.96); }
-
-.theme-panel {
-  background: var(--surface);
-  border: 1px solid var(--outline);
-  border-radius: var(--md-shape-lg);
-  padding: 14px 16px;
-  box-shadow: var(--md-elev-2), 0 0 0 1px var(--outline);
-  display: none;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 180px;
-  transition: background var(--transition);
-}
-.theme-panel.open { display: flex; }
-.theme-panel-title {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--on-surface-3);
-  margin-bottom: 4px;
-}
-.theme-option {
+nav.site-nav .logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: var(--md-shape-sm);
-  cursor: pointer;
-  border: 1.5px solid transparent;
-  transition: background .15s, border-color .15s;
-  background: none;
-  width: 100%;
-  font-family: inherit;
-  text-align: left;
+  gap: 6px;
 }
-.theme-option:hover { background: var(--surface-variant); }
-.theme-option.selected { border-color: var(--primary); background: var(--primary-con); }
-.theme-swatch {
+nav.site-nav .nav-links {
   display: flex;
-  gap: 3px;
-  flex-shrink: 0;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0; padding: 0;
 }
-.theme-swatch span {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  display: block;
-}
-.theme-name {
-  font-size: 13px;
+nav.site-nav .nav-links a {
+  text-decoration: none;
+  color: var(--text-primary);
   font-weight: 500;
-  color: var(--on-surface);
+  font-size: 0.95rem;
+  transition: color .3s;
 }
-.theme-sub {
-  font-size: 11px;
-  color: var(--on-surface-3);
-  margin-top: 1px;
-}
+nav.site-nav .nav-links a:hover,
+nav.site-nav .nav-links a.active { color: var(--accent); }
 
 /* ══════════════════════════════════════════
-   HEADER
+   HEADER — 浅色标题区
 ══════════════════════════════════════════ */
 .header {
-  background: var(--header-bg);
-  color: #fff;
-  padding: 44px 40px 38px;
+  padding: 48px 40px 36px;
+  max-width: 1200px;
+  margin: 0 auto;
   position: relative;
-  overflow: hidden;
-  transition: background var(--transition);
-}
-.header::before {
-  content: '';
-  position: absolute;
-  top: -80px; right: -80px;
-  width: 300px; height: 300px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.04);
-  pointer-events: none;
-}
-.header::after {
-  content: '';
-  position: absolute;
-  bottom: -50px; left: 80px;
-  width: 200px; height: 200px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.03);
-  pointer-events: none;
 }
 .header-accent-line {
   width: 36px;
   height: 3px;
   border-radius: 2px;
-  background: var(--header-accent);
+  background: var(--primary);
   margin-bottom: 16px;
   transition: background var(--transition);
 }
@@ -260,36 +128,36 @@ body {
   font-weight: 500;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.4);
+  color: var(--accent);
   margin-bottom: 10px;
 }
 .header h1 {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 30px;
-  font-weight: 600;
+  font-size: clamp(26px, 5vw, 36px);
+  font-weight: 700;
   letter-spacing: -.01em;
-  line-height: 1.3;
+  line-height: 1.25;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 .header-sub {
-  font-size: 13px;
-  color: rgba(255,255,255,.45);
-  font-weight: 300;
-  max-width: 480px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-weight: 400;
+  max-width: 560px;
 }
 .header-meta {
   margin-top: 22px;
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 .meta-chip {
   font-size: 12px;
-  color: rgba(255,255,255,.5);
-  background: rgba(255,255,255,.08);
-  padding: 5px 12px;
+  color: var(--text-secondary);
+  background: var(--surface);
+  padding: 4px 12px;
   border-radius: 20px;
-  border: 1px solid rgba(255,255,255,.1);
+  border: 1px solid var(--border);
 }
 
 /* ══════════════════════════════════════════
@@ -297,8 +165,8 @@ body {
 ══════════════════════════════════════════ */
 .tab-section {
   position: sticky;
-  top: 0;
-  z-index: 100;
+  top: 64px;
+  z-index: 90;
   background: var(--surface);
   border-bottom: 1px solid var(--outline);
   padding: 0 40px;
@@ -335,7 +203,7 @@ body {
 /* ══════════════════════════════════════════
    MAIN CONTENT
 ══════════════════════════════════════════ */
-.main { padding: 32px 40px 80px; max-width: 860px; }
+.main { padding: 32px 40px 80px; max-width: 1200px; margin: 0 auto; }
 .panel { display: none; }
 .panel.active { display: block; }
 
@@ -610,70 +478,36 @@ body {
    RESPONSIVE
 ══════════════════════════════════════════ */
 @media (max-width: 640px) {
+  nav.site-nav .nav-container { padding: .75rem 1rem; }
+  nav.site-nav .logo { font-size: 1.2rem; }
+  nav.site-nav .nav-links { gap: .9rem; font-size: .9rem; }
   .header { padding: 30px 20px 26px; }
-  .header h1 { font-size: 24px; }
   .tab-section { padding: 0 16px; }
   .main { padding: 24px 20px 80px; }
   .footer { padding: 16px 20px; }
   .week-grid { grid-template-columns: repeat(2, 1fr); }
   .pillars { grid-template-columns: 1fr 1fr; }
-  .theme-fab { bottom: 20px; right: 16px; }
 }
 
 @media print {
-  .tab-section, .footer, .theme-fab { display: none !important; }
+  nav.site-nav, .tab-section, .footer, .theme-fab { display: none !important; }
   .panel { display: block !important; page-break-before: always; }
   .panel:first-child { page-break-before: avoid; }
 }
 </style>
 </head>
-<body data-theme="coral">
+<body>
 
-<!-- 返回首页导航 -->
-<div style="position:sticky;top:0;z-index:2000;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,0.08);padding:10px 20px;">
-  <a href="index.html" style="text-decoration:none;color:#555;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px;">← 返回首页</a>
-</div>
-
-<!-- ══ THEME SWITCHER FAB ══ -->
-<div class="theme-fab">
-  <div class="theme-panel" id="themePanel">
-    <div class="theme-panel-title">选择主题</div>
-    <button class="theme-option" data-t="coral" onclick="setTheme('coral')">
-      <div class="theme-swatch">
-        <span style="background:#C95E2F"></span>
-        <span style="background:#4D8A6D"></span>
-        <span style="background:#B8720E"></span>
-      </div>
-      <div>
-        <div class="theme-name">暖阳珊瑚</div>
-        <div class="theme-sub">活力 · 积极 · 安全感</div>
-      </div>
-    </button>
-    <button class="theme-option" data-t="sunflower" onclick="setTheme('sunflower')">
-      <div class="theme-swatch">
-        <span style="background:#C17B00"></span>
-        <span style="background:#2E7B5C"></span>
-        <span style="background:#B04A72"></span>
-      </div>
-      <div>
-        <div class="theme-name">向日葵园</div>
-        <div class="theme-sub">明朗 · 童趣 · 充满希望</div>
-      </div>
-    </button>
-    <button class="theme-option" data-t="dawn" onclick="setTheme('dawn')">
-      <div class="theme-swatch">
-        <span style="background:#A5421E"></span>
-        <span style="background:#5C876E"></span>
-        <span style="background:#6B52A8"></span>
-      </div>
-      <div>
-        <div class="theme-name">晨曦温柔</div>
-        <div class="theme-sub">沉稳 · 温暖 · 有力量</div>
-      </div>
-    </button>
+<nav class="site-nav">
+  <div class="nav-container">
+    <a href="index.html" class="logo">🏠 温暖小家</a>
+    <ul class="nav-links">
+      <li><a href="dual-track-6y.html" class="active">双轨成长</a></li>
+      <li><a href="taoteching-silk.html">道德经</a></li>
+      <li><a href="positive-discipline-revised-nelsen.html">正面管教</a></li>
+    </ul>
   </div>
-  <button class="theme-fab-btn" onclick="toggleThemePanel()" title="切换主题" aria-label="切换主题">🎨</button>
-</div>
+</nav>
 
 <!-- ══ HEADER ══ -->
 <header class="header">
@@ -872,7 +706,7 @@ body {
 </div><!-- /main -->
 
 <footer class="footer">
-  <span class="footer-text">双轨成长系统 · 6岁育儿框架 · 基于认知科学 · Material Design 3</span>
+  <span class="footer-text">双轨成长系统 · 6岁育儿框架 · 基于认知科学</span>
   <button class="print-btn" onclick="window.print()">🖨 打印</button>
 </footer>
 
@@ -884,44 +718,6 @@ function showPanel(id, btn) {
   document.getElementById('panel-' + id).classList.add('active');
   if (btn) btn.classList.add('active');
 }
-
-/* ══ THEME SWITCHING ══ */
-const STORAGE_KEY = 'dual-track-theme';
-
-function setTheme(theme) {
-  document.body.setAttribute('data-theme', theme);
-  localStorage.setItem(STORAGE_KEY, theme);
-  // update selected state on options
-  document.querySelectorAll('.theme-option').forEach(opt => {
-    opt.classList.toggle('selected', opt.dataset.t === theme);
-  });
-  // close panel after short delay
-  setTimeout(() => closeThemePanel(), 260);
-}
-
-function toggleThemePanel() {
-  const panel = document.getElementById('themePanel');
-  panel.classList.toggle('open');
-}
-
-function closeThemePanel() {
-  document.getElementById('themePanel').classList.remove('open');
-}
-
-// Close panel when clicking outside
-document.addEventListener('click', function(e) {
-  const fab = document.querySelector('.theme-fab');
-  if (!fab.contains(e.target)) closeThemePanel();
-});
-
-/* ══ INIT: restore saved theme ══ */
-(function init() {
-  const saved = localStorage.getItem(STORAGE_KEY) || 'coral';
-  document.body.setAttribute('data-theme', saved);
-  document.querySelectorAll('.theme-option').forEach(opt => {
-    opt.classList.toggle('selected', opt.dataset.t === saved);
-  });
-})();
 </script>
 </body>
 </html>
