@@ -25,11 +25,9 @@
   --blue-light:  var(--blue-100);
   --coral:       var(--coral-500);
   --coral-light: var(--coral-100);
-  /* shape / shadow */
+  /* shape / shadow —— --radius-lg / --shadow-lg 直接继承 theme.css Layer 1，勿自引用 */
   --radius:    var(--radius-md);
-  --radius-lg: var(--radius-lg);
   --shadow:    var(--shadow-sm);
-  --shadow-lg: var(--shadow-lg);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -110,7 +108,7 @@ body {
   font-size: var(--text-2xl); line-height: var(--text-2xl-lh); font-weight: var(--font-semibold); color: var(--primary);
   margin-bottom: 8px;
 }
-.section-desc { font-size: var(--text-sm); color: var(--secondary); margin-bottom: 28px; line-height: 1.7; }
+.section-desc { font-size: var(--text-sm); line-height: var(--text-sm-lh); color: var(--secondary); margin-bottom: 28px; }
 
 /* ─── KNOWLEDGE MAP ─── */
 .map-container {
