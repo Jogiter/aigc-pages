@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════
    LAYER 1: PRIMITIVE TOKENS
+   色阶 / 圆角 / 阴影 — 系统唯一色值来源
    ═══════════════════════════════════════════ */
 :root {
   /* 暖棕主色阶 */
@@ -28,14 +29,10 @@
   --neutral-900: #0D0A07;
 
   /* 功能色 */
-  --green-500: #3A6644;
-  --green-100: #EAF2ED;
-  --blue-500:  #1C4F7A;
-  --blue-100:  #E8F2FA;
-  --gold-500:  #C4891A;
-  --gold-100:  #FDF3DC;
-  --coral-500: #8B3620;
-  --coral-100: #FAF0EC;
+  --green-500: #3A6644;  --green-100: #EAF2ED;
+  --blue-500:  #1C4F7A;  --blue-100:  #E8F2FA;
+  --gold-500:  #C4891A;  --gold-100:  #FDF3DC;
+  --coral-500: #8B3620;  --coral-100: #FAF0EC;
 
   /* 圆角 */
   --radius-sm: 6px;
@@ -50,297 +47,146 @@
 }
 
 /* ═══════════════════════════════════════════
-   LAYER 2: SEMANTIC TOKENS (默认 + 4 主题)
+   LAYER 2: SEMANTIC COLOR TOKENS
+   默认浅色主题；页面可在自己的 :root 覆盖
    ═══════════════════════════════════════════ */
-:root,
-[data-theme="warm"] {
-  --background:      var(--warm-50);
+:root {
+  --background:      var(--neutral-50);
   --surface:         var(--neutral-0);
-  --surface-2:       var(--warm-100);
+  --surface-2:       var(--neutral-100);
   --primary:         var(--warm-500);
   --primary-light:   var(--warm-300);
-  --primary-rgb:     201,122,58;
   --on-primary:      var(--neutral-0);
   --text-primary:    var(--neutral-700);
   --text-secondary:  var(--neutral-500);
   --text-muted:      var(--neutral-400);
   --border:          var(--neutral-200);
   --outline:         var(--neutral-300);
-  --accent:          var(--warm-300);
-}
-
-[data-theme="coral"] {
-  --background:      #FFF5F1;
-  --surface:         var(--neutral-0);
-  --surface-2:       #FCE3D9;
-  --primary:         var(--coral-500);
-  --primary-light:   #D3694F;
-  --primary-rgb:     139,54,32;
-  --on-primary:      var(--neutral-0);
-  --text-primary:    #2E140C;
-  --text-secondary:  #6B3A2A;
-  --text-muted:      #A07A6A;
-  --border:          #F0D6CB;
-  --outline:         #D9B4A4;
-  --accent:          #D3694F;
-}
-
-[data-theme="sunflower"] {
-  --background:      #FFFBED;
-  --surface:         var(--neutral-0);
-  --surface-2:       var(--gold-100);
-  --primary:         var(--gold-500);
-  --primary-light:   #E5A93A;
-  --primary-rgb:     196,137,26;
-  --on-primary:      var(--neutral-0);
-  --text-primary:    #2A1F05;
-  --text-secondary:  #6A5218;
-  --text-muted:      #A08B4F;
-  --border:          #EFE1B6;
-  --outline:         #D9C684;
-  --accent:          #E5A93A;
-}
-
-[data-theme="forest"] {
-  --background:      #F1F6F2;
-  --surface:         var(--neutral-0);
-  --surface-2:       var(--green-100);
-  --primary:         var(--green-500);
-  --primary-light:   #6A9C74;
-  --primary-rgb:     58,102,68;
-  --on-primary:      var(--neutral-0);
-  --text-primary:    #15261A;
-  --text-secondary:  #3F5A47;
-  --text-muted:      #7A8F7F;
-  --border:          #D4E2D7;
-  --outline:         #A9C2AD;
-  --accent:          #6A9C74;
 }
 
 /* ═══════════════════════════════════════════
-   LAYER 3: TYPOGRAPHY — .prose
+   LAYER 3: TYPOGRAPHY TOKENS
+   字号（clamp 流体）+ 配套行高 + 字重 + 字体族
+   ═══════════════════════════════════════════ */
+:root {
+  /* 字号 + 配套行高（中文友好，base=17px） */
+  --text-xs:      clamp(12px, 0.7rem + 0.1vw, 13px);
+  --text-xs-lh:   1.5;
+  --text-sm:      clamp(14px, 0.85rem + 0.1vw, 15px);
+  --text-sm-lh:   1.55;
+  --text-base:    clamp(16px, 1rem + 0.1vw, 17px);
+  --text-base-lh: 1.7;
+  --text-lg:      clamp(17px, 1.05rem + 0.15vw, 19px);
+  --text-lg-lh:   1.7;
+  --text-xl:      clamp(19px, 1.15rem + 0.3vw, 22px);
+  --text-xl-lh:   1.5;
+  --text-2xl:     clamp(22px, 1.3rem + 0.5vw, 26px);
+  --text-2xl-lh:  1.3;
+  --text-3xl:     clamp(26px, 1.5rem + 1vw, 32px);
+  --text-3xl-lh:  1.25;
+  --text-4xl:     clamp(30px, 1.7rem + 2vw, 40px);
+  --text-4xl-lh:  1.15;
+
+  /* 字重 */
+  --font-normal:    400;
+  --font-medium:    500;
+  --font-semibold:  600;
+  --font-bold:      700;
+  --font-extrabold: 800;
+
+  /* 字体族（默认值，页面可覆盖） */
+  --font-sans:  system-ui, -apple-system, "Segoe UI",
+                "PingFang SC", "Microsoft YaHei", "Helvetica Neue",
+                Arial, sans-serif;
+  --font-serif: "Source Han Serif SC", "Songti SC", "SimSun",
+                Georgia, "Times New Roman", serif;
+  --font-mono:  ui-monospace, SFMono-Regular, Menlo,
+                Consolas, "Liberation Mono", monospace;
+}
+
+/* ═══════════════════════════════════════════
+   LAYER 4: GLOBAL TYPOGRAPHY RULES
    Inspired by @tailwindcss/typography
+   所有页面自动继承；UI 容器用 .plain 反向关闭
    ═══════════════════════════════════════════ */
-.prose {
+html {
+  font-size: var(--text-base);
+  line-height: var(--text-base-lh);
+  font-family: var(--font-sans);
   color: var(--text-primary);
-  font-size: 1rem;
-  line-height: 1.75;
 }
-.prose > * + * { margin-top: 1.25em; }
+body { background: var(--background); }
 
-.prose p { margin-top: 1.25em; margin-bottom: 1.25em; }
+/* 标题 */
+h1 { font-size: var(--text-4xl); line-height: var(--text-4xl-lh);
+     font-weight: var(--font-extrabold); margin: 0 0 0.6em; }
+h2 { font-size: var(--text-3xl); line-height: var(--text-3xl-lh);
+     font-weight: var(--font-bold);      margin: 2em 0 0.8em; }
+h3 { font-size: var(--text-2xl); line-height: var(--text-2xl-lh);
+     font-weight: var(--font-semibold);  margin: 1.6em 0 0.6em; }
+h4 { font-size: var(--text-xl);  line-height: var(--text-xl-lh);
+     font-weight: var(--font-semibold);  margin: 1.5em 0 0.5em; }
+h5 { font-size: var(--text-lg);  line-height: var(--text-lg-lh);
+     font-weight: var(--font-semibold);  margin: 1.4em 0 0.5em; }
+h6 { font-size: var(--text-base);line-height: var(--text-base-lh);
+     font-weight: var(--font-semibold);  margin: 1.2em 0 0.4em; }
 
-.prose h1 {
-  color: var(--text-primary);
-  font-weight: 800;
-  font-size: 2.25em;
-  line-height: 1.1111111;
-  margin-top: 0;
-  margin-bottom: 0.8888889em;
-}
-.prose h2 {
-  color: var(--text-primary);
-  font-weight: 700;
-  font-size: 1.5em;
-  line-height: 1.3333333;
-  margin-top: 2em;
-  margin-bottom: 1em;
-}
-.prose h3 {
-  color: var(--text-primary);
-  font-weight: 600;
-  font-size: 1.25em;
-  line-height: 1.6;
-  margin-top: 1.6em;
-  margin-bottom: 0.6em;
-}
-.prose h4 {
-  color: var(--text-primary);
-  font-weight: 600;
-  line-height: 1.5;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-}
-.prose a {
-  color: var(--primary);
-  text-decoration: underline;
-  font-weight: 500;
-}
-.prose a:hover { color: var(--primary-light); }
-.prose strong { color: var(--text-primary); font-weight: 600; }
-.prose ul {
-  list-style-type: disc;
-  padding-left: 1.625em;
-  margin-top: 1.25em;
-  margin-bottom: 1.25em;
-}
-.prose ol {
-  list-style-type: decimal;
-  padding-left: 1.625em;
-  margin-top: 1.25em;
-  margin-bottom: 1.25em;
-}
-.prose li { margin-top: 0.5em; margin-bottom: 0.5em; }
-.prose ul > li::marker,
-.prose ol > li::marker { color: var(--text-muted); }
-.prose blockquote {
-  font-weight: 500;
-  font-style: italic;
-  color: var(--text-secondary);
-  border-left: 0.25rem solid var(--primary);
-  margin-top: 1.6em;
-  margin-bottom: 1.6em;
-  padding-left: 1em;
-}
-.prose code {
-  color: var(--text-primary);
-  font-weight: 600;
-  font-size: 0.875em;
-  background: var(--surface-2);
-  padding: 0.2em 0.4em;
-  border-radius: var(--radius-sm);
-}
-.prose pre {
-  color: var(--neutral-100);
-  background-color: var(--neutral-800);
-  overflow-x: auto;
-  font-size: 0.875em;
-  line-height: 1.7142857;
-  margin-top: 1.7142857em;
-  margin-bottom: 1.7142857em;
-  border-radius: var(--radius-md);
-  padding: 0.857em 1.143em;
-}
-.prose pre code {
-  background-color: transparent;
-  padding: 0;
-  font-weight: 400;
-  color: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  border-radius: 0;
-}
-.prose table {
-  width: 100%;
-  table-layout: auto;
-  text-align: left;
-  margin-top: 2em;
-  margin-bottom: 2em;
-  font-size: 0.875em;
-  line-height: 1.7142857;
-  border-collapse: collapse;
-}
-.prose thead th {
-  color: var(--text-primary);
-  font-weight: 600;
-  background: var(--surface-2);
-  padding: 0.571em 0.857em;
-  border-bottom: 1px solid var(--border);
-}
-.prose tbody tr { border-bottom: 1px solid var(--border); }
-.prose tbody td { padding: 0.571em 0.857em; }
-.prose hr {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin-top: 3em;
-  margin-bottom: 3em;
-}
-.prose img {
-  max-width: 100%;
-  border-radius: var(--radius-md);
-  margin-top: 2em;
-  margin-bottom: 2em;
-}
+/* 段落 / 列表 */
+p  { margin: 1.25em 0; }
+ul { list-style: disc; padding-left: 1.625em; margin: 1.25em 0; }
+ol { list-style: decimal; padding-left: 1.625em; margin: 1.25em 0; }
+li { margin: 0.5em 0; }
+ul > li::marker,
+ol > li::marker { color: var(--text-muted); }
 
-/* 尺寸变体 */
-.prose-sm { font-size: 0.875rem; line-height: 1.7142857; }
-.prose-lg { font-size: 1.125rem; line-height: 1.7777778; }
+/* 行内元素 */
+strong { font-weight: var(--font-semibold); color: inherit; }
+a      { color: var(--primary); text-decoration: underline;
+         text-underline-offset: 0.15em; font-weight: var(--font-medium); }
+a:hover { color: var(--primary-light); }
+
+blockquote { border-left: 0.25rem solid var(--primary);
+             padding-left: 1em; margin: 1.6em 0;
+             font-style: italic; color: var(--text-secondary); }
+
+/* 代码 */
+code { font-family: var(--font-mono); font-size: 0.875em;
+       font-weight: var(--font-semibold);
+       background: var(--surface-2); padding: 0.2em 0.4em;
+       border-radius: var(--radius-sm); }
+pre  { background: var(--neutral-800); color: var(--neutral-100);
+       padding: 1em 1.2em; border-radius: var(--radius-md);
+       overflow-x: auto; margin: 1.75em 0;
+       font-size: var(--text-sm); line-height: var(--text-sm-lh); }
+pre code { background: transparent; padding: 0;
+           font-weight: var(--font-normal); color: inherit; }
+
+/* 表格 */
+table { width: 100%; border-collapse: collapse; margin: 2em 0;
+        font-size: var(--text-sm); }
+thead th { background: var(--surface-2); font-weight: var(--font-semibold);
+           padding: 0.6em 0.9em; border-bottom: 1px solid var(--border);
+           text-align: left; }
+tbody tr { border-bottom: 1px solid var(--border); }
+tbody td { padding: 0.6em 0.9em; }
+
+/* 分隔与图片 */
+hr  { border: none; border-top: 1px solid var(--border); margin: 3em 0; }
+img { max-width: 100%; border-radius: var(--radius-md); }
 
 /* ═══════════════════════════════════════════
-   LAYER 4: SHARED THEME SWITCHER
+   LAYER 5: ESCAPE HATCH — .plain
+   容器级反开关：取消 Layer 4 的排版语义
+   字号/字体仍通过 token 引用
    ═══════════════════════════════════════════ */
-.theme-fab {
-  position: fixed;
-  bottom: 28px;
-  right: 24px;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-  font-family: 'Noto Sans SC', system-ui, sans-serif;
+.plain h1, .plain h2, .plain h3,
+.plain h4, .plain h5, .plain h6,
+.plain p,  .plain ul, .plain ol,
+.plain li, .plain blockquote {
+  all: revert;
+  margin: 0;
 }
-.theme-fab-btn {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: var(--on-primary);
-  border: none;
-  cursor: pointer;
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 14px rgba(var(--primary-rgb), .30);
-  transition: transform .2s, box-shadow .2s, background .22s;
-}
-.theme-fab-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 20px rgba(var(--primary-rgb), .40);
-}
-.theme-fab-btn:active { transform: scale(0.96); }
-
-.theme-panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 14px 16px;
-  box-shadow: var(--shadow-lg);
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 200px;
-}
-.theme-panel.open { display: flex; }
-.theme-panel-title {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
-.theme-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  border: 1.5px solid transparent;
-  background: none;
-  width: 100%;
-  font-family: inherit;
-  text-align: left;
-  color: var(--text-primary);
-  transition: background .15s, border-color .15s;
-}
-.theme-option:hover { background: var(--surface-2); }
-.theme-option.selected {
-  border-color: var(--primary);
-  background: var(--surface-2);
-}
-.theme-swatch {
-  display: flex;
-  gap: 3px;
-  flex-shrink: 0;
-}
-.theme-swatch span {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  display: block;
-}
-.theme-name { font-size: 13px; font-weight: 500; }
-.theme-sub  { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+.plain a          { text-decoration: none; color: inherit; font-weight: inherit; }
+.plain ul,
+.plain ol         { list-style: none; padding: 0; }
+.plain blockquote { border: none; font-style: normal; padding: 0; }
