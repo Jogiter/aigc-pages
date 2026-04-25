@@ -259,7 +259,7 @@
                 });
             } catch (err) {
                 console.error('加载 manifest.json 失败', err);
-                container.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:#888;">暂无内容，请检查 manifest.json</p>`;
+                container.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--text-muted);">暂无内容，请检查 manifest.json</p>`;
             }
         }
 
