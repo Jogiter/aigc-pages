@@ -264,7 +264,7 @@ body {
   color: rgba(255,255,255,.4);
   margin-bottom: 10px;
 }
-.header h1 {
+.header .header-title {
   font-family: 'Noto Serif SC', serif;
   font-size: var(--text-3xl);
   font-weight: var(--font-semibold);
@@ -612,7 +612,7 @@ body {
 ══════════════════════════════════════════ */
 @media (max-width: 640px) {
   .header { padding: 30px 20px 26px; }
-  .header h1 { font-size: var(--text-2xl); }
+  .header .header-title { font-size: var(--text-2xl); }
   .tab-section { padding: 0 16px; }
   .main { padding: 24px 20px 80px; }
   .footer { padding: 16px 20px; }
@@ -632,7 +632,7 @@ body {
 
 <!-- 返回首页导航 -->
 <div style="position:sticky;top:0;z-index:2000;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,0.08);padding:10px 20px;">
-  <a href="index.html" style="text-decoration:none;color:#555;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px;">← 返回首页</a>
+  <a href="index.html" style="text-decoration:none;color:var(--text-secondary);font-size:var(--text-sm);font-weight:var(--font-medium);display:inline-flex;align-items:center;gap:6px;">← 返回首页</a>
 </div>
 
 <!-- ══ THEME SWITCHER FAB ══ -->
@@ -680,7 +680,7 @@ body {
 <header class="header">
   <div class="header-accent-line"></div>
   <div class="header-eyebrow">家庭教育系统 · AI时代科学育儿</div>
-  <h1>双轨成长系统</h1>
+  <div class="header-title">双轨成长系统</div>
   <div class="header-sub">父母认知升级 × 孩子全面发展 — 适用于6岁幼儿园中班</div>
   <div class="header-meta">
     <span class="meta-chip">📅 12个月系统计划</span>
